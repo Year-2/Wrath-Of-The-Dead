@@ -159,10 +159,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\gameplay.cpp" />
+    <ClCompile Include="src\hiscores.cpp" />
+    <ClCompile Include="src\mainmenu.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\gameplay.h" />
+    <ClInclude Include="src\hiscores.h" />
+    <ClInclude Include="src\mainmenu.h" />
     <ClInclude Include="src\game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
