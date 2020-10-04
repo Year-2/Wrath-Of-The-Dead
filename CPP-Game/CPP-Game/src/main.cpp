@@ -1,6 +1,10 @@
 #include <iostream>
 #include "game.h"
 
+#include "fontmanager.h"
+#include "texturemanager.h"
+#include "soundmanager.h"
+
 int main(int argc, char* args[])
 {
 	Game game = Game();

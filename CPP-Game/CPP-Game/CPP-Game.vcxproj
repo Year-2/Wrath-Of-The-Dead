@@ -159,17 +159,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\fontmanager.cpp" />
     <ClCompile Include="src\gameplay.cpp" />
     <ClCompile Include="src\hiscores.cpp" />
     <ClCompile Include="src\mainmenu.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\soundmanager.cpp" />
+    <ClCompile Include="src\texturemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\fontmanager.h" />
     <ClInclude Include="src\gameplay.h" />
     <ClInclude Include="src\hiscores.h" />
     <ClInclude Include="src\mainmenu.h" />
     <ClInclude Include="src\game.h" />
+    <ClInclude Include="src\soundmanager.h" />
+    <ClInclude Include="src\texturemanager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

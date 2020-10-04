@@ -49,7 +49,11 @@ void MainMenu::Input() {
 }
 
 void MainMenu::Update() {
+	SDL_RenderClear(Game::renderer);
 
+
+	
+	SDL_RenderPresent(Game::renderer);
 }
 
 void MainMenu::Draw() {
