@@ -1,17 +1,26 @@
 #include <iostream>
 #include "game.h"
 
-#include "fontmanager.h"
-#include "texturemanager.h"
-#include "soundmanager.h"
+
+#include "fileparser.h"
+
+void Test(int* a) {
+	*a = 10000;
+}
+
 
 int main(int argc, char* args[])
 {
 	Game game = Game();
 	if (!game.Init()) {
 		std::cout << "Error could not init SDL!" << std::endl;
-	}
-	game.Start();
+	} 
+	//game.Start();
 
+	//FileParserPlayer test = FileParserPlayer();
+	//test.GetFile("test.txt");
+	//test.PrintList();
+
+	SDL_Delay(10000);
 	return 0;
 }

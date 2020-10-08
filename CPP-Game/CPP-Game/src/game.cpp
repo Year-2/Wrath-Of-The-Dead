@@ -8,7 +8,7 @@ SDL_Event Game::e;
 bool Game::isRunning = false;
 Game::Menu Game::menuOptions = Game::Menu::mainmenu;
 
-Game::Game(){
+Game::Game() {
 	isRunning = true;
 }
 
@@ -78,8 +78,6 @@ void Game::Start() {
 		{
 		case Menu::mainmenu:
 		{
-			std::cout << "MAINMENU" << std::endl;
-
 			totalTime = 0;
 			currentTime = SDL_GetTicks();
 
@@ -97,16 +95,16 @@ void Game::Start() {
 				{
 					mainMenu.Update();
 					totalTime -= UPDATE_STEP;
+
 				}
 
 				mainMenu.Draw();
+
 			}
 			break;
 		}
 		case Menu::gameplay:
 		{
-			std::cout << "GAMEPLAY" << std::endl;
-
 			totalTime = 0;
 			currentTime = SDL_GetTicks();
 
@@ -132,8 +130,6 @@ void Game::Start() {
 		}
 		case Menu::hiscores:
 		{
-			std::cout << "HISCORES" << std::endl;
-
 			totalTime = 0;
 			currentTime = SDL_GetTicks();
 
