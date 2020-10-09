@@ -10,6 +10,7 @@ Game::Menu Game::menuOptions = Game::Menu::mainmenu;
 
 Game::Game() {
 	isRunning = true;
+
 }
 
 Game::~Game() {
@@ -157,4 +158,5 @@ void Game::Start() {
 			break;
 		}
 	}
+	//	free();
 }

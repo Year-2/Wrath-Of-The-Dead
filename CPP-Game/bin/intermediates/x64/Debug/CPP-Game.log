@@ -1,5 +1,2 @@
-﻿  fileparser.cpp
-  game.cpp
-  main.cpp
-  Generating Code...
-  CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\CMP5327-CPP-Programming-for-Games\CPP-Game\bin\x64\Debug\CPP-Game.exe
+﻿  mainmenu.cpp
+  CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\bin\x64\Debug\CPP-Game.exe

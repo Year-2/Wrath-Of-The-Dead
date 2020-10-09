@@ -19,6 +19,17 @@ public:
 
 	bool isRunning;
 
+	bool getKeyDown(int keyCode) {
+		if (keyCode > 0 && keyCode < 512) {
+			return keyDown[keyCode];
+		}
+		return false;
+	}
+
 private:
+	bool keyDown[512];
+
+	SDL_Color white = { 255, 255, 255, 255 };
+	TTF_Font* title;
 
 };
