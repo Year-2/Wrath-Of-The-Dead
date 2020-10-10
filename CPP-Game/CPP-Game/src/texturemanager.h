@@ -1,19 +1,17 @@
 #pragma once
+#include <SDL_image.h>
 #include <string>
 #include <array>
-#include <SDL_image.h>
 #include <iostream>
-
-#include "game.h"
 
 class TextureManager {
 public:
-	static SDL_Texture* loadTexture(const char* filename);
-	static SDL_Rect loadTextureRect(const char* filename);
-	static void draw(SDL_Texture* texture, SDL_Rect* src, SDL_Rect* dest);
-	static std::array<SDL_Rect, 9>* nineClipSrc(int b, int w, int h);
-	static std::array<SDL_Rect, 9>* nineClipDst(int x, int y, int w, int h, int b);
-	static void drawNine(SDL_Texture* texture, std::array<SDL_Rect, 9>* src, std::array<SDL_Rect, 9>* dst);
+	static SDL_Texture* LoadTexture(SDL_Renderer* renderer, const char* filename);
+	static SDL_Rect LoadTextureRect(const char* filename);
+	static void Draw(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dest);
+	static void DrawNine(SDL_Renderer* renderer, SDL_Texture* texture, std::array<SDL_Rect, 9>& src, std::array<SDL_Rect, 9>& dst);
+	static std::array<SDL_Rect, 9>* NineClipSrc(int b, int w, int h);
+	static std::array<SDL_Rect, 9>* NineClipDst(int x, int y, int w, int h, int b);
 };
 
 class TextureError : public std::exception {

@@ -4,12 +4,12 @@ using std::cout;
 using std::endl;
 using std::string;
 
-SDL_Texture* TextureManager::loadTexture(const char* filename) {
+SDL_Texture* TextureManager::LoadTexture(SDL_Renderer* renderer, const char* filename) {
 	try {
 		const char* dir = "assets/sprites/";
 		SDL_Surface* surface = IMG_Load(string(string(dir) + string(filename)).c_str());
 		if (surface == nullptr) throw TextureError();
-		SDL_Texture* result = SDL_CreateTextureFromSurface(Game::renderer, surface);
+		SDL_Texture* result = SDL_CreateTextureFromSurface(renderer, surface);
 		if (result == nullptr) throw TextureError();
 		SDL_FreeSurface(surface);
 		return result;
@@ -20,7 +20,7 @@ SDL_Texture* TextureManager::loadTexture(const char* filename) {
 	}
 }
 
-SDL_Rect TextureManager::loadTextureRect(const char* filename) {
+SDL_Rect TextureManager::LoadTextureRect(const char* filename) {
 	try {
 		const char* dir = "assets/sprites/";
 		SDL_Surface* surface = IMG_Load(string(string(dir) + string(filename)).c_str());
@@ -34,11 +34,11 @@ SDL_Rect TextureManager::loadTextureRect(const char* filename) {
 	}
 }
 
-void TextureManager::draw(SDL_Texture* texture, SDL_Rect* src, SDL_Rect* dest) {
-	SDL_RenderCopy(Game::renderer, texture, src, dest);
+void TextureManager::Draw(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dest) {
+	SDL_RenderCopy(renderer, texture, &src, &dest);
 }
 
-std::array<SDL_Rect, 9>* TextureManager::nineClipSrc(int border, int width, int height) {
+std::array<SDL_Rect, 9>* TextureManager::NineClipSrc(int border, int width, int height) {
 	std::array<SDL_Rect, 9>* borderClip = new std::array<SDL_Rect, 9>;
 
 	borderClip->at(0) = { 0, 0, border, border };
@@ -56,7 +56,7 @@ std::array<SDL_Rect, 9>* TextureManager::nineClipSrc(int border, int width, int 
 	return borderClip;
 }
 
-std::array<SDL_Rect, 9>* TextureManager::nineClipDst(int x, int y, int width, int height, int border) {
+std::array<SDL_Rect, 9>* TextureManager::NineClipDst(int x, int y, int width, int height, int border) {
 	std::array<SDL_Rect, 9>* borderPos = new std::array<SDL_Rect, 9>;
 
 	borderPos->at(0) = { x,y,border,border };
@@ -74,9 +74,9 @@ std::array<SDL_Rect, 9>* TextureManager::nineClipDst(int x, int y, int width, in
 	return borderPos;
 }
 
-void TextureManager::drawNine(SDL_Texture* texture, std::array<SDL_Rect, 9>* src, std::array<SDL_Rect, 9>* dst) {
+void TextureManager::DrawNine(SDL_Renderer* renderer, SDL_Texture* texture, std::array<SDL_Rect, 9>& src, std::array<SDL_Rect, 9>& dst) {
 	for (int i = 0; i < 9; i++)
 	{
-		TextureManager::draw(texture, &src->at(i), &dst->at(i));
+		TextureManager::Draw(renderer, texture, src.at(i), dst.at(i));
 	}
 }

@@ -1,13 +1,8 @@
 #include <iostream>
 #include "game.h"
 
-
-#include "fileparser.h"
-
-void Test(int* a) {
-	*a = 10000;
-}
-
+//#include "datatypes.h"
+//#include "fileparser.h"
 
 int main(int argc, char* args[])
 {
@@ -18,4 +13,5 @@ int main(int argc, char* args[])
 	game.Start();
 
 	return 0;
+
 }

@@ -5,12 +5,15 @@
 #include <SDL_mixer.h>
 #include <iostream>
 
+#include "datatypes.h"
+
 #include "game.h"
+class Game;
 
 class HiScores{
 public:
 
-	HiScores();
+	HiScores(Game* game, SDL_Renderer* renderer);
 	~HiScores();
 	
 	void Input();
@@ -28,8 +31,13 @@ public:
 
 private:
 	bool keyDown[512];
-
+	SDL_Event e;
 	SDL_Color white = { 255, 255, 255, 255 };
-	TTF_Font* title;
+
+	SDL_Renderer* renderer;
+	Game* game;
+
+	Texture background;
+	Font title;
 
 };

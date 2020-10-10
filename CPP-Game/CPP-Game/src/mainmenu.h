@@ -5,15 +5,16 @@
 #include <SDL_mixer.h>
 #include <iostream>
 
-#include "game.h"
-#include "fontmanager.h"
+#include "datatypes.h"
 
-class FontManager;
+//	TODO: Is this a circular dependancy
+#include "game.h"
+class Game;
 
 class MainMenu {
 public:
 
-	MainMenu();
+	MainMenu(Game* game, SDL_Renderer* renderer);
 	~MainMenu();
 
 	void Input();
@@ -31,9 +32,14 @@ public:
 
 private:
 	bool keyDown[512];
-
+	SDL_Event e;
 	SDL_Color white = { 255, 255, 255, 255 };
-	TTF_Font* title;
 
+	SDL_Renderer* renderer;
+	Game* game;
+
+	Texture background;
+	Font title;
+	Sound music;
 
 };

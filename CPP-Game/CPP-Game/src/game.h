@@ -24,13 +24,12 @@ public:
 		options
 	};
 
-	static Menu menuOptions;
-	static bool isRunning;
-	static SDL_Renderer* renderer;
-	static SDL_Event e;
+	void SetMenuOptions(Menu item) { menuOptions = item; }
+	void SetIsRunning(bool value) { isRunning = value; }
+
+	SDL_Renderer* renderer;
 
 private:
-
 	const unsigned short UPDATE_STEP = 16;
 	unsigned int totalTime = 0;
 	unsigned int currentTime = 0;
@@ -41,4 +40,6 @@ private:
 	const int HEIGHT = 576;
 
 	SDL_Window* window = nullptr;
+	Menu menuOptions;
+	bool isRunning;
 };

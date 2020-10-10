@@ -3,14 +3,10 @@
 using std::cout;
 using std::endl;
 
-SDL_Renderer* Game::renderer = nullptr;
-SDL_Event Game::e;
-bool Game::isRunning = false;
-Game::Menu Game::menuOptions = Game::Menu::mainmenu;
-
 Game::Game() {
 	isRunning = true;
-
+	renderer = nullptr;
+	menuOptions = Menu::mainmenu;
 }
 
 Game::~Game() {
@@ -79,10 +75,11 @@ void Game::Start() {
 		{
 		case Menu::mainmenu:
 		{
+			cout << "Main Menu" << endl;
 			totalTime = 0;
 			currentTime = SDL_GetTicks();
 
-			MainMenu mainMenu = MainMenu();
+			MainMenu mainMenu = MainMenu(this, renderer);
 			while (mainMenu.isRunning) {
 
 				newTime = SDL_GetTicks();
@@ -106,10 +103,12 @@ void Game::Start() {
 		}
 		case Menu::gameplay:
 		{
+
+			cout << "GamePlay" << endl;
 			totalTime = 0;
 			currentTime = SDL_GetTicks();
 
-			Gameplay gameplay = Gameplay();
+			Gameplay gameplay = Gameplay(this, renderer);
 			while (gameplay.isRunning) {
 
 				newTime = SDL_GetTicks();
@@ -131,10 +130,11 @@ void Game::Start() {
 		}
 		case Menu::hiscores:
 		{
+			cout << "HiScores" << endl;
 			totalTime = 0;
 			currentTime = SDL_GetTicks();
 
-			HiScores hiScores = HiScores();
+			HiScores hiScores = HiScores(this, renderer);
 			while (hiScores.isRunning) {
 
 				newTime = SDL_GetTicks();

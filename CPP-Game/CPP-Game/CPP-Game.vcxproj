@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\datatypes.cpp" />
     <ClCompile Include="src\fileparser.cpp" />
     <ClCompile Include="src\fontmanager.cpp" />
     <ClCompile Include="src\gameplay.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\texturemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\datatypes.h" />
     <ClInclude Include="src\fileparser.h" />
     <ClInclude Include="src\fontmanager.h" />
     <ClInclude Include="src\gameplay.h" />

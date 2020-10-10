@@ -3,12 +3,18 @@
 using std::cout;
 using std::endl;
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) {
+	this->renderer = renderer;
+	this->game = game;
 	isRunning = true;
-	title = FontManager::loadFont("test.ttf", 20);
 	for (int i = 0; i < 512; i++) {
 		keyDown[i] = false;
 	}
+
+
+	background.Init(renderer, "test.png");
+	background.SetDst(262, 26, 500, 100);
+	title.Init(renderer, "test.ttf", "MAIN MENU", 40, 369, 59, white);
 }
 
 MainMenu::~MainMenu() {
@@ -16,34 +22,34 @@ MainMenu::~MainMenu() {
 }
 
 void MainMenu::Input() {
-	while (SDL_PollEvent(&Game::e)) {
-		if (Game::e.type == SDL_QUIT)
+	while (SDL_PollEvent(&e)) {
+		if (e.type == SDL_QUIT)
 		{
 			isRunning = false;
-			Game::isRunning = false;
+			game->SetIsRunning(false);
 		}
-		if (Game::e.type == SDL_KEYDOWN) {
-			if (Game::e.key.keysym.scancode < 512) {
-				keyDown[Game::e.key.keysym.scancode] = true;
+		if (e.type == SDL_KEYDOWN) {
+			if (e.key.keysym.scancode < 512) {
+				keyDown[e.key.keysym.scancode] = true;
 			}
 		}
-		else if (Game::e.type == SDL_KEYUP) {
-			if (Game::e.key.keysym.scancode < 512) {
-				keyDown[Game::e.key.keysym.scancode] = false;
+		else if (e.type == SDL_KEYUP) {
+			if (e.key.keysym.scancode < 512) {
+				keyDown[e.key.keysym.scancode] = false;
 			}
 		}
 	}
 	if (getKeyDown(SDL_SCANCODE_UP)) {
 		isRunning = false;
-		Game::menuOptions = Game::Menu::gameplay;
+		game->SetMenuOptions(Game::Menu::gameplay);
 	}
 	if (getKeyDown(SDL_SCANCODE_DOWN)) {
 		isRunning = false;
-		Game::menuOptions = Game::Menu::hiscores;
+		game->SetMenuOptions(Game::Menu::hiscores);
 	}
 	if (getKeyDown(SDL_SCANCODE_LEFT)) {
 		isRunning = false;
-		Game::menuOptions = Game::Menu::mainmenu;
+		game->SetMenuOptions(Game::Menu::mainmenu);
 	}
 	if (getKeyDown(SDL_SCANCODE_RIGHT)) {
 		cout << "MAIN MENU" << endl;
@@ -54,9 +60,10 @@ void MainMenu::Update() {
 }
 
 void MainMenu::Draw() {
-	SDL_RenderClear(Game::renderer);
+	SDL_RenderClear(renderer);
 
-	FontManager::drawFont(title, "MAIN MENU", 200, 200, white);
-	
-	SDL_RenderPresent(Game::renderer);
+	background.Draw();
+	title.Draw();
+
+	SDL_RenderPresent(renderer);
 }

@@ -5,7 +5,7 @@ using std::endl;
 using std::string;
 
 
-TTF_Font* FontManager::loadFont(const char* filename, int size) {
+TTF_Font* FontManager::LoadFont(const char* filename, int size) {
 	try {
 		const char* dir = "assets/fonts/";
 		TTF_Font* result = TTF_OpenFont(string(string(dir) + string(filename)).c_str(), size);
@@ -18,18 +18,17 @@ TTF_Font* FontManager::loadFont(const char* filename, int size) {
 	}
 }
 
-void FontManager::drawFont(TTF_Font* font, const char* message, int x, int y, SDL_Color& color) {
-	//	TODO: Have surface passed in to save TTF_RenderText_Solid being called every frame?
+void FontManager::DrawFont(SDL_Renderer* renderer, TTF_Font* font, const char* message, int x, int y, SDL_Color& color) {
 	try {
 		SDL_Surface* surface = nullptr;
 		SDL_Texture* texture = nullptr;
 		surface = TTF_RenderText_Solid(font, message, color);
 		if (surface == nullptr) throw FontError();
-		texture = SDL_CreateTextureFromSurface(Game::renderer, surface);
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_Rect rect = { x, y, surface->w, surface->h };
 
 		SDL_FreeSurface(surface);
-		SDL_RenderCopy(Game::renderer, texture, 0, &rect);
+		SDL_RenderCopy(renderer, texture, 0, &rect);
 		SDL_DestroyTexture(texture);
 	}
 	catch (std::exception& e) {
@@ -38,7 +37,7 @@ void FontManager::drawFont(TTF_Font* font, const char* message, int x, int y, SD
 	}
 }
 
-SDL_Rect FontManager::fontRect(TTF_Font* font, const char* message) {
+SDL_Rect FontManager::FontRect(TTF_Font* font, const char* message) {
 	try {
 		SDL_Surface* surface = nullptr;
 		SDL_Color color = { 154,217,65,255 };

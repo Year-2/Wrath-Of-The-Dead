@@ -4,7 +4,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-Mix_Music* SoundManager::loadMusic(const char* filename) {
+Mix_Music* SoundManager::LoadMusic(const char* filename) {
 	try {
 		const char* dir = "assets/sounds/";
 		Mix_Music* result = Mix_LoadMUS(string(string(dir) + string(filename)).c_str());
@@ -17,11 +17,11 @@ Mix_Music* SoundManager::loadMusic(const char* filename) {
 	}
 }
 
-void SoundManager::playMusic(Mix_Music* music) {
+void SoundManager::PlayMusic(Mix_Music* music) {
 	if (Mix_PlayingMusic() == 0) Mix_PlayMusic(music, -1);
 }
 
-Mix_Chunk* SoundManager::loadSFX(const char* filename) {
+Mix_Chunk* SoundManager::LoadSFX(const char* filename) {
 	try {
 		const char* dir = "assets/sounds/";
 		Mix_Chunk* result = Mix_LoadWAV(string(string(dir) + string(filename)).c_str());
@@ -34,6 +34,6 @@ Mix_Chunk* SoundManager::loadSFX(const char* filename) {
 	}
 }
 
-void SoundManager::playSFX(Mix_Chunk* chunk) {
+void SoundManager::PlaySFX(Mix_Chunk* chunk) {
 	Mix_PlayChannel(-1, chunk, 0);
 }
