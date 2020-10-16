@@ -9,6 +9,13 @@
 #include "gameplay.h"
 #include "hiscores.h"
 
+//	MEMORY LEAK THINGY
+//#define _CRTDBG_MAP_ALLOC
+//#include <stdlib.h>
+//#include <crtdbg.h>
+//
+//#define new new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+
 class Game {
 public:
 	Game();
@@ -17,11 +24,12 @@ public:
 	bool Init();
 	void Start();
 
+	void Free();
+
 	enum class Menu {
 		mainmenu,
 		gameplay,
 		hiscores,
-		options
 	};
 
 	void SetMenuOptions(Menu item) { menuOptions = item; }

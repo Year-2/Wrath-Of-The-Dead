@@ -4,12 +4,15 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include <iostream>
+#include <unordered_map>
 
 #include "datatypes.h"
+#include "texturemanager.h"
 
 #include "game.h"
 class Game;
 
+//	TODO: Make functioning tilemap.
 class Gameplay {
 public:
 
@@ -29,6 +32,30 @@ public:
 		return false;
 	}
 
+	const char* map =
+		"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+		"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
+		"WWWWDDDDDDDDDDDDDDDDDDDDDDDWWWWW"
+		"WWWWDDDDDDDDDDDDDDDDDDDDDDDWWWWW"
+		"WWWWDDDDDSSSSSSSSSSSSSSSDDDWWWWW"
+		"WWWWDDDDDSSSSSSSSSSSSSSSDDDWWWWW"
+		"WWWWDDDDDSSSSSSSSSSSSSSSDDDWWWWW"
+		"WWWWDDDDDSSSSSSSSSSSSSSSDDDWWWWW"
+		"WWWWDDDDDSSSSSSSSSSSSSSSDDDWWWWW"
+		"WWWWDDDDDDDDDDDDDSSSSSDDDDDWWWWW"
+		"WWWWDDDDDDDDDDDDDSSSSSDDDDDWWWWW"
+		"WWWWWWWWWWDDDDDDDSSSSSDDDDDWWWWW"
+		"WWWWWWWWWWDDDDDDDSSSSSDDDDDWWWWW"
+		"WWWWWWWWWWDDDDDDDDDDDDDDDDDWWWWW"
+		"WWWWWWWWWWWWWWWWWWWWDDDDDWWWWWWW"
+		"WWWWWWWWWWWWWWWWWWWWDDDDDWWWWWWW"
+		"WWWWWWWWWWWWWWWWWWWWDDDDDWWWWWWW"
+		"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+
+	std::unordered_map<char, SDL_Rect> tiles;
+	int width = 32;
+	int height = 18; // strlen(map) / 11;
+
 private:
 	bool keyDown[512];
 	SDL_Event e;
@@ -40,4 +67,7 @@ private:
 	Texture background;
 	Font title;
 
+	Texture tilesTexture;
+
+	SDL_Texture* grass;
 };

@@ -20,11 +20,9 @@ TTF_Font* FontManager::LoadFont(const char* filename, int size) {
 
 void FontManager::DrawFont(SDL_Renderer* renderer, TTF_Font* font, const char* message, int x, int y, SDL_Color& color) {
 	try {
-		SDL_Surface* surface = nullptr;
-		SDL_Texture* texture = nullptr;
-		surface = TTF_RenderText_Solid(font, message, color);
+		SDL_Surface* surface = TTF_RenderText_Solid(font, message, color);
 		if (surface == nullptr) throw FontError();
-		texture = SDL_CreateTextureFromSurface(renderer, surface);
+		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_Rect rect = { x, y, surface->w, surface->h };
 
 		SDL_FreeSurface(surface);
@@ -39,9 +37,8 @@ void FontManager::DrawFont(SDL_Renderer* renderer, TTF_Font* font, const char* m
 
 SDL_Rect FontManager::FontRect(TTF_Font* font, const char* message) {
 	try {
-		SDL_Surface* surface = nullptr;
 		SDL_Color color = { 154,217,65,255 };
-		surface = TTF_RenderText_Solid(font, message, color);
+		SDL_Surface* surface = TTF_RenderText_Solid(font, message, color);
 		if (surface == nullptr) throw FontError();
 		SDL_Rect result = { 0, 0, surface->w, surface->h };
 		SDL_FreeSurface(surface);

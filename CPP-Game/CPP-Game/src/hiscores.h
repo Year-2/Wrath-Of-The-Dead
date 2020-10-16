@@ -20,14 +20,13 @@ public:
 	void Update();
 	void Draw();
 
-	bool isRunning;
-
 	bool getKeyDown(int keyCode) {
 		if (keyCode > 0 && keyCode < 512) {
 			return keyDown[keyCode];
 		}
 		return false;
 	}
+	bool isRunning;
 
 private:
 	bool keyDown[512];

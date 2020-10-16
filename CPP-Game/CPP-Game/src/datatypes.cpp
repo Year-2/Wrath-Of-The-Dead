@@ -37,6 +37,10 @@ void Texture::SetSrc(int x, int y, int w, int h) {
 	src = { x, y, w, h };
 }
 
+void Texture::SetSrc(const SDL_Rect& rect) {
+	src = rect;
+}
+
 void Texture::SetDst(int x, int y, int w, int h) {
 	dst = { x, y, w, h };
 }
@@ -82,9 +86,9 @@ void Font::Free() {
 	font = nullptr;
 	fontSize = 0;
 	msg = "";
-	fontRect = { 0,0,0,0 };
 	xPos = yPos = 0;
 	color = { 0,0,0,0 };
+	fontRect = { 0,0,0,0 };
 }
 
 void Font::Draw() {

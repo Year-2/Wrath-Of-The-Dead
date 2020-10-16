@@ -22,6 +22,7 @@ public:
 	void DrawNine(std::array<SDL_Rect, 9>& src, std::array<SDL_Rect, 9>& dst);
 
 	void SetSrc(int x, int y, int w, int h);
+	void SetSrc(const SDL_Rect& rect);
 	void SetDst(int x, int y, int w, int h);
 
 	void PrintSrc();

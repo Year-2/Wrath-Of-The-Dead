@@ -40,7 +40,6 @@ void TextureManager::Draw(SDL_Renderer* renderer, SDL_Texture* texture, const SD
 
 std::array<SDL_Rect, 9>* TextureManager::NineClipSrc(int border, int width, int height) {
 	std::array<SDL_Rect, 9>* borderClip = new std::array<SDL_Rect, 9>;
-
 	borderClip->at(0) = { 0, 0, border, border };
 	borderClip->at(1) = { border, 0, width - (2 * border), border };
 	borderClip->at(2) = { width - border, 0, border, border };

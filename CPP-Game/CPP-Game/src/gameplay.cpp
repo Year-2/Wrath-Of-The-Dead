@@ -7,17 +7,25 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) {
 	isRunning = true;
 	this->game = game;
 	this->renderer = renderer;
-	for (int i = 0; i < 512; i++) {
-		keyDown[i] = false;
-	}
+	std::memset(keyDown, false, sizeof(keyDown));
 
 	background.Init(renderer, "test.png");
 	background.SetDst(262, 26, 500, 100);
 	title.Init(renderer, "test.ttf", "GAMEPLAY", 40, 370, 59, white);
+
+	tiles['D'] = { 0, 0 ,16,16 };
+	tiles['W'] = { 16, 0 ,16,16 };
+	tiles['S'] = { 0, 16 ,16,16 };
+	tilesTexture.Init(renderer, "tiles.png");
 }
 
 Gameplay::~Gameplay() {
-
+	isRunning = false;
+	for (int i = 0; i < 512; i++) {
+		keyDown[i] = false;
+	}
+	renderer = nullptr;
+	game = nullptr;
 }
 
 void Gameplay::Input() {
@@ -50,9 +58,6 @@ void Gameplay::Input() {
 		isRunning = false;
 		game->SetMenuOptions(Game::Menu::mainmenu);
 	}
-	if (getKeyDown(SDL_SCANCODE_RIGHT)) {
-		cout << "GAMEPLAY" << endl;
-	}
 }
 
 void Gameplay::Update() {
@@ -61,6 +66,18 @@ void Gameplay::Update() {
 
 void Gameplay::Draw() {
 	SDL_RenderClear(renderer);
+
+	for (int y = 0; y < height; y++)
+	{
+		for (int x = 0; x < width; x++)
+		{
+			char tile = map[x + y * width];
+			tilesTexture.SetSrc(tiles[tile]);
+			tilesTexture.SetDst(x * 32, y * 32, 32, 32);
+			tilesTexture.Draw();
+		}
+	}
+
 
 	background.Draw();
 	title.Draw();

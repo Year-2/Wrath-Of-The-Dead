@@ -7,9 +7,7 @@ HiScores::HiScores(Game* game, SDL_Renderer* renderer) {
 	this->renderer = renderer;
 	this->game = game;
 	isRunning = true;
-	for (int i = 0; i < 512; i++) {
-		keyDown[i] = false;
-	}
+	std::memset(keyDown, false, sizeof(keyDown));
 
 	background.Init(renderer, "test.png");
 	background.SetDst(262, 26, 500, 100);
@@ -17,7 +15,13 @@ HiScores::HiScores(Game* game, SDL_Renderer* renderer) {
 }
 
 HiScores::~HiScores() {
+	isRunning = false;
+	std::memset(keyDown, false, sizeof(keyDown));
+	renderer = nullptr;
+	game = nullptr;
 
+	background.Free();
+	title.Free();
 }
 
 void HiScores::Input() {
@@ -50,14 +54,12 @@ void HiScores::Input() {
 		isRunning = false;
 		game->SetMenuOptions(Game::Menu::mainmenu);
 	}
-	if (getKeyDown(SDL_SCANCODE_RIGHT)) {
-		cout << "HISCORES" << endl;
-	}
 }
 
 void HiScores::Update() {
 
 }
+
 void HiScores::Draw() {
 	SDL_RenderClear(renderer);
 

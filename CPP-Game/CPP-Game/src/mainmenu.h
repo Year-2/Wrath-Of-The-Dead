@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "datatypes.h"
-
+#include "buttonmanager.h"
 //	TODO: Is this a circular dependancy
 #include "game.h"
 class Game;
@@ -41,5 +41,16 @@ private:
 	Texture background;
 	Font title;
 	Sound music;
+
+	ButtonManager* buttonManager;
+
+	SDL_Rect playDst;
+	Button* play;
+
+	SDL_Rect hiscoresDst;
+	Button* hiscores;
+
+	SDL_Rect exitDst;
+	Button* exit;
 
 };

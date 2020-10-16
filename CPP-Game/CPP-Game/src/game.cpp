@@ -10,6 +10,10 @@ Game::Game() {
 }
 
 Game::~Game() {
+	Free();
+}
+
+void Game::Free() {
 	Mix_Quit();
 	TTF_Quit();
 	IMG_Quit();
@@ -88,7 +92,6 @@ void Game::Start() {
 				totalTime += frameTime;
 
 				mainMenu.Input();
-
 				if (totalTime >= UPDATE_STEP)
 				{
 					mainMenu.Update();
@@ -103,7 +106,6 @@ void Game::Start() {
 		}
 		case Menu::gameplay:
 		{
-
 			cout << "GamePlay" << endl;
 			totalTime = 0;
 			currentTime = SDL_GetTicks();
@@ -158,5 +160,5 @@ void Game::Start() {
 			break;
 		}
 	}
-	//	free();
+	Free();
 }
