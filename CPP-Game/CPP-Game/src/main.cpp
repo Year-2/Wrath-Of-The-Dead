@@ -4,10 +4,10 @@
 int main(int argc, char* args[])
 {
 	//	MEMORY LEAK THINGY
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(191);
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetBreakAlloc(186 );
 	//_CrtSetBreakAlloc(192);
-	//_CrtDumpMemoryLeaks();
+	_CrtDumpMemoryLeaks();
 
 	Game game = Game();
 	if (!game.Init()) {
@@ -15,7 +15,7 @@ int main(int argc, char* args[])
 	} 
 	game.Start();
 
-	//_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
 
 	return 0;
 

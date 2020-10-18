@@ -14,7 +14,7 @@ class ButtonManager;
 class Button {
 public:
 
-	Button(SDL_Renderer* renderer, SDL_Rect& rect, const char* message, ButtonManager* buttonManager);
+	Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& rect, const char* message);
 	~Button();
 	void Free();
 
@@ -35,20 +35,23 @@ private:
 
 class ButtonManager {
 public:
-	ButtonManager(SDL_Renderer* renderer, int index = 0);
+	ButtonManager(SDL_Renderer* renderer);
 	~ButtonManager();
 	void Free();
 
-	void AddButton(Button* button);
-	void SetButtons(int noOfButtons);
+	void Draw();
+
+	void AddButton(SDL_Rect rect, const char* message);
+	void SetButtons();
 	void MoveUp();
 	void MoveDown();
 	int Select();
 
 private:
-	//	TODO: Have this class draw the buttons.
 	SDL_Renderer* renderer;
-	std::array<Button*, 16> buttons;
+	
+	std::vector<Button*> buttons;
+	SDL_Texture* texture;
 	SDL_Color white = { 255,255,255,255 };
 	SDL_Color black = { 0, 0, 0, 255 };
 	int noOfButtons;

@@ -3,6 +3,8 @@
 Texture::Texture() {
 	renderer = nullptr;
 	texture = nullptr;
+	nineSrc = nullptr;
+	nineDst = nullptr;
 	src = { 0,0,0,0 };
 	dst = { 0,0,0,0 };
 }
@@ -23,14 +25,21 @@ void Texture::Free() {
 	texture = nullptr;
 	src = { 0,0,0,0 };
 	dst = { 0,0,0,0 };
+	delete nineSrc;
+	delete nineDst;
 }
 
 void Texture::Draw() {
 	TextureManager::Draw(renderer, texture, src, dst);
 }
 
-void Texture::DrawNine(std::array<SDL_Rect, 9>& src, std::array<SDL_Rect, 9>& dst) {
-	TextureManager::DrawNine(renderer, texture, src, dst);
+void Texture::DrawNine() {
+	TextureManager::DrawNine(renderer, texture, *nineSrc, *nineDst);
+}
+
+void Texture::SetNine(int b, int w, int h) {
+	nineSrc = TextureManager::NineClipSrc(b, w, h);
+	nineDst = TextureManager::NineClipDst(dst.x, dst.y, dst.w, dst.h, b);
 }
 
 void Texture::SetSrc(int x, int y, int w, int h) {

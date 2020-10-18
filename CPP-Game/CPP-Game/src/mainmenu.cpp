@@ -9,22 +9,20 @@ MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) {
 	isRunning = true;
 	std::memset(keyDown, false, sizeof(keyDown));
 
-	background.Init(renderer, "test.png");
-	background.SetDst(262, 26, 500, 100);
-	title.Init(renderer, "test.ttf", "MAIN MENU", 40, 369, 59, white);
+	background.Init(renderer, "greypanel.png");
+	background.SetDst(322, 122, 380, 400);
+	background.SetNine(5, 32, 32);
+
+	title.Init(renderer, "test.ttf", "MAIN MENU", 40, 369, 71, white);
+	titleBorder.Init(renderer, "bluepanel.png");
+	titleBorder.SetDst(322, 54, 380, 100);
+	titleBorder.SetNine(5, 32, 32);
 
 	buttonManager = new ButtonManager(renderer);
-
-	playDst = { 352, 150, 300, 100 };
-	play = new Button(renderer, playDst, "PLAY", buttonManager);
-
-	hiscoresDst = { 352, 260, 300, 100 };
-	hiscores = new Button(renderer, hiscoresDst, "HISCORES", buttonManager);
-
-	exitDst = { 352, 370, 300, 100 };
-	exit = new Button(renderer, exitDst, "EXIT", buttonManager);
-
-	buttonManager->SetButtons(3);
+	buttonManager->AddButton({ 362, 162, 300, 100 }, "PLAY");
+	buttonManager->AddButton({ 362, 272, 300, 100 }, "HISCORES");
+	buttonManager->AddButton({ 362, 382, 300, 100 }, "EXIT");
+	buttonManager->SetButtons();
 }
 
 MainMenu::~MainMenu() {
@@ -32,22 +30,7 @@ MainMenu::~MainMenu() {
 	game = nullptr;
 	isRunning = false;
 	std::memset(keyDown, false, sizeof(keyDown));
-	white = { 0,0,0,0 };
-	playDst = { 0,0,0,0 };
-	hiscoresDst = { 0,0,0,0 };
-	exitDst = { 0,0,0,0 };
 	delete buttonManager;
-	buttonManager = nullptr;
-	delete play;
-	play = nullptr;
-	delete hiscores;
-	hiscores = nullptr;
-	delete exit;
-	exit = nullptr;
-
-	background.Free();
-	title.Free();
-	music.Free();
 }
 
 void MainMenu::Input() {
@@ -109,12 +92,10 @@ void MainMenu::Update() {
 void MainMenu::Draw() {
 	SDL_RenderClear(renderer);
 
-	background.Draw();
+	titleBorder.DrawNine();
 	title.Draw();
-
-	play->Draw();
-	hiscores->Draw();
-	exit->Draw();
+	background.DrawNine();
+	buttonManager->Draw();
 
 	SDL_RenderPresent(renderer);
 }

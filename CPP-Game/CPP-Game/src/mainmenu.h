@@ -40,17 +40,7 @@ private:
 
 	Texture background;
 	Font title;
-	Sound music;
+	Texture titleBorder;
 
 	ButtonManager* buttonManager;
-
-	SDL_Rect playDst;
-	Button* play;
-
-	SDL_Rect hiscoresDst;
-	Button* hiscores;
-
-	SDL_Rect exitDst;
-	Button* exit;
-
 };

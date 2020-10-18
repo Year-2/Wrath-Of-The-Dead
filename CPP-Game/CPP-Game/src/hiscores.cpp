@@ -19,9 +19,6 @@ HiScores::~HiScores() {
 	std::memset(keyDown, false, sizeof(keyDown));
 	renderer = nullptr;
 	game = nullptr;
-
-	background.Free();
-	title.Free();
 }
 
 void HiScores::Input() {

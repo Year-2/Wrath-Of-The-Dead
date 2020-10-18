@@ -19,11 +19,12 @@ public:
 	void Free();
 	
 	void Draw();
-	void DrawNine(std::array<SDL_Rect, 9>& src, std::array<SDL_Rect, 9>& dst);
+	void DrawNine();
 
 	void SetSrc(int x, int y, int w, int h);
 	void SetSrc(const SDL_Rect& rect);
 	void SetDst(int x, int y, int w, int h);
+	void SetNine(int b, int w, int h);
 
 	void PrintSrc();
 	void PrintDst();
@@ -34,6 +35,9 @@ private:
 	SDL_Texture* texture;
 	SDL_Rect src;
 	SDL_Rect dst;
+
+	std::array<SDL_Rect, 9>* nineSrc;
+	std::array<SDL_Rect, 9>* nineDst;
 };
 
 class Font {
