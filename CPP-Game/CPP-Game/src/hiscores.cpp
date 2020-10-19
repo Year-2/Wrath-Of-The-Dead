@@ -9,9 +9,18 @@ HiScores::HiScores(Game* game, SDL_Renderer* renderer) {
 	isRunning = true;
 	std::memset(keyDown, false, sizeof(keyDown));
 
-	background.Init(renderer, "test.png");
-	background.SetDst(262, 26, 500, 100);
-	title.Init(renderer, "test.ttf", "HISCORES", 40, 381, 59, white);
+	background.Init(renderer, "greypanel.png");
+	background.SetDst(322, 122, 380, 400);
+	background.SetNine(5, 32, 32);
+
+	title.Init(renderer, "test.ttf", "HI-SCORES", 40, 369, 71, white);
+	titleBorder.Init(renderer, "bluepanel.png");
+	titleBorder.SetDst(322, 54, 380, 100);
+	titleBorder.SetNine(5, 32, 32);
+
+	buttonManager = new ButtonManager(renderer);
+	buttonManager->AddButton({ 362, 382, 300, 100 }, "RETURN");
+	buttonManager->SetButtons();
 }
 
 HiScores::~HiScores() {
@@ -19,6 +28,7 @@ HiScores::~HiScores() {
 	std::memset(keyDown, false, sizeof(keyDown));
 	renderer = nullptr;
 	game = nullptr;
+	delete buttonManager;
 }
 
 void HiScores::Input() {
@@ -32,24 +42,18 @@ void HiScores::Input() {
 			if (e.key.keysym.scancode < 512) {
 				keyDown[e.key.keysym.scancode] = true;
 			}
+			if (e.key.keysym.sym == SDLK_RETURN) {
+				if (buttonManager->Select() == 0) {
+					isRunning = false;
+					game->SetMenuOptions(Game::Menu::mainmenu);
+				}
+			}
 		}
 		else if (e.type == SDL_KEYUP) {
 			if (e.key.keysym.scancode < 512) {
 				keyDown[e.key.keysym.scancode] = false;
 			}
 		}
-	}
-	if (getKeyDown(SDL_SCANCODE_UP)) {
-		isRunning = false;
-		game->SetMenuOptions(Game::Menu::gameplay);
-	}
-	if (getKeyDown(SDL_SCANCODE_DOWN)) {
-		isRunning = false;
-		game->SetMenuOptions(Game::Menu::hiscores);
-	}
-	if (getKeyDown(SDL_SCANCODE_LEFT)) {
-		isRunning = false;
-		game->SetMenuOptions(Game::Menu::mainmenu);
 	}
 }
 
@@ -60,8 +64,11 @@ void HiScores::Update() {
 void HiScores::Draw() {
 	SDL_RenderClear(renderer);
 
-	background.Draw();
+	titleBorder.DrawNine();
+	background.DrawNine();
 	title.Draw();
+
+	buttonManager->Draw();
 
 	SDL_RenderPresent(renderer);
 }

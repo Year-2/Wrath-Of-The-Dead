@@ -51,7 +51,6 @@ void MainMenu::Input() {
 				{
 				case 0:
 				{
-					std::cout << "Play" << std::endl;
 					isRunning = false;
 					game->SetMenuOptions(Game::Menu::gameplay);
 					break;
@@ -59,7 +58,6 @@ void MainMenu::Input() {
 
 				case 1:
 				{
-					std::cout << "Hiscores" << std::endl;
 					isRunning = false;
 					game->SetMenuOptions(Game::Menu::hiscores);
 					break;
@@ -67,7 +65,6 @@ void MainMenu::Input() {
 
 				case 2:
 				{
-					std::cout << "Exit" << std::endl;
 					isRunning = false;
 					game->SetIsRunning(false);
 					break;

@@ -1,2 +1,4 @@
-﻿  mainmenu.cpp
+﻿  texturemanager.cpp
+C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\texturemanager.cpp(21): warning C4715: 'TextureManager::LoadTexture': not all control paths return a value
+C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\texturemanager.cpp(35): warning C4715: 'TextureManager::LoadTextureRect': not all control paths return a value
   CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\bin\x64\Debug\CPP-Game.exe

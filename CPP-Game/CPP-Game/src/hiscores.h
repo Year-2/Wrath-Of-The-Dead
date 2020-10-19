@@ -38,5 +38,8 @@ private:
 
 	Texture background;
 	Font title;
+	Texture titleBorder;
+
+	ButtonManager* buttonManager;
 
 };

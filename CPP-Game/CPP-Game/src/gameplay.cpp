@@ -9,8 +9,9 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) {
 	this->renderer = renderer;
 	std::memset(keyDown, false, sizeof(keyDown));
 
-	background.Init(renderer, "test.png");
+	background.Init(renderer, "bluepanel.png");
 	background.SetDst(262, 26, 500, 100);
+	background.SetNine(5, 32, 32);
 	title.Init(renderer, "test.ttf", "GAMEPLAY", 40, 370, 59, white);
 
 	tiles['D'] = { 0, 0 ,16,16 };
@@ -79,7 +80,7 @@ void Gameplay::Draw() {
 	}
 
 
-	background.Draw();
+	background.DrawNine();
 	title.Draw();
 
 	SDL_RenderPresent(renderer);

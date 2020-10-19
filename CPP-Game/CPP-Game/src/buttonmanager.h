@@ -43,6 +43,7 @@ public:
 
 	void AddButton(SDL_Rect rect, const char* message);
 	void SetButtons();
+
 	void MoveUp();
 	void MoveDown();
 	int Select();
