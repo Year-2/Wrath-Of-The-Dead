@@ -9,6 +9,10 @@
 - UI
 - Sound
 
+#### Unique Mechanics:  
+- Teleportation ( Costs score but allows the player to flee)
+- Crates ( Drop rewards such as: score, weapon upgrade)
+
 #### Libraries: 
 - SDL2-2.0.12 
 - SDL2_image-2.0.5
