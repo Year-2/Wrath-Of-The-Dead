@@ -3,9 +3,7 @@
 using std::cout;
 using std::endl;
 
-MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) {
-	this->renderer = renderer;
-	this->game = game;
+MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) : renderer(renderer), game(game) {
 	isRunning = true;
 	std::memset(keyDown, false, sizeof(keyDown));
 

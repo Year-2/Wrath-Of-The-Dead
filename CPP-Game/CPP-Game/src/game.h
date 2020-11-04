@@ -23,7 +23,6 @@ public:
 
 	bool Init();
 	void Start();
-
 	void Free();
 
 	enum class Menu {

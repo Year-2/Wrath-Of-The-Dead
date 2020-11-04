@@ -4,7 +4,18 @@ using std::cout;
 using std::endl;
 using std::string;
 
-
+/// <summary>
+///		Try's to load a font, if it fails an exception is thrown.
+/// </summary>
+/// <param name="filename">
+///		Font filename with extension. 
+/// </param>
+/// <param name="size">
+///		Size of desired font.
+/// </param>
+/// <returns>
+///		Font.
+/// </returns>
 TTF_Font* FontManager::LoadFont(const char* filename, int size) {
 	try {
 		const char* dir = "assets/fonts/";
@@ -18,6 +29,27 @@ TTF_Font* FontManager::LoadFont(const char* filename, int size) {
 	}
 }
 
+/// <summary>
+///		Draws font.
+/// </summary>
+/// <param name="renderer">
+///		Renderer to draw the font.
+/// </param>
+/// <param name="font">
+///		Font to be drawn. 
+/// </param>
+/// <param name="message">
+///		Message for the font to display.
+/// </param>
+/// <param name="x">
+///		X position of font.
+/// </param>
+/// <param name="y">
+///		Y position of font.
+/// </param>
+/// <param name="color">
+///		Colour of the font.
+/// </param>
 void FontManager::DrawFont(SDL_Renderer* renderer, TTF_Font* font, const char* message, int x, int y, SDL_Color& color) {
 	try {
 		SDL_Surface* surface = TTF_RenderText_Solid(font, message, color);
@@ -35,6 +67,18 @@ void FontManager::DrawFont(SDL_Renderer* renderer, TTF_Font* font, const char* m
 	}
 }
 
+/// <summary>
+///		Try's to load a font's destination rect.
+/// </summary>
+/// <param name="font">
+///		Font to be used.
+/// </param>
+/// <param name="message">
+///		Message to be used.
+/// </param>
+/// <returns>
+///		Destination rect of message using font.
+/// </returns>
 SDL_Rect FontManager::FontRect(TTF_Font* font, const char* message) {
 	try {
 		SDL_Color color = { 154,217,65,255 };

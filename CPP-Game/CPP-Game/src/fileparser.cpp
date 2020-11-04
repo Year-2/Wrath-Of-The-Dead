@@ -13,6 +13,7 @@ PlayerInfo::PlayerInfo(string lineContents) {
 	playerStream >> score;
 }
 
+//	TODO: change this to a generic template. Lambda functions??
 void FileParserPlayer::GetFile(std::string filename) {
 	try {
 		const char* dir = "assets/files/";

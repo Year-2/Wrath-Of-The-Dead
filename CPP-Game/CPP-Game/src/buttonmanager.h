@@ -18,7 +18,7 @@ public:
 	~Button();
 	void Free();
 
-	void SetColor(SDL_Color color) { this->color = color; }
+	void SetTextColor(SDL_Color color) { this->textColor = color; }
 	void Draw();
 
 private:
@@ -28,7 +28,7 @@ private:
 	std::array<SDL_Rect, 9>* buttonSrc;
 	std::array<SDL_Rect, 9>* buttonDst;
 	const char* message;
-	SDL_Color color = { 154,217,65,255 };
+	SDL_Color textColor;
 	SDL_Rect textPos;
 	SDL_Rect buttonSize;
 };

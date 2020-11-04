@@ -3,9 +3,7 @@
 using std::cout;
 using std::endl;
 
-HiScores::HiScores(Game* game, SDL_Renderer* renderer) {
-	this->renderer = renderer;
-	this->game = game;
+HiScores::HiScores(Game* game, SDL_Renderer* renderer) : game(game), renderer(renderer){
 	isRunning = true;
 	std::memset(keyDown, false, sizeof(keyDown));
 

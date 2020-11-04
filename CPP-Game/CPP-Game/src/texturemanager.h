@@ -15,6 +15,6 @@ public:
 };
 
 class TextureError : public std::exception {
-public:\
+public:
 	const char* what() const throw() { return "Texture Error"; }
 };

@@ -3,10 +3,8 @@
 using std::cout;
 using std::endl;
 
-Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) {
+Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : game(game), renderer(renderer) {
 	isRunning = true;
-	this->game = game;
-	this->renderer = renderer;
 	std::memset(keyDown, false, sizeof(keyDown));
 
 	background.Init(renderer, "bluepanel.png");

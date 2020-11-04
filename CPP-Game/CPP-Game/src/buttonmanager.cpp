@@ -1,20 +1,42 @@
 #include "buttonmanager.h"
 
-Button::Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& rect, const char* message) {
-	this->renderer = renderer;
+/// <summary>
+///		Creates a button by loading a texture and font. Sets the size and position.
+/// </summary>
+/// <param name="renderer">
+///		Points to the renderer to draw to.
+/// </param>
+/// <param name="texture">
+///		Texture to be drawn.
+/// </param>
+/// <param name="dst">
+///		Button destination on-screen.
+/// </param>
+/// <param name="message">
+///		Text overlayed onto button.
+/// </param>
+Button::Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& dst,
+	const char* message) : renderer(renderer), message(message) 
+{
 	buttonTexture = texture;
-	buttonSrc = TextureManager::NineClipSrc(5, 49, 45);
-	buttonDst = TextureManager::NineClipDst(rect.x, rect.y, rect.w, rect.h, 5);
-	this->message = message;
+	buttonSrc = TextureManager::NineClipSrc(5, 49, 45); // TODO: Have button manager hold this too?
+	buttonDst = TextureManager::NineClipDst(dst.x, dst.y, dst.w, dst.h, 5);
 	font = FontManager::LoadFont("test.ttf", 20);
 	textPos = FontManager::FontRect(font, message);
-	buttonSize = rect;
+	buttonSize = dst;
+	textColor = { 0,0,0,0 };
 }
 
+/// <summary>
+///		Free's memory on delete.
+/// </summary>
 Button::~Button() {
 	Free();
 }
 
+/// <summary>
+///		Cleans the object's memory. Cleans any dangling pointers.
+/// </summary>
 void Button::Free() {
 	renderer = nullptr;
 	buttonTexture = nullptr;
@@ -27,28 +49,43 @@ void Button::Free() {
 	message = "";
 	textPos = { 0,0,0,0 };
 	buttonSize = { 0,0,0,0 };
-	color = { 0,0,0,0 };
+	textColor = { 0,0,0,0 };
 }
 
+/// <summary>
+///		Renders the button on screen with the message being centered.
+/// </summary>
 void Button::Draw() {
 	TextureManager::DrawNine(renderer, buttonTexture, *buttonSrc, *buttonDst);
-	FontManager::DrawFont(renderer, font, message, buttonDst->at(0).x + ((buttonSize.w / 2) - (textPos.w / 2)), buttonDst->at(0).y + ((buttonSize.h / 2) - (textPos.h / 3)), color);
+	FontManager::DrawFont(renderer, font, message, buttonDst->at(0).x + ((buttonSize.w / 2) - (textPos.w / 2)),
+		buttonDst->at(0).y + ((buttonSize.h / 2) - (textPos.h / 3)), textColor);
 }
 
 // -----------------------------------------------------------
 
-ButtonManager::ButtonManager(SDL_Renderer* renderer) {
+/// <summary>
+///		Loads the texture for the buttons to hold a reference to.
+/// </summary>
+/// <param name="renderer">
+///		Renderer to be drawn to.
+/// </param>
+ButtonManager::ButtonManager(SDL_Renderer* renderer) : renderer(renderer){
 	texture = TextureManager::LoadTexture(renderer, "button.png");
-	this->renderer = renderer;
 	currentIndex = 0;
 	increment = 0;
 	noOfButtons = 0;
 }
 
+/// <summary>
+///		Free's memory on delete.
+/// </summary>
 ButtonManager::~ButtonManager() {
 	Free();
 }
 
+/// <summary>
+///		Cleans the objects memory. Cleans any dangling pointers.
+/// </summary>
 void ButtonManager::Free() {
 	renderer = nullptr;
 	for (int i = 0; i < buttons.size(); i++)
@@ -65,40 +102,69 @@ void ButtonManager::Free() {
 	increment = 0;
 }
 
+/// <summary>
+///		Draws all the buttons. 
+/// </summary>
 void ButtonManager::Draw() {
 	for (auto& item : buttons)
 		item->Draw();
 }
 
-void ButtonManager::AddButton(SDL_Rect rect, const char* message) {
-	buttons.push_back(new Button(renderer, texture, rect, message));
+/// <summary>
+///		Creates a button, then adds it to the list of buttons.
+/// </summary>
+/// <param name="dst">
+///		Destination for the button to be drawn.
+/// </param>
+/// <param name="message">
+///		Text on the button
+/// </param>
+void ButtonManager::AddButton(SDL_Rect dst, const char* message) {
+	buttons.push_back(new Button(renderer, texture, dst, message));
 }
 
+/// <summary>
+///		Sets all the buttons to black text and the first button to white text. 
+/// </summary>
 void ButtonManager::SetButtons() {
-	this->noOfButtons = buttons.size();
-	for (int i = 0; i < buttons.size(); i++)
-		buttons[i]->SetColor(black);
-	buttons[currentIndex]->SetColor(white);
+	noOfButtons = buttons.size();
+	for (int i = 0; i < noOfButtons; i++)
+		buttons[i]->SetTextColor(black);
+	buttons[currentIndex]->SetTextColor(white);
 }
 
+/// <summary>
+///		Moves the selected button up. Sets all the buttons to black text and the currently selected
+///		button to white text.
+/// </summary>
 void ButtonManager::MoveUp() {
 	currentIndex--;
 	if (currentIndex < 0)
 		currentIndex = noOfButtons - 1;
 	for (int i = 0; i < noOfButtons; i++)
-		buttons[i]->SetColor(black);
-	buttons[currentIndex]->SetColor(white);
+		buttons[i]->SetTextColor(black);
+	buttons[currentIndex]->SetTextColor(white);
 }
 
+/// <summary>
+///		Moves the selected button down. Sets all the buttons to black text and the currently selected
+///		button to white text.
+/// </summary>
 void ButtonManager::MoveDown() {
 	currentIndex++;
 	if (currentIndex > noOfButtons - 1)
 		currentIndex = 0;
 	for (int i = 0; i < noOfButtons; i++)
-		buttons[i]->SetColor(black);
-	buttons[currentIndex]->SetColor(white);
+		buttons[i]->SetTextColor(black);
+	buttons[currentIndex]->SetTextColor(white);
 }
 
+/// <summary>
+///		Returns the current index of which button was pressed. 
+/// </summary>
+/// <returns>
+///		Current selected button.
+/// </returns>
 int ButtonManager::Select() {
 	return currentIndex;
 }

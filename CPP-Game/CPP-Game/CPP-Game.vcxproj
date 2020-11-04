@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\scene.cpp" />
     <ClCompile Include="src\buttonmanager.cpp" />
     <ClCompile Include="src\datatypes.cpp" />
     <ClCompile Include="src\fileparser.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\tilemap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\scene.h" />
     <ClInclude Include="src\buttonmanager.h" />
     <ClInclude Include="src\datatypes.h" />
     <ClInclude Include="src\fileparser.h" />
