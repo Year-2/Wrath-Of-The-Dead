@@ -1,3 +1,7 @@
-﻿  buttonmanager.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\buttonmanager.cpp(130,30): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+﻿  game.cpp
+  gameplay.cpp
+  hiscores.cpp
+  main.cpp
+  mainmenu.cpp
+  Generating Code...
   CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\bin\x64\Debug\CPP-Game.exe

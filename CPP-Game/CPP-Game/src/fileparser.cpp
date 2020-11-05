@@ -34,7 +34,7 @@ void FileParserPlayer::GetFile(std::string filename) {
 			});
 	}
 	catch (std::exception& e) {
-		std::cout << "An exception was thrown." << std::endl;
+		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what();
 	}
 }

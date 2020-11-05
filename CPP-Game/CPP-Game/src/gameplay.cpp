@@ -3,19 +3,13 @@
 using std::cout;
 using std::endl;
 
-Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : game(game), renderer(renderer) {
-	isRunning = true;
-	std::memset(keyDown, false, sizeof(keyDown));
-
+Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	background.Init(renderer, "bluepanel.png");
 	background.SetDst(262, 26, 500, 100);
 	background.SetNine(5, 32, 32);
 	title.Init(renderer, "test.ttf", "GAMEPLAY", 40, 370, 59, white);
 
-	tiles['D'] = { 0, 0 ,16,16 };
-	tiles['W'] = { 16, 0 ,16,16 };
-	tiles['S'] = { 0, 16 ,16,16 };
-	tilesTexture.Init(renderer, "tiles.png");
+	tileMap = new Tilemap(renderer);
 }
 
 Gameplay::~Gameplay() {
@@ -25,6 +19,8 @@ Gameplay::~Gameplay() {
 	}
 	renderer = nullptr;
 	game = nullptr;
+	delete tileMap;
+	tileMap = nullptr;
 }
 
 void Gameplay::Input() {
@@ -66,18 +62,7 @@ void Gameplay::Update() {
 void Gameplay::Draw() {
 	SDL_RenderClear(renderer);
 
-	for (int y = 0; y < height; y++)
-	{
-		for (int x = 0; x < width; x++)
-		{
-			char tile = map[x + y * width];
-			tilesTexture.SetSrc(tiles[tile]);
-			tilesTexture.SetDst(x * 32, y * 32, 32, 32);
-			tilesTexture.Draw();
-		}
-	}
-
-
+	tileMap->Draw();
 	background.DrawNine();
 	title.Draw();
 

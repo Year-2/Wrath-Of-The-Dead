@@ -11,7 +11,7 @@ int main(int argc, char* args[])
 
 	Game game = Game();
 	if (!game.Init()) {
-		std::cout << "Error could not init SDL!" << std::endl;
+		std::cout << "Error could not init SDL!" << "\n";
 	} 
 	game.Start();
 

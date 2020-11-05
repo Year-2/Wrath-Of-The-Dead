@@ -16,10 +16,9 @@
 ///		Text overlayed onto button.
 /// </param>
 Button::Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& dst,
-	const char* message) : renderer(renderer), message(message) 
+	const char* message, std::array<SDL_Rect, 9>* srcNine) : renderer(renderer), message(message), buttonSrc(srcNine)
 {
 	buttonTexture = texture;
-	buttonSrc = TextureManager::NineClipSrc(5, 49, 45); // TODO: Have button manager hold this too?
 	buttonDst = TextureManager::NineClipDst(dst.x, dst.y, dst.w, dst.h, 5);
 	font = FontManager::LoadFont("test.ttf", 20);
 	textPos = FontManager::FontRect(font, message);
@@ -42,7 +41,6 @@ void Button::Free() {
 	buttonTexture = nullptr;
 	TTF_CloseFont(font);
 	font = nullptr;
-	delete buttonSrc;
 	buttonSrc = nullptr;
 	delete buttonDst;
 	buttonDst = nullptr;
@@ -71,6 +69,7 @@ void Button::Draw() {
 /// </param>
 ButtonManager::ButtonManager(SDL_Renderer* renderer) : renderer(renderer){
 	texture = TextureManager::LoadTexture(renderer, "button.png");
+	srcNine = TextureManager::NineClipSrc(5, 49, 45);
 	currentIndex = 0;
 	increment = 0;
 	noOfButtons = 0;
@@ -95,6 +94,7 @@ void ButtonManager::Free() {
 	}
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
+	delete srcNine;
 	white = { 0,0,0,0 };
 	black = { 0,0,0,0 };
 	noOfButtons = 0;
@@ -120,7 +120,7 @@ void ButtonManager::Draw() {
 ///		Text on the button
 /// </param>
 void ButtonManager::AddButton(SDL_Rect dst, const char* message) {
-	buttons.push_back(new Button(renderer, texture, dst, message));
+	buttons.push_back(new Button(renderer, texture, dst, message, srcNine));
 }
 
 /// <summary>

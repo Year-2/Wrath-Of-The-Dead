@@ -27,7 +27,7 @@ SDL_Texture* TextureManager::LoadTexture(SDL_Renderer* renderer, const char* fil
 		return result;
 	}
 	catch (std::exception& e) {
-		std::cout << "An exception was thrown." << std::endl;
+		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << IMG_GetError();
 	}
 }
@@ -50,7 +50,7 @@ SDL_Rect TextureManager::LoadTextureRect(const char* filename) {
 		return result;
 	}
 	catch (std::exception& e) {
-		std::cout << "An exception was thrown." << std::endl;
+		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << IMG_GetError();
 	}
 }

@@ -129,14 +129,14 @@ void Texture::SetDst(int x, int y, int w, int h) {
 ///		Prints the destination clip.
 /// </summary>
 void Texture::PrintDst() {
-	std::cout << dst.x << ", " << dst.y << ", " << dst.w << ", " << dst.h << std::endl;
+	std::cout << dst.x << ", " << dst.y << ", " << dst.w << ", " << dst.h << "\n";
 }
 
 /// <summary>
 ///		Prints the source clip.
 /// </summary>
 void Texture::PrintSrc() {
-	std::cout << src.x << ", " << src.y << ", " << src.w << ", " << src.h << std::endl;
+	std::cout << src.x << ", " << src.y << ", " << src.w << ", " << src.h << "\n";
 }
 
 /////////////////////////////////////
@@ -236,7 +236,7 @@ void Font::SetMsg(std::string msg) {
 ///		Prints message.
 /// </summary>
 void Font::PrintMsg() {
-	std::cout << msg << std::endl;
+	std::cout << msg << "\n";
 }
 
 /// <summary>
@@ -257,7 +257,7 @@ void Font::SetPosition(int x, int y) {
 ///		Prints position.
 /// </summary>
 void Font::PrintPosition() {
-	std::cout << xPos << ", " << yPos << std::endl;
+	std::cout << xPos << ", " << yPos << "\n";
 }
 
 /// <summary>
@@ -274,7 +274,7 @@ void Font::SetColor(SDL_Color color) {
 ///		Prints the fonts rectangle bounding box.
 /// </summary>
 void Font::PrintFontRect() {
-	std::cout << fontRect.x << ", " << fontRect.y << " : " << fontRect.w << ", " << fontRect.h << std::endl;
+	std::cout << fontRect.x << ", " << fontRect.y << " : " << fontRect.w << ", " << fontRect.h << "\n";
 }
 
 /////////////////////////////////////

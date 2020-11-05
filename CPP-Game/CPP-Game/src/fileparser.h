@@ -16,7 +16,7 @@ public:
 	std::string GetUsername() { return username; }
 	std::string GetTime() { return time; }
 
-	void PrintPlayerInfo() { std::cout << username << " " << time << " " << score << std::endl; }
+	void PrintPlayerInfo() { std::cout << username << " " << time << " " << score << "\n"; }
 
 private:
 	std::string username;

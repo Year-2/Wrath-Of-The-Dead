@@ -6,36 +6,22 @@
 #include <iostream>
 
 #include "datatypes.h"
+#include "scene.h"
 
 #include "game.h"
 class Game;
 
-class HiScores{
+class HiScores : public Scene{
 public:
 
 	HiScores(Game* game, SDL_Renderer* renderer);
 	~HiScores();
 	
-	void Input();
-	void Update();
-	void Draw();
-
-	bool getKeyDown(int keyCode) {
-		if (keyCode > 0 && keyCode < 512) {
-			return keyDown[keyCode];
-		}
-		return false;
-	}
-	bool isRunning;
+	void Input() override;
+	void Update() override;
+	void Draw() override;
 
 private:
-	bool keyDown[512];
-	SDL_Event e;
-	SDL_Color white = { 255, 255, 255, 255 };
-
-	SDL_Renderer* renderer;
-	Game* game;
-
 	Texture background;
 	Font title;
 	Texture titleBorder;

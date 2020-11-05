@@ -7,36 +7,22 @@
 
 #include "datatypes.h"
 #include "buttonmanager.h"
-//	TODO: Is this a circular dependancy
+#include "scene.h"
 #include "game.h"
+
 class Game;
 
-class MainMenu {
+class MainMenu : public Scene {
 public:
 
 	MainMenu(Game* game, SDL_Renderer* renderer);
 	~MainMenu();
 
-	void Input();
-	void Update();
-	void Draw();
-
-	bool isRunning;
-
-	bool getKeyDown(int keyCode) {
-		if (keyCode > 0 && keyCode < 512) {
-			return keyDown[keyCode];
-		}
-		return false;
-	}
+	void Input() override;
+	void Update() override;
+	void Draw() override;
 
 private:
-	bool keyDown[512];
-	SDL_Event e;
-	SDL_Color white = { 255, 255, 255, 255 };
-
-	SDL_Renderer* renderer;
-	Game* game;
 
 	Texture background;
 	Font title;

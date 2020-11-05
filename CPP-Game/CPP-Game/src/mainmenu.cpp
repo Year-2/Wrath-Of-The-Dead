@@ -3,10 +3,7 @@
 using std::cout;
 using std::endl;
 
-MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) : renderer(renderer), game(game) {
-	isRunning = true;
-	std::memset(keyDown, false, sizeof(keyDown));
-
+MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	background.Init(renderer, "greypanel.png");
 	background.SetDst(322, 122, 380, 400);
 	background.SetNine(5, 32, 32);
@@ -24,10 +21,6 @@ MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) : renderer(renderer), gam
 }
 
 MainMenu::~MainMenu() {
-	renderer = nullptr;
-	game = nullptr;
-	isRunning = false;
-	std::memset(keyDown, false, sizeof(keyDown));
 	delete buttonManager;
 }
 

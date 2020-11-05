@@ -24,7 +24,7 @@ TTF_Font* FontManager::LoadFont(const char* filename, int size) {
 		return result;
 	}
 	catch (std::exception& e) {
-		std::cout << "An exception was thrown." << std::endl;
+		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << TTF_GetError();
 	}
 }
@@ -62,7 +62,7 @@ void FontManager::DrawFont(SDL_Renderer* renderer, TTF_Font* font, const char* m
 		SDL_DestroyTexture(texture);
 	}
 	catch (std::exception& e) {
-		std::cout << "An exception was thrown." << std::endl;
+		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << TTF_GetError();
 	}
 }
@@ -89,7 +89,7 @@ SDL_Rect FontManager::FontRect(TTF_Font* font, const char* message) {
 		return result;
 	}
 	catch (std::exception& e) {
-		std::cout << "An exception was thrown." << std::endl;
+		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << TTF_GetError();
 	}
 }

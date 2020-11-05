@@ -3,10 +3,7 @@
 using std::cout;
 using std::endl;
 
-HiScores::HiScores(Game* game, SDL_Renderer* renderer) : game(game), renderer(renderer){
-	isRunning = true;
-	std::memset(keyDown, false, sizeof(keyDown));
-
+HiScores::HiScores(Game* game, SDL_Renderer* renderer) : Scene(game, renderer){
 	background.Init(renderer, "greypanel.png");
 	background.SetDst(322, 122, 380, 400);
 	background.SetNine(5, 32, 32);

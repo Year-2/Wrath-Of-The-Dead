@@ -13,8 +13,7 @@ class ButtonManager;
 
 class Button {
 public:
-
-	Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& rect, const char* message);
+	Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& rect, const char* message, std::array<SDL_Rect, 9>* srcNine);
 	~Button();
 	void Free();
 
@@ -53,6 +52,8 @@ private:
 	
 	std::vector<Button*> buttons;
 	SDL_Texture* texture;
+	std::array<SDL_Rect, 9>* srcNine;
+
 	SDL_Color white = { 255,255,255,255 };
 	SDL_Color black = { 0, 0, 0, 255 };
 	int noOfButtons;
