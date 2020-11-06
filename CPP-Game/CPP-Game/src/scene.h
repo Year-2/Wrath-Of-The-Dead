@@ -7,7 +7,6 @@
 
 class Game;
 
-//// TODO: Texture and Font here too??
 class Scene
 {
 public:

@@ -172,6 +172,7 @@
     <ClCompile Include="src\soundmanager.cpp" />
     <ClCompile Include="src\texturemanager.cpp" />
     <ClCompile Include="src\tilemap.cpp" />
+    <ClCompile Include="src\vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scene.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="src\soundmanager.h" />
     <ClInclude Include="src\texturemanager.h" />
     <ClInclude Include="src\tilemap.h" />
+    <ClInclude Include="src\vector2d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

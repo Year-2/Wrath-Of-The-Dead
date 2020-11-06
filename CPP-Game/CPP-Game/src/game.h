@@ -55,7 +55,7 @@ private:
 };
 
 template <typename T>
-void Game::StartScene() {
+inline void Game::StartScene() {
 	totalTime = 0;
 	currentTime = SDL_GetTicks();
 
