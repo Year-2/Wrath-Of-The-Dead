@@ -1,12 +1,2 @@
-﻿  game.cpp
-  gameplay.cpp
-  hiscores.cpp
-  main.cpp
-  mainmenu.cpp
-  scene.cpp
-  tilemap.cpp
-  vector2d.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\Vector2D.h(40,1): error C2804: binary 'operator /' has too many parameters
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\Vector2D.h(62): message : see reference to class template instantiation 'Vector2D<T>' being compiled
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\Vector2D.h(40,1): error C2333: 'Vector2D<T>::operator /': error in function declaration; skipping function body
-  Generating Code...
+﻿  datatypes.cpp
+  CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\bin\x64\Debug\CPP-Game.exe

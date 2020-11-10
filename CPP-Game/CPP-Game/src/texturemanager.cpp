@@ -76,6 +76,11 @@ void TextureManager::Draw(SDL_Renderer* renderer, SDL_Texture* texture,
 	SDL_RenderCopy(renderer, texture, &src, &dest);
 }
 
+void TextureManager::DrawEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect& src, const SDL_Rect& dst, int& direction, SDL_Point* center, const SDL_RendererFlip& flip)
+{
+	SDL_RenderCopyEx(renderer, texture, &src, &dst, direction, center, flip);
+}
+
 /// <summary>
 ///		Creates a 3x3 grid of src clips using an images dimensions. Sets the src dimensions 
 ///		for more accurate upscaling of small sprites.

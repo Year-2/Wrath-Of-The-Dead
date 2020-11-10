@@ -10,6 +10,9 @@ Texture::Texture() {
 	nineDst = nullptr;
 	src = { 0,0,0,0 };
 	dst = { 0,0,0,0 };
+	direction = 0;
+	flip = SDL_FLIP_NONE;
+	del = true;
 }
 
 /// <summary>
@@ -28,6 +31,11 @@ void Texture::Init(SDL_Renderer* renderer, const char* filename) {
 	dst = src;
 }
 
+void Texture::Init(SDL_Renderer* renderer, SDL_Texture* texture) {
+	this->renderer = renderer;
+	this->texture = texture;
+}
+
 /// <summary>
 ///		Frees memory on delete.
 /// </summary>
@@ -42,7 +50,8 @@ void Texture::Free() {
 	renderer = nullptr;
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
-	delete nineSrc;
+	if(del)
+		delete nineSrc;
 	delete nineDst;
 }
 
@@ -51,6 +60,11 @@ void Texture::Free() {
 /// </summary>
 void Texture::Draw() {
 	TextureManager::Draw(renderer, texture, src, dst);
+}
+
+void Texture::DrawEx()
+{
+	TextureManager::DrawEx(renderer, texture, src, dst, direction, NULL, flip);
 }
 
 /// <summary>
@@ -72,9 +86,16 @@ void Texture::DrawNine() {
 /// <param name="height">
 ///		Height of the image in px.
 /// </param>
-void Texture::SetNine(int borderWidth, int width, int height) {
+void Texture::SetNineSrc(int borderWidth, int width, int height) {
 	nineSrc = TextureManager::NineClipSrc(borderWidth, width, height);
-	nineDst = TextureManager::NineClipDst(dst.x, dst.y, dst.w, dst.h, borderWidth);
+}
+
+void Texture::SetNineDst(int x, int y, int width, int height, int border) {
+	nineDst = TextureManager::NineClipDst(x, y, width, height, border);
+}
+
+void Texture::SetNineDst(SDL_Rect& dst, int border) {
+	nineDst = TextureManager::NineClipDst(dst.x, dst.y, dst.w, dst.h, border);
 }
 
 /// <summary>
@@ -125,18 +146,22 @@ void Texture::SetDst(int x, int y, int w, int h) {
 	dst = { x, y, w, h };
 }
 
+void Texture::SetDst(const SDL_Rect& rect) {
+	dst = rect;
+}
+
 /// <summary>
 ///		Prints the destination clip.
 /// </summary>
 void Texture::PrintDst() {
-	std::cout << dst.x << ", " << dst.y << ", " << dst.w << ", " << dst.h << "\n";
+	std::cout << "DST: " << dst.x << ", " << dst.y << ", " << dst.w << ", " << dst.h << "\n";
 }
 
 /// <summary>
 ///		Prints the source clip.
 /// </summary>
 void Texture::PrintSrc() {
-	std::cout << src.x << ", " << src.y << ", " << src.w << ", " << src.h << "\n";
+	std::cout << "SRC: " << src.x << ", " << src.y << ", " << src.w << ", " << src.h << "\n";
 }
 
 /////////////////////////////////////
@@ -147,49 +172,30 @@ void Texture::PrintSrc() {
 Font::Font() {
 	renderer = nullptr;
 	font = nullptr;
-	fontSize = 0;
-	msg = "";
-	fontRect = { 0,0,0,0 };
-	xPos = 0;
-	yPos = 0;
-	color = { 255, 255, 255, 255 };
+	color = { 255,255,255,255 };
+	texture = nullptr;
+	dimensions = { 0,0,0,0 };
+	message = nullptr;
 }
 
-/// <summary>
-///		Initalises variables to be used.
-/// </summary>
-/// <param name="renderer">
-///		Renderer to draw to.
-/// </param>
-/// <param name="filename">
-///		Font filename with extension.
-/// </param>
-/// <param name="msg">
-///		Message test to be drawn.
-/// </param>
-/// <param name="fontSize">
-///		Font size.
-/// </param>
-/// <param name="x">
-///		X Position.
-/// </param>
-/// <param name="y">
-///		Y Position.
-/// </param>
-/// <param name="textColor">
-///		Text color.
-/// </param>
-void Font::Init(SDL_Renderer* renderer, const char* filename, std::string msg,
-	int fontSize, int x, int y, SDL_Color textColor) 
+
+void Font::Init(SDL_Renderer* renderer, const char* filename, int size, const char* msg, Vector2D<int> pos, SDL_Color color)
 {
 	this->renderer = renderer;
-	this->fontSize = fontSize;
-	this->msg = msg;
-	this->color = textColor;
-	font = FontManager::LoadFont(filename, fontSize);
-	fontRect = FontManager::FontRect(font, msg.c_str());
-	xPos = x;
-	yPos = y;
+	this->message = msg;
+	font = FontManager::LoadFont(filename, size);
+	this->color = color;
+	texture = FontManager::FontTexture(renderer, font, msg, this->color);
+	dimensions = FontManager::FontRect(font, msg, pos);
+}
+
+void Font::Draw() {
+	SDL_RenderCopy(renderer, texture, 0, &dimensions);
+}
+
+void Font::Color(SDL_Color color) {
+	SDL_DestroyTexture(texture);
+	texture = FontManager::FontTexture(renderer, font, message, color);
 }
 
 
@@ -200,7 +206,6 @@ Font::~Font() {
 	Free();
 }
 
-
 /// <summary>
 ///		Cleans memory and dangling pointers.
 /// </summary>
@@ -208,73 +213,8 @@ void Font::Free() {
 	renderer = nullptr;
 	TTF_CloseFont(font);
 	font = nullptr;
-	fontSize = 0;
-	msg = "";
-	xPos = yPos = 0;
-	color = { 0,0,0,0 };
-	fontRect = { 0,0,0,0 };
-}
-
-/// <summary>
-///		Draws font.
-/// </summary>
-void Font::Draw() {
-	FontManager::DrawFont(renderer, font, msg.c_str(), xPos, yPos, color);
-}
-
-/// <summary>
-///		Sets the text.
-/// </summary>
-/// <param name="msg">
-///		Text to save.
-/// </param>
-void Font::SetMsg(std::string msg) {
-	this->msg = msg;
-}
-
-/// <summary>
-///		Prints message.
-/// </summary>
-void Font::PrintMsg() {
-	std::cout << msg << "\n";
-}
-
-/// <summary>
-///		Sets position.
-/// </summary>
-/// <param name="x">
-///		X position.
-/// </param>
-/// <param name="y">
-///		Y position.
-/// </param>
-void Font::SetPosition(int x, int y) {
-	xPos = x;
-	yPos = y;
-}
-
-/// <summary>
-///		Prints position.
-/// </summary>
-void Font::PrintPosition() {
-	std::cout << xPos << ", " << yPos << "\n";
-}
-
-/// <summary>
-///		Sets colour.
-/// </summary>
-/// <param name="color">
-///		Color to save.
-/// </param>
-void Font::SetColor(SDL_Color color) {
-	this->color = color;
-}
-
-/// <summary>
-///		Prints the fonts rectangle bounding box.
-/// </summary>
-void Font::PrintFontRect() {
-	std::cout << fontRect.x << ", " << fontRect.y << " : " << fontRect.w << ", " << fontRect.h << "\n";
+	SDL_DestroyTexture(texture);
+	texture = nullptr;
 }
 
 /////////////////////////////////////

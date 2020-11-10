@@ -5,13 +5,13 @@ using std::endl;
 
 HiScores::HiScores(Game* game, SDL_Renderer* renderer) : Scene(game, renderer){
 	background.Init(renderer, "greypanel.png");
-	background.SetDst(322, 122, 380, 400);
-	background.SetNine(5, 32, 32);
+	background.SetNineDst(322, 122, 380, 400, 5);
+	background.SetNineSrc(5, 32, 32);
 
-	title.Init(renderer, "test.ttf", "HI-SCORES", 40, 369, 71, white);
+	title.Init(renderer, "test.ttf", 40, "HI-SCORES", Vector2D<int>(369, 71), { 255, 255, 255, 255 });
 	titleBorder.Init(renderer, "bluepanel.png");
-	titleBorder.SetDst(322, 54, 380, 100);
-	titleBorder.SetNine(5, 32, 32);
+	titleBorder.SetNineDst(322, 54, 380, 100, 5);
+	titleBorder.SetNineSrc(5, 32, 32);
 
 	buttonManager = new ButtonManager(renderer);
 	buttonManager->AddButton({ 362, 382, 300, 100 }, "RETURN");
@@ -19,8 +19,6 @@ HiScores::HiScores(Game* game, SDL_Renderer* renderer) : Scene(game, renderer){
 }
 
 HiScores::~HiScores() {
-	isRunning = false;
-	std::memset(keyDown, false, sizeof(keyDown));
 	renderer = nullptr;
 	game = nullptr;
 	delete buttonManager;

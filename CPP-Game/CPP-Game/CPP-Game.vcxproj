@@ -95,8 +95,8 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\dev\SDL2-2.0.12\include;C:\dev\SDL2_ttf-2.0.15\include;C:\dev\SDL2_mixer-2.0.4\include;C:\dev\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\dev\SDL2-2.0.12\lib\x64;C:\dev\SDL2_ttf-2.0.15\lib\x64;C:\dev\SDL2_mixer-2.0.4\lib\x64;C:\dev\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)CPP-Game\lib\SDL2_image-2.0.5\include;$(SolutionDir)CPP-Game\lib\SDL2_mixer-2.0.4\include;$(SolutionDir)CPP-Game\lib\SDL2_ttf-2.0.15\include;$(SolutionDir)CPP-Game\lib\SDL2-2.0.12\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)CPP-Game\lib\SDL2-2.0.12\lib\x64;$(SolutionDir)CPP-Game\lib\SDL2_ttf-2.0.15\lib\x64;$(SolutionDir)CPP-Game\lib\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)CPP-Game\lib\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -155,7 +155,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_tff.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -172,9 +172,10 @@
     <ClCompile Include="src\soundmanager.cpp" />
     <ClCompile Include="src\texturemanager.cpp" />
     <ClCompile Include="src\tilemap.cpp" />
-    <ClCompile Include="src\vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\enemy.h" />
+    <ClInclude Include="src\objectpooler.h" />
     <ClInclude Include="src\scene.h" />
     <ClInclude Include="src\buttonmanager.h" />
     <ClInclude Include="src\datatypes.h" />

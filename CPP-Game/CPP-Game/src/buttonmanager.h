@@ -5,12 +5,13 @@
 #include <SDL_mixer.h>
 #include <array>
 #include <vector>
+#include <iostream>
 
-#include "texturemanager.h"
-#include "fontmanager.h"
+#include "datatypes.h"
 
 class ButtonManager;
 
+//	TODO: Improve text renderer.
 class Button {
 public:
 	Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& rect, const char* message, std::array<SDL_Rect, 9>* srcNine);
@@ -22,14 +23,15 @@ public:
 
 private:
 	SDL_Renderer* renderer;
-	SDL_Texture* buttonTexture = nullptr;
+	
 	TTF_Font* font = nullptr;
-	std::array<SDL_Rect, 9>* buttonSrc;
-	std::array<SDL_Rect, 9>* buttonDst;
 	const char* message;
 	SDL_Color textColor;
 	SDL_Rect textPos;
 	SDL_Rect buttonSize;
+
+	Texture buttonImage;
+	//Font buttonText; change texture color. have it centered
 };
 
 class ButtonManager {
@@ -51,8 +53,8 @@ private:
 	SDL_Renderer* renderer;
 	
 	std::vector<Button*> buttons;
-	SDL_Texture* texture;
 	std::array<SDL_Rect, 9>* srcNine;
+	SDL_Texture* texture;
 
 	SDL_Color white = { 255,255,255,255 };
 	SDL_Color black = { 0, 0, 0, 255 };

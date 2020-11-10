@@ -10,6 +10,8 @@
 #include "scene.h"
 #include "game.h"
 
+#include "vector2d.h"
+
 class Game;
 
 class MainMenu : public Scene {

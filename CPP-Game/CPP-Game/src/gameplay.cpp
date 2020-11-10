@@ -4,12 +4,13 @@ using std::cout;
 using std::endl;
 
 Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
+	title.Init(renderer, "test.ttf", 40, "GAMEPLAY", Vector2D<int>(370, 59), { 255, 255, 255, 255 });
 	background.Init(renderer, "bluepanel.png");
-	background.SetDst(262, 26, 500, 100);
-	background.SetNine(5, 32, 32);
-	title.Init(renderer, "test.ttf", "GAMEPLAY", 40, 370, 59, white);
+	background.SetNineDst(262, 26, 500, 100, 5);
+	background.SetNineSrc(5, 32, 32);
 
 	tileMap = new Tilemap(renderer);
+	enemyManager = new EnemyManager(renderer);
 }
 
 Gameplay::~Gameplay() {
@@ -17,10 +18,8 @@ Gameplay::~Gameplay() {
 	for (int i = 0; i < 512; i++) {
 		keyDown[i] = false;
 	}
-	renderer = nullptr;
-	game = nullptr;
 	delete tileMap;
-	tileMap = nullptr;
+	delete enemyManager;
 }
 
 void Gameplay::Input() {
@@ -56,7 +55,7 @@ void Gameplay::Input() {
 }
 
 void Gameplay::Update() {
-
+	enemyManager->Update();
 }
 
 void Gameplay::Draw() {
@@ -65,7 +64,7 @@ void Gameplay::Draw() {
 	tileMap->Draw();
 	background.DrawNine();
 	title.Draw();
+	enemyManager->Draw();
 
 	SDL_RenderPresent(renderer);
-
 }

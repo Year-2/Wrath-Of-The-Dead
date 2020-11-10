@@ -16,14 +16,16 @@
 ///		Text overlayed onto button.
 /// </param>
 Button::Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& dst,
-	const char* message, std::array<SDL_Rect, 9>* srcNine) : renderer(renderer), message(message), buttonSrc(srcNine)
+	const char* message, std::array<SDL_Rect, 9>* srcNine) : renderer(renderer), message(message)
 {
-	buttonTexture = texture;
-	buttonDst = TextureManager::NineClipDst(dst.x, dst.y, dst.w, dst.h, 5);
 	font = FontManager::LoadFont("test.ttf", 20);
 	textPos = FontManager::FontRect(font, message);
 	buttonSize = dst;
-	textColor = { 0,0,0,0 };
+	textColor = { 255,255,255,255 };
+
+	buttonImage.Init(renderer, texture);
+	buttonImage.SetNineSrc(srcNine);
+	buttonImage.SetNineDst(dst, 5);
 }
 
 /// <summary>
@@ -38,25 +40,19 @@ Button::~Button() {
 /// </summary>
 void Button::Free() {
 	renderer = nullptr;
-	buttonTexture = nullptr;
 	TTF_CloseFont(font);
 	font = nullptr;
-	buttonSrc = nullptr;
-	delete buttonDst;
-	buttonDst = nullptr;
 	message = "";
-	textPos = { 0,0,0,0 };
-	buttonSize = { 0,0,0,0 };
-	textColor = { 0,0,0,0 };
+	message = nullptr;
 }
 
 /// <summary>
 ///		Renders the button on screen with the message being centered.
 /// </summary>
 void Button::Draw() {
-	TextureManager::DrawNine(renderer, buttonTexture, *buttonSrc, *buttonDst);
-	FontManager::DrawFont(renderer, font, message, buttonDst->at(0).x + ((buttonSize.w / 2) - (textPos.w / 2)),
-		buttonDst->at(0).y + ((buttonSize.h / 2) - (textPos.h / 3)), textColor);
+	buttonImage.DrawNine();
+	FontManager::DrawFont(renderer, font, message, buttonSize.x + ((buttonSize.w / 2) - (textPos.w / 2)),
+		buttonSize.y + ((buttonSize.h / 2) - (textPos.h / 3)), textColor);
 }
 
 // -----------------------------------------------------------
@@ -95,11 +91,6 @@ void ButtonManager::Free() {
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
 	delete srcNine;
-	white = { 0,0,0,0 };
-	black = { 0,0,0,0 };
-	noOfButtons = 0;
-	currentIndex = 0;
-	increment = 0;
 }
 
 /// <summary>

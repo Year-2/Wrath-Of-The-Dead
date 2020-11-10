@@ -10,6 +10,7 @@
 #include "scene.h"
 
 #include "tilemap.h"
+#include "enemy.h"
 #include "game.h"
 class Game;
 
@@ -27,5 +28,6 @@ private:
 	Texture background;
 	Font title;
 
-	Tilemap* tileMap;
+	Tilemap* tileMap;	
+	EnemyManager* enemyManager;
 };
