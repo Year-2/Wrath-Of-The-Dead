@@ -23,6 +23,7 @@ Mix_Music* SoundManager::LoadMusic(const char* filename) {
 	catch (std::exception& e) {
 		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << Mix_GetError();
+		return nullptr;
 	}
 }
 
@@ -55,6 +56,7 @@ Mix_Chunk* SoundManager::LoadSFX(const char* filename) {
 	catch (std::exception& e) {
 		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << Mix_GetError();
+		return nullptr;
 	}
 }
 

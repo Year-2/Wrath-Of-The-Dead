@@ -10,8 +10,10 @@
 #include "scene.h"
 
 #include "tilemap.h"
+#include "userinterface.h"
 #include "enemy.h"
 #include "game.h"
+#include "player.h"
 class Game;
 
 class Gameplay : public Scene {
@@ -30,4 +32,7 @@ private:
 
 	Tilemap* tileMap;	
 	EnemyManager* enemyManager;
+	UserInterface* userInterface;
+	Player* player;
+
 };

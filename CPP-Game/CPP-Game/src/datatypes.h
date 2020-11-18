@@ -9,7 +9,7 @@
 #include "texturemanager.h"
 #include "fontmanager.h"
 #include "soundmanager.h"
-
+#include "vector2d.h"
 
 class Texture {
 public:
@@ -28,6 +28,7 @@ public:
 	void SetSrc(const SDL_Rect& rect);
 	void SetDst(int x, int y, int w, int h);
 	void SetDst(const SDL_Rect& rect);
+	void SetDst(const Vector2D<int>& pos);
 
 	void SetNineSrc(int b, int w, int h);
 	void SetNineSrc(std::array<SDL_Rect, 9>* src) {
@@ -46,6 +47,8 @@ public:
 	void Print() {
 		std::cout << renderer << ":R\n" << texture << ":T\n" << del << ":D\n";
 	}
+
+	SDL_Rect& GetDstRect() { return dst; }
 
 private:
 	bool del;
@@ -72,6 +75,12 @@ public:
 	void Color(SDL_Color color);
 	void Draw();
 
+	void Message(const char* msg){ 
+		message = msg;
+		SDL_DestroyTexture(texture);
+		texture = FontManager::FontTexture(renderer, font, message, color);
+	}
+
 	void Print() {
 		std::cout << "====================\n" << 
 			"renderer: " << renderer << "\n" <<
@@ -85,8 +94,8 @@ public:
 private:
 	SDL_Renderer* renderer;
 
-	const char* message;
 	TTF_Font* font;
+	const char* message;
 	SDL_Color color;
 	SDL_Texture* texture;
 	SDL_Rect dimensions;

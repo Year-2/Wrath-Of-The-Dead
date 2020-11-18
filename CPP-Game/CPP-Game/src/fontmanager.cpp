@@ -26,6 +26,7 @@ TTF_Font* FontManager::LoadFont(const char* filename, int size) {
 	catch (std::exception& e) {
 		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << TTF_GetError();
+		return nullptr;
 	}
 }
 
@@ -80,7 +81,7 @@ void FontManager::DrawFont(SDL_Renderer* renderer, TTF_Font* font, const char* m
 ///		Destination rect of message using font.
 /// </returns>
 
-SDL_Rect& FontManager::FontRect(TTF_Font* font, const char* message) {
+SDL_Rect FontManager::FontRect(TTF_Font* font, const char* message) {
 	try {
 		SDL_Color color = { 154,217,65,255 };
 		SDL_Surface* surface = TTF_RenderText_Solid(font, message, color);
@@ -92,6 +93,7 @@ SDL_Rect& FontManager::FontRect(TTF_Font* font, const char* message) {
 	catch (std::exception& e) {
 		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << TTF_GetError();
+		return { 0,0,0,0 };
 	}
 }
 
@@ -109,10 +111,11 @@ SDL_Texture* FontManager::FontTexture(SDL_Renderer* renderer, TTF_Font* font, co
 	catch (std::exception& e) {
 		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << TTF_GetError();
+		return nullptr;
 	}
 }
 
-SDL_Rect& FontManager::FontRect(TTF_Font* font, const char* message, Vector2D<int>& pos) {
+SDL_Rect FontManager::FontRect(TTF_Font* font, const char* message, Vector2D<int>& pos) {
 	try {
 		SDL_Color color = { 154,217,65,255 };
 		SDL_Surface* surface = TTF_RenderText_Solid(font, message, color);
@@ -124,6 +127,7 @@ SDL_Rect& FontManager::FontRect(TTF_Font* font, const char* message, Vector2D<in
 	catch (std::exception& e) {
 		std::cout << "An exception was thrown." << "\n";
 		std::cout << "\t" << e.what() << ": " << "\t" << TTF_GetError();
+		return { 0,0,0,0 };
 	}
 }
 

@@ -7,45 +7,50 @@
 template<typename T>
 class ObjectPool {
 public:
-	ObjectPool(SDL_Renderer* renderer, SDL_Texture* texture, const int POOL_SIZE) {
+	ObjectPool(const int POOL_SIZE) : POOL_SIZE(POOL_SIZE) {};
+
+	template <typename ...Args>
+	void Init(Args && ...args) {
 		for (int i = 0; i < POOL_SIZE; i++)
-			arr.push_back(T(renderer, texture, i));
+			arr.push_back(new T(std::forward<Args>(args)...));
 	}
 
-	//	TODO:
-	//template <typename ...Args>
-	//ObjectPool(Args && ...args) {
-	//	for (int i = 0; i < 10; i++)
-	//		arr.push_back(T(std::forward<Args>(args)...);
-	//}
-
 	~ObjectPool() {
-		for (T& item : arr) {
-			item.Free();
+		for (T* item : arr) {
+			item->Free();
+			delete item;
 		}
 	}
 
 	void Draw() {
-		for (T& item : arr)
-			item.Draw();
+		for (T* item : arr)
+			item->Draw();
 	}
 
 	void Update() {
-		for (T& item : arr)
-			item.Update();
+		for (T* item : arr)
+			item->Update();
 	}
 
 	template <typename ...Args>
 	void Create(Args && ...args) {
-		for (T& item : arr) {
-			if (!item.Active()) {
-				item.Init(std::forward<Args>(args)...);
+		for (T* item : arr) {
+			if (!item->Active()) {
+				item->Init(std::forward<Args>(args)...);
 				return;
 			}
 		}
 	}
+
+	std::vector<T*>& GetObjects(){
+		return arr;
+	}
+
+
+
 protected:
-	std::vector<T> arr;
+	std::vector<T*> arr;
+	const int POOL_SIZE;
 };
 
 class ObjectPoolBase {
@@ -53,6 +58,7 @@ public:
 	virtual void Init() = 0;
 	virtual void Free() = 0;
 	virtual bool Active() const = 0;
+	virtual void Deactivate() = 0;
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 };

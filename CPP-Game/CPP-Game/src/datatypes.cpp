@@ -150,6 +150,11 @@ void Texture::SetDst(const SDL_Rect& rect) {
 	dst = rect;
 }
 
+void Texture::SetDst(const Vector2D<int>& pos) {
+	dst.x = pos.x;
+	dst.y = pos.y;
+}
+
 /// <summary>
 ///		Prints the destination clip.
 /// </summary>
@@ -185,7 +190,7 @@ void Font::Init(SDL_Renderer* renderer, const char* filename, int size, const ch
 	this->message = msg;
 	font = FontManager::LoadFont(filename, size);
 	this->color = color;
-	texture = FontManager::FontTexture(renderer, font, msg, this->color);
+	texture = FontManager::FontTexture(renderer, font, msg, color);
 	dimensions = FontManager::FontRect(font, msg, pos);
 }
 

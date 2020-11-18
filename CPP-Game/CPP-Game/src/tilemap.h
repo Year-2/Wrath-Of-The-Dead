@@ -18,37 +18,17 @@
 
 class Tile {
 public:
-	Tile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect dstData);
+	Tile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect srcData, SDL_Rect dstData);
 	~Tile();
 
 	void Draw();
 
-protected:
+private:
 	SDL_Renderer* renderer;
 	SDL_Texture* spritesheet;
 
 	SDL_Rect tileSrcData;
 	SDL_Rect tileDstData;
-};
-
-class GrassTile : public Tile {
-public:
-	GrassTile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect dstData);
-};
-
-class DirtTile : public Tile {
-public:
-	DirtTile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect dstData);
-};
-
-class WaterTile : public Tile {
-public:
-	WaterTile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect dstData);
-};
-
-class StoneTile : public Tile {
-public:
-	StoneTile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect dstData);
 };
 
 class Tilemap {
@@ -88,8 +68,6 @@ private:
 		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2 },
 		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
 	};
-
-
 
 	SDL_Renderer* renderer;
 	SDL_Texture* spritesheet;

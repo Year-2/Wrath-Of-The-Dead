@@ -1,4 +1,5 @@
 #include "gameplay.h"
+#include "collision.h"
 
 using std::cout;
 using std::endl;
@@ -11,6 +12,8 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 
 	tileMap = new Tilemap(renderer);
 	enemyManager = new EnemyManager(renderer);
+	userInterface = new UserInterface(renderer);
+	player = new Player(renderer);
 }
 
 Gameplay::~Gameplay() {
@@ -20,6 +23,8 @@ Gameplay::~Gameplay() {
 	}
 	delete tileMap;
 	delete enemyManager;
+	delete userInterface;
+	delete player;
 }
 
 void Gameplay::Input() {
@@ -40,31 +45,41 @@ void Gameplay::Input() {
 			}
 		}
 	}
-	if (getKeyDown(SDL_SCANCODE_UP)) {
-		isRunning = false;
-		game->SetMenuOptions(Game::Menu::gameplay);
-	}
-	if (getKeyDown(SDL_SCANCODE_DOWN)) {
-		isRunning = false;
-		game->SetMenuOptions(Game::Menu::hiscores);
-	}
-	if (getKeyDown(SDL_SCANCODE_LEFT)) {
+	if (getKeyDown(SDL_SCANCODE_Q)) {
 		isRunning = false;
 		game->SetMenuOptions(Game::Menu::mainmenu);
 	}
+	player->Input(keyDown);
 }
 
 void Gameplay::Update() {
 	enemyManager->Update();
+	player->Update();
+
+	auto& bullets(player->GetBullets());
+	auto& enemies(enemyManager->GetEnemies());
+
+	for (auto& bullet : bullets) {
+		if(bullet->Active())
+			for (auto& enemy : enemies) {
+				if (enemy->Active())
+					if (Collision::boxCollision(bullet->GetCollider(), enemy->GetCollider())) {
+						bullet->Deactivate();
+						enemy->Deactivate();
+					}
+			}
+	}
 }
 
 void Gameplay::Draw() {
 	SDL_RenderClear(renderer);
 
 	tileMap->Draw();
+	enemyManager->Draw();
 	background.DrawNine();
 	title.Draw();
-	enemyManager->Draw();
+	userInterface->Draw();
+	player->Draw();
 
 	SDL_RenderPresent(renderer);
 }

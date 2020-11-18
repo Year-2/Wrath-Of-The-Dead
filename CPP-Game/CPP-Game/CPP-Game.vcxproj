@@ -159,6 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\bullet.cpp" />
+    <ClCompile Include="src\enemy.cpp" />
     <ClCompile Include="src\scene.cpp" />
     <ClCompile Include="src\buttonmanager.cpp" />
     <ClCompile Include="src\datatypes.cpp" />
@@ -172,10 +174,14 @@
     <ClCompile Include="src\soundmanager.cpp" />
     <ClCompile Include="src\texturemanager.cpp" />
     <ClCompile Include="src\tilemap.cpp" />
+    <ClCompile Include="src\userinterface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\bullet.h" />
+    <ClInclude Include="src\collision.h" />
     <ClInclude Include="src\enemy.h" />
     <ClInclude Include="src\objectpooler.h" />
+    <ClInclude Include="src\player.h" />
     <ClInclude Include="src\scene.h" />
     <ClInclude Include="src\buttonmanager.h" />
     <ClInclude Include="src\datatypes.h" />
@@ -188,6 +194,7 @@
     <ClInclude Include="src\soundmanager.h" />
     <ClInclude Include="src\texturemanager.h" />
     <ClInclude Include="src\tilemap.h" />
+    <ClInclude Include="src\userinterface.h" />
     <ClInclude Include="src\vector2d.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
