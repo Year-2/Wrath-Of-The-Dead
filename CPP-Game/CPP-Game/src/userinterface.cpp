@@ -20,6 +20,11 @@ UserInterface::UserInterface(SDL_Renderer* renderer) {
 	ammoFont.Init(renderer, "test.ttf", 16, "10", Vector2D<int>(890, 525), { 255, 0, 255, 255 });
 }
 
+void UserInterface::Score(int score) {
+	scoreFont.Message(std::to_string(score).c_str());
+}
+
+
 void UserInterface::Draw() {
 	healthTexture.DrawNine();
 	healthTitleFont.Draw();

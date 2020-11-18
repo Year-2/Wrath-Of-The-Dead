@@ -34,5 +34,6 @@ private:
 	EnemyManager* enemyManager;
 	UserInterface* userInterface;
 	Player* player;
+	int score;
 
 };

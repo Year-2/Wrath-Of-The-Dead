@@ -46,8 +46,6 @@ public:
 		return arr;
 	}
 
-
-
 protected:
 	std::vector<T*> arr;
 	const int POOL_SIZE;

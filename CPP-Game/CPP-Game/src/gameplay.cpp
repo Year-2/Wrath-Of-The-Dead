@@ -14,6 +14,7 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	enemyManager = new EnemyManager(renderer);
 	userInterface = new UserInterface(renderer);
 	player = new Player(renderer);
+	score = 0;
 }
 
 Gameplay::~Gameplay() {
@@ -66,6 +67,7 @@ void Gameplay::Update() {
 					if (Collision::boxCollision(bullet->GetCollider(), enemy->GetCollider())) {
 						bullet->Deactivate();
 						enemy->Deactivate();
+						userInterface->Score(++score);
 					}
 			}
 	}
