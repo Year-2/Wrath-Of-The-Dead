@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\enemy.cpp" />
+    <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\scene.cpp" />
     <ClCompile Include="src\buttonmanager.cpp" />
     <ClCompile Include="src\datatypes.cpp" />
