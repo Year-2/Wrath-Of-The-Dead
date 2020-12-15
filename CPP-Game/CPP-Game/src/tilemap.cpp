@@ -9,8 +9,6 @@ Tilemap::Tilemap(SDL_Renderer* renderer) : renderer(renderer) {
 
 Tilemap::~Tilemap() {
 	SDL_DestroyTexture(spritesheet);
-	spritesheet = nullptr;
-	renderer = nullptr;
 }
 
 void Tilemap::CreateMap() {

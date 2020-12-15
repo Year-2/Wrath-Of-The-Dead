@@ -18,7 +18,6 @@ public:
 	Vector2D<int>& GetPos() { return pos; }
 	std::vector<Bullet*>& GetBullets() { return bulletManager->GetBullets(); }
 
-
 private:
 	SDL_Renderer* renderer;
 	Vector2D<int> pos;

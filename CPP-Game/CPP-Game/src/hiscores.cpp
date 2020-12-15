@@ -3,7 +3,7 @@
 using std::cout;
 using std::endl;
 
-HiScores::HiScores(Game* game, SDL_Renderer* renderer) : Scene(game, renderer){
+HiScores::HiScores(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	background.Init(renderer, "greypanel.png");
 	background.SetNineDst(322, 122, 380, 400, 5);
 	background.SetNineSrc(5, 32, 32);
@@ -16,12 +16,32 @@ HiScores::HiScores(Game* game, SDL_Renderer* renderer) : Scene(game, renderer){
 	buttonManager = new ButtonManager(renderer);
 	buttonManager->AddButton({ 362, 382, 300, 100 }, "RETURN");
 	buttonManager->SetButtons();
+
+	//	Sorted
+	//fileParser = new TextFileParser<PlayerInfo>("test.txt", [](std::vector<PlayerInfo*>& value) {
+	//	sort(begin(value), end(value), [](PlayerInfo* one, PlayerInfo* two) -> bool {
+	//		return one->GetScore() > two->GetScore();
+	//		});
+	//	}
+	//);
+
+	//	Default - No sorting.
+	//fileParser = new FileParser<PlayerInfo>("test.txt");
+
+	BinaryFileParser* test = new BinaryFileParser();
+	test->GenerateFile("scores.bin");
+	test->ReadFile("scores.bin");
+
+	delete test;
+
+	//fileParser->PrintList();
 }
 
 HiScores::~HiScores() {
 	renderer = nullptr;
 	game = nullptr;
 	delete buttonManager;
+	delete fileParser;
 }
 
 void HiScores::Input() {

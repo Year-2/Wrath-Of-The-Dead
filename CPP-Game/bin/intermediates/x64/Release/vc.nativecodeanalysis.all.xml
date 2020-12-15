@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\SDL2-2.0.12\include\</FILEPATH>
+      <FILENAME>SDL_rect.h</FILENAME>
+      <LINE>102</LINE>
+      <COLUMN>28</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'SDL_bool' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>SDL_PointInRect</FUNCTION>
+    <DECORATED>SDL_PointInRect</DECORATED>
+    <FUNCLINE>99</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\</FILEPATH>
+      <FILENAME>datatypes.h</FILENAME>
+      <LINE>42</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'SDL_RendererFlip' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>Texture::SetFlip</FUNCTION>
+    <DECORATED>?SetFlip@Texture@@QEAAXW4SDL_RendererFlip@@@Z</DECORATED>
+    <FUNCLINE>42</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\</FILEPATH>
+      <FILENAME>vector2d.h</FILENAME>
+      <LINE>8</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Vector2D&lt;int&gt;::x' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Vector2D&lt;int&gt;::{ctor}</FUNCTION>
+    <DECORATED>??0?$Vector2D@H@@QEAA@XZ</DECORATED>
+    <FUNCLINE>8</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>Vector2D&lt;int&gt;::x</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\</FILEPATH>
+      <FILENAME>texturemanager.cpp</FILENAME>
+      <LINE>81</LINE>
+      <COLUMN>21</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'SDL_RendererFlip' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>TextureManager::DrawEx</FUNCTION>
+    <DECORATED>?DrawEx@TextureManager@@SAXPEAUSDL_Renderer@@PEAUSDL_Texture@@AEBUSDL_Rect@@2AEAHPEAUSDL_Point@@AEBW4SDL_RendererFlip@@@Z</DECORATED>
+    <FUNCLINE>81</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

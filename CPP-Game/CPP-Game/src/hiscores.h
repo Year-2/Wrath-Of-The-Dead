@@ -7,6 +7,7 @@
 
 #include "datatypes.h"
 #include "scene.h"
+#include "fileparser.h"
 
 #include "game.h"
 class Game;
@@ -27,5 +28,6 @@ private:
 	Texture titleBorder;
 
 	ButtonManager* buttonManager;
-
+	TextFileParser<PlayerInfo>* fileParser;
+	std::vector<PlayerInfo> players;
 };
