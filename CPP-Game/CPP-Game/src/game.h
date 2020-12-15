@@ -59,19 +59,23 @@ inline void Game::StartScene() {
 	totalTime = 0;
 	currentTime = SDL_GetTicks();
 
+	int ups = 0, fps = 0;
+
 	T scene = T(this, renderer);
 	while (scene.isRunning) {
 		newTime = SDL_GetTicks();
 		frameTime = newTime - currentTime;
 		currentTime = newTime;
 		totalTime += frameTime;
-		
+
 		scene.Input();
 		if (totalTime >= UPDATE_STEP)
 		{
 			scene.Update();
 			totalTime -= UPDATE_STEP;
+			ups++;
 		}
 		scene.Draw();
+		fps++;
 	}
 }

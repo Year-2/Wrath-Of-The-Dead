@@ -1,5 +1,4 @@
-﻿  fileparser.cpp
-  game.cpp
+﻿  game.cpp
   gameplay.cpp
   hiscores.cpp
   main.cpp

@@ -80,7 +80,6 @@ void HiScores::Draw() {
 	titleBorder.DrawNine();
 	background.DrawNine();
 	title.Draw();
-
 	buttonManager->Draw();
 
 	SDL_RenderPresent(renderer);

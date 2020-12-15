@@ -41,4 +41,13 @@ Custom data types for Fonts, Textures and Sounds. This will streamline quickly c
 Buttons added to the main menu for simple navigation. Tilemap renderering to test the ideal tilesize for gameplay. All memory leaks were located and patched. Memory debugging techniques implented.
 
 ### Buttons, Menu UI and Custom Textures -  18/10/2020
-Button code refactored, Buttonmanager is now responsible for all button input and textures. Main menu UI prototype implemented. Custom Texture datatype now supports image splicing and lossless upscaling.
+Button code refactored, Buttonmanager is now responsible for all button input and textures. Main menu UI prototype implemented. Custom Texture datatype now supports image splicing and lossless upscaling.  
+
+### Initial Performance Statistics
+During gameplay -  
+- 61MB of memory.  
+- 60 UPS. (Updates per second)
+- 2800~ FPS. (Frames per second) 
+
+![Top Functions](./imgs/top-functions.jpg?raw=true "Top Functions")
+
