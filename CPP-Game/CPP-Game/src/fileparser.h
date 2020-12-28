@@ -12,7 +12,6 @@
 using namespace std;
 #define LENGTH 10
 
-
 using std::cout;
 using std::endl;
 using std::string;
@@ -41,7 +40,7 @@ public:
 template<typename T>
 class TextFileParser {
 public:
-	TextFileParser(const std::string filename, void(*func)(std::vector<T*>&) = [](std::vector<T*>&){}) {
+	TextFileParser(const std::string filename, void(*func)(std::vector<T*>&) = [](std::vector<T*>&) {}) {
 		try {
 			string dir = "assets/files/";
 			ifstream scoreFile(string(dir) + string(filename));
@@ -85,6 +84,7 @@ private:
 	std::vector<T*> items;
 };
 
+//TODO: Make this a generic template at some point. T
 class BinaryFileParser {
 public:
 
@@ -105,21 +105,69 @@ public:
 		delete[] arr;
 	}
 
-	//	RETURN READ ITEMS?
-	void ReadFile(string filename) {
+	void GenerateTilemapFile(string filename) {
+		const int yWidth = 18, xWidth = 32;
+
 		string dir = "assets/files/bin/";
-		int* arr = new int[LENGTH];
-		
+		int* arr = new int[yWidth * xWidth];
+
+		int map[yWidth][xWidth] = {
+		{ 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
+		{ 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
+		{ 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 0, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2 },
+		{ 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
+		};
+
+		int index = 0;
+		for (int y = 0; y < yWidth; y++)
+		{
+			for (int x = 0; x < xWidth; x++)
+			{
+				arr[index] = map[y][x];
+				index++;
+			}
+		}
+
+		ofstream file;
+		file.open(dir + filename, ios::out | ios::binary);
+		if (!file) cout << "ERROR 404\n";
+
+		file.write(reinterpret_cast<char*>(arr), (yWidth * xWidth) * sizeof(int));
+		file.close();
+
+		cout << "TILEMAP FILE CREATED!\n";
+
+		delete[] arr;
+	}
+
+	int* ReadFile(string filename, int len) {
+		string dir = "assets/files/bin/";
+		int* arr = new int[len];
+
 		ifstream file;
 		file.open(dir + filename, ios::in | ios::binary);
 		if (!file) cout << "ERROR\n";
-		
-		file.read(reinterpret_cast<char*>(arr), LENGTH * sizeof(int));
+
+		file.read(reinterpret_cast<char*>(arr), len * sizeof(int));
 		file.close();
 
 		cout << "FILE READ!\n";
 
-		delete[] arr;
+		return arr;
 	}
 };
 

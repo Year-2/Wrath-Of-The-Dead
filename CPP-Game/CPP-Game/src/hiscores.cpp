@@ -17,24 +17,31 @@ HiScores::HiScores(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	buttonManager->AddButton({ 362, 382, 300, 100 }, "RETURN");
 	buttonManager->SetButtons();
 
-	//	Sorted
-	//fileParser = new TextFileParser<PlayerInfo>("test.txt", [](std::vector<PlayerInfo*>& value) {
-	//	sort(begin(value), end(value), [](PlayerInfo* one, PlayerInfo* two) -> bool {
-	//		return one->GetScore() > two->GetScore();
-	//		});
-	//	}
-	//);
+	//Sorted
+	fileParser = new TextFileParser<PlayerInfo>("test.txt", [](std::vector<PlayerInfo*>& value) {
+		sort(begin(value), end(value), [](PlayerInfo* one, PlayerInfo* two) -> bool {
+			return one->GetScore() > two->GetScore();
+			});
+		}
+	);
 
 	//	Default - No sorting.
 	//fileParser = new FileParser<PlayerInfo>("test.txt");
 
-	BinaryFileParser* test = new BinaryFileParser();
-	test->GenerateFile("scores.bin");
-	test->ReadFile("scores.bin");
+	//	Binary shit.
+	//BinaryFileParser* test = new BinaryFileParser();
+	//test->GenerateFile("scores.bin");
+	//int* testy = test->ReadFile("scores.bin", 10);
+	//cout << "CUNT" << "\n";
+	//for (int i = 0; i < LENGTH; i++)
+	//{
+	//	cout << testy[i] << "\n";
+	//}
 
-	delete test;
+	//delete test;
+	//delete[] testy;
 
-	//fileParser->PrintList();
+	fileParser->PrintList();
 }
 
 HiScores::~HiScores() {
