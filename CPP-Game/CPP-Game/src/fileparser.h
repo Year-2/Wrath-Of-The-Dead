@@ -8,6 +8,9 @@
 #include <exception>
 #include <iostream>
 #include <fstream>
+#include <type_traits>
+
+#include "../lib/HASHING-1.0/xxhash64.h"
 
 using namespace std;
 #define LENGTH 10
@@ -165,7 +168,15 @@ public:
 		file.read(reinterpret_cast<char*>(arr), len * sizeof(int));
 		file.close();
 
-		cout << "FILE READ!\n";
+		uint64_t computedHash = XXHash64::hash(arr, 2304, 21);
+		uint64_t storedHash = 50539076400041243;
+
+		if (computedHash == storedHash)
+			return arr;
+
+		//	Cheaters map.
+		for (int i = 0; i < len; i++)
+			arr[i] = 0;
 
 		return arr;
 	}
