@@ -10,11 +10,13 @@
 #include "texturemanager.h"
 #include "objectpooler.h"
 #include "vector2d.h"
+#include "healthbar.h"
 
 #define NUMBER_OF_ENEMIES 7
 class Enemy : public ObjectPoolBase {
 public:
 	Enemy(SDL_Renderer* renderer, SDL_Texture* texture);
+	~Enemy();
 	void Free() override;
 	void Init() override;
 	void InitPosition();
@@ -25,6 +27,8 @@ public:
 	bool Active() const override;
 	void Deactivate() override;
 	int GetDirection();
+
+	void TakeDamage(int damageAmount);
 
 	SDL_Rect& GetCollider() {
 		return texture.GetDstRect();
@@ -40,6 +44,8 @@ private:
 	bool onScreen = false;
 	Vector2D<float> position;
 	Vector2D<float> target;
+	HealthBar* healthBar;
+	int health;
 };
 
 class EnemyManager {

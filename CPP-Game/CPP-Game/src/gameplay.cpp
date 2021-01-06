@@ -1,5 +1,6 @@
 #include "gameplay.h"
 #include "collision.h"
+#include "circle.h"
 
 using std::cout;
 using std::endl;
@@ -15,6 +16,12 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	userInterface = new UserInterface(renderer);
 	player = new Player(renderer);
 	score = 0;
+
+	//	TODO: Circel colliison
+	Circle a = { 1,1,3 };
+	Circle b = { 5,5,3 };
+	if (Collision::CircleCollision(a, b))
+		cout << "CUNT IT WORKED!" << "\n";
 }
 
 Gameplay::~Gameplay() {
@@ -60,13 +67,14 @@ void Gameplay::Update() {
 	auto& bullets(player->GetBullets());
 	auto& enemies(enemyManager->GetEnemies());
 
+	//	TODO: Have score based on kills not hits?
 	for (auto& bullet : bullets) {
 		if(bullet->Active())
 			for (auto& enemy : enemies) {
 				if (enemy->Active())
-					if (Collision::boxCollision(bullet->GetCollider(), enemy->GetCollider())) {
+					if (Collision::BoxCollision(bullet->GetCollider(), enemy->GetCollider())) {
 						bullet->Deactivate();
-						enemy->Deactivate();
+						enemy->TakeDamage(50);
 						userInterface->Score(++score);
 					}
 			}

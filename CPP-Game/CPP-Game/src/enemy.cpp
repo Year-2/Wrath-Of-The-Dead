@@ -34,13 +34,21 @@ Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture) : renderer(renderer) 
 	this->texture.Init(renderer, texture);
 	xVel = yVel = 0;
 	time = 0;
+
+	SDL_Rect pos = { position.x, position.y,0,0 };
+	health = 100;
+	healthBar = new HealthBar(renderer, pos);
 }
 
-void Enemy::Free(){
+Enemy::~Enemy() {
+	delete healthBar;
+}
+
+void Enemy::Free() {
 	// Nothing to clean yet.
 }
 
-void Enemy::Init(){
+void Enemy::Init() {
 	InitPosition();
 	target = { 512, 288 };
 	xVel = (target.x - position.x) / 300;
@@ -55,6 +63,9 @@ void Enemy::Init(){
 	texture.SetSrc(src);
 	texture.SetFlip(SDL_FLIP_NONE);
 	texture.SetDirection(GetDirection());
+
+	health = 100;
+	healthBar->ChangeHealth(health);
 }
 
 void Enemy::Update() {
@@ -68,12 +79,13 @@ void Enemy::Update() {
 	if (time <= 0) onScreen = false;
 }
 
-void Enemy::Draw(){
+void Enemy::Draw() {
 	if (!Active()) return;
 	texture.DrawEx();
+	healthBar->Draw(dst);
 }
 
-bool Enemy::Active() const{
+bool Enemy::Active() const {
 	return onScreen;
 }
 
@@ -100,4 +112,11 @@ void Enemy::InitPosition() {
 
 int Enemy::GetDirection() {
 	return static_cast<int>(std::atan2f(target.y - position.y, target.x - position.x) * 180.0f / float(M_PI)) + 90.0f;
+}
+
+void Enemy::TakeDamage(int damageAmount) {
+	health -= damageAmount;
+	if (health <= 0 || health > 100)
+		Deactivate();
+	healthBar->ChangeHealth(health);
 }

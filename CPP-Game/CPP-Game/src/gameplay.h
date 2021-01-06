@@ -14,6 +14,7 @@
 #include "enemy.h"
 #include "game.h"
 #include "player.h"
+
 class Game;
 
 class Gameplay : public Scene {
@@ -35,5 +36,4 @@ private:
 	UserInterface* userInterface;
 	Player* player;
 	int score;
-
 };
