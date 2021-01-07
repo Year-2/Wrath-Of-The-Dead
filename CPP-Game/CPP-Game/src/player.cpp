@@ -17,6 +17,7 @@ Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
 	xMoving = false;
 	yMoving = false;
 	currentAnim = lastAnimaton = 0;
+	alive = true;
 }
 
 Player::~Player() {
@@ -109,11 +110,15 @@ SDL_Rect& Player::GetCollider() {
 }
 
 void Player::Die() {
-
+	alive = false;
 }
 
 void Player::Hit(UserInterface* ui, int damageAmount) {
 	(health - damageAmount) < 0 ? Die() : health > 150 ? Die() : void(health-=damageAmount);
 	ui->Health(health);
+}
+
+bool Player::Alive() {
+	return alive;
 }
 

@@ -1,6 +1,7 @@
 #include "gameplay.h"
 #include "collision.h"
 #include "circle.h"
+#include "gameover.h"
 
 using std::cout;
 using std::endl;
@@ -10,6 +11,7 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	enemyManager = new EnemyManager(renderer);
 	userInterface = new UserInterface(renderer);
 	player = new Player(renderer);
+	gameOver = new GameOver(renderer, this);
 	score = 0;
 
 	//	TODO: Circel colliison
@@ -28,59 +30,80 @@ Gameplay::~Gameplay() {
 	delete enemyManager;
 	delete userInterface;
 	delete player;
+	delete gameOver;
 }
 
 void Gameplay::Input() {
-	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT)
-		{
-			isRunning = false;
-			game->SetIsRunning(false);
-		}
-		if (e.type == SDL_KEYDOWN) {
-			if (e.key.keysym.scancode < 512) {
-				keyDown[e.key.keysym.scancode] = true;
+	if (player->Alive()) {
+		while (SDL_PollEvent(&e)) {
+			if (e.type == SDL_QUIT)
+			{
+				isRunning = false;
+				game->SetIsRunning(false);
+			}
+			if (e.type == SDL_KEYDOWN) {
+				if (e.key.keysym.scancode < 512) {
+					keyDown[e.key.keysym.scancode] = true;
+				}
+			}
+			else if (e.type == SDL_KEYUP) {
+				if (e.key.keysym.scancode < 512) {
+					keyDown[e.key.keysym.scancode] = false;
+				}
 			}
 		}
-		else if (e.type == SDL_KEYUP) {
-			if (e.key.keysym.scancode < 512) {
-				keyDown[e.key.keysym.scancode] = false;
+		player->Input(keyDown);
+	}
+	else { //	DEAD
+		while (SDL_PollEvent(&e)) {
+			if (e.type == SDL_QUIT)
+			{
+				isRunning = false;
+				game->SetIsRunning(false);
+			}
+			if (e.type == SDL_KEYDOWN) {
+				if (e.key.keysym.scancode < 512) {
+					keyDown[e.key.keysym.scancode] = true;
+				}
+			}
+			else if (e.type == SDL_KEYUP) {
+				if (e.key.keysym.scancode < 512) {
+					keyDown[e.key.keysym.scancode] = false;
+				}
 			}
 		}
+		gameOver->Input(keyDown);
 	}
-	if (getKeyDown(SDL_SCANCODE_Q)) {
-		isRunning = false;
-		game->SetMenuOptions(Game::Menu::mainmenu);
-	}
-	player->Input(keyDown);
 }
 
-//	TODO: if player not dead continue.
+//	TODO: Gameover screen.
 void Gameplay::Update() {
-	tileMap->Update();
-	enemyManager->Update();
-	player->Update();
+	if (player->Alive()) {
+		tileMap->Update();
+		enemyManager->Update();
+		player->Update();
 
-	auto& bullets(player->GetBullets());
-	auto& enemies(enemyManager->GetEnemies());
-	auto& collTiles(tileMap->GetCollidableTiles());
+		auto& bullets(player->GetBullets());
+		auto& enemies(enemyManager->GetEnemies());
+		auto& collTiles(tileMap->GetCollidableTiles());
 
-	//	TODO: Have score based on kills not hits?
-	for (auto& bullet : bullets)
-		if(bullet->Active())
-			for (auto& enemy : enemies)
-				if (enemy->Active())
-					if (Collision::BoxCollision(bullet->GetCollider(), enemy->GetCollider())) {
-						bullet->Deactivate();
-						//	Make this a bool method to test if player is dead.
-						enemy->TakeDamage(50);
-						userInterface->Score(++score);
-					}
+		//	TODO: Have score based on kills not hits?
+		for (auto& bullet : bullets)
+			if (bullet->Active())
+				for (auto& enemy : enemies)
+					if (enemy->Active())
+						if (Collision::BoxCollision(bullet->GetCollider(), enemy->GetCollider())) {
+							bullet->Deactivate();
+							enemy->TakeDamage(50);
+							userInterface->Score(++score);
+						}
 
-	for (auto& tile : collTiles) {
-		if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider())) {
-			player->Hit(userInterface, 1);
-		}
+		for (auto& tile : collTiles)
+			if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
+				player->Hit(userInterface, 1);
+	}
+	else { //	Dead
+
 	}
 }
 
@@ -92,5 +115,14 @@ void Gameplay::Draw() {
 	userInterface->Draw();
 	player->Draw();
 
+	if (!player->Alive()) {
+		gameOver->Draw();
+	}
+
 	SDL_RenderPresent(renderer);
+}
+
+void Gameplay::SetMainMenu() {
+	isRunning = false;
+	game->SetMenuOptions(Game::Menu::mainmenu);
 }

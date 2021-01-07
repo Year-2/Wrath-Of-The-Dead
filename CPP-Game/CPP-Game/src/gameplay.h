@@ -16,6 +16,7 @@
 #include "player.h"
 
 class Game;
+class GameOver;
 
 class Gameplay : public Scene {
 public:
@@ -27,10 +28,13 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	void SetMainMenu();
+
 private:
 	Tilemap* tileMap;	
 	EnemyManager* enemyManager;
 	UserInterface* userInterface;
 	Player* player;
+	GameOver* gameOver;
 	int score;
 };

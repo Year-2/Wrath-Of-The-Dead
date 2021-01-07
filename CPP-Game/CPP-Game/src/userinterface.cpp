@@ -24,7 +24,6 @@ void UserInterface::Health(int health) {
 	healthFont.Message(std::to_string(health).c_str());
 }
 
-
 void UserInterface::Draw() {
 	healthTexture.DrawNine();
 	healthTitleFont.Draw();

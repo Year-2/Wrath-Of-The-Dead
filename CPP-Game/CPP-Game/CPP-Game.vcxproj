@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="src\bullet.cpp" />
     <ClCompile Include="src\enemy.cpp" />
+    <ClCompile Include="src\gameover.cpp" />
     <ClCompile Include="src\healthbar.cpp" />
     <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\scene.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="src\circle.h" />
     <ClInclude Include="src\collision.h" />
     <ClInclude Include="src\enemy.h" />
+    <ClInclude Include="src\gameover.h" />
     <ClInclude Include="src\healthbar.h" />
     <ClInclude Include="src\objectpooler.h" />
     <ClInclude Include="src\player.h" />

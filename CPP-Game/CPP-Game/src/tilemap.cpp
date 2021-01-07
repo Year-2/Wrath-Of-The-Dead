@@ -24,6 +24,9 @@ Tilemap::Tilemap(SDL_Renderer* renderer) : renderer(renderer) {
 
 Tilemap::~Tilemap() {
 	SDL_DestroyTexture(spritesheet);
+	for (auto tile : tiles)
+		delete tile;
+	tiles.clear();
 }
 
 void Tilemap::CreateMap() {

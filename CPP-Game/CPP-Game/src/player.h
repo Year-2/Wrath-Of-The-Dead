@@ -23,6 +23,7 @@ public:
 	std::vector<Bullet*>& GetBullets() { return bulletManager->GetBullets(); }
 
 	void Hit(UserInterface* ui, int damageAmount);
+	bool Alive();
 
 private:
 	SDL_Renderer* renderer;
@@ -38,4 +39,5 @@ private:
 	bool xMoving, yMoving;
 
 	int health;
+	bool alive;
 };
