@@ -74,6 +74,7 @@ public:
 
 	void Color(SDL_Color color);
 	void Draw();
+	void BoundingBox(SDL_Rect boundingBox);
 
 	void Message(const char* msg) {
 		message = msg;
@@ -81,10 +82,7 @@ public:
 		texture = FontManager::FontTexture(renderer, font, message, color);
 
 		dimensions = FontManager::FontRect(font, msg, pos);
-
-		//	dimensions is dst.
-		//	take in source rect get y 
-		//	figure out x center.
+		dimensions.x = boundingbox.x + ((boundingbox.w - dimensions.w) / 2);
 	}
 
 	void Print() {
@@ -106,6 +104,8 @@ private:
 	SDL_Texture* texture;
 	SDL_Rect dimensions;
 	Vector2D<int> pos;
+
+	SDL_Rect boundingbox;
 };
 
 class Sound {

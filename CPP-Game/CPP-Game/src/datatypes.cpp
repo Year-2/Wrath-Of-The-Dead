@@ -194,6 +194,11 @@ void Font::Init(SDL_Renderer* renderer, const char* filename, int size, const ch
 	dimensions = FontManager::FontRect(font, msg, pos);
 }
 
+void Font::BoundingBox(SDL_Rect boundingBox)
+{
+	this->boundingbox = boundingBox;
+}
+
 void Font::Draw() {
 	SDL_RenderCopy(renderer, texture, 0, &dimensions);
 }

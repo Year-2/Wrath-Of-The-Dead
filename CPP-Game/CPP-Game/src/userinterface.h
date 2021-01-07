@@ -17,8 +17,4 @@ public:
 	Texture scoreTexture;
 	Font scoreTitleFont;
 	Font scoreFont;
-
-	Texture ammoTexture;
-	Font ammoTitleFont;
-	Font ammoFont;
 };
