@@ -28,9 +28,6 @@ public:
 	void Draw() override;
 
 private:
-	Texture background;
-	Font title;
-
 	Tilemap* tileMap;	
 	EnemyManager* enemyManager;
 	UserInterface* userInterface;

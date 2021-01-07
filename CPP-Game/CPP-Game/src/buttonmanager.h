@@ -56,7 +56,7 @@ private:
 	std::array<SDL_Rect, 9>* srcNine;
 	SDL_Texture* texture;
 
-	SDL_Color white = { 255,255,255,255 };
+	SDL_Color white = { 211,191,169,255 };
 	SDL_Color black = { 0, 0, 0, 255 };
 	int noOfButtons;
 	int currentIndex;

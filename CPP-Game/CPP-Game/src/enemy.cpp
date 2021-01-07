@@ -1,4 +1,6 @@
 #include "enemy.h"
+#define ANIM_TIMER 50
+#define NO_OF_ANIMS 8
 
 EnemyManager::EnemyManager(SDL_Renderer* renderer) {
 	texture = TextureManager::LoadTexture(renderer, "enemy.png");
@@ -29,7 +31,7 @@ void EnemyManager::Draw() {
 
 Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture) : renderer(renderer) {
 	onScreen = false;
-	src = { 0,0,32,32 };
+	src = { 0,0,16,16 };
 	dst = { 0,0,32,32 };
 	this->texture.Init(renderer, texture);
 	xVel = yVel = 0;
@@ -38,6 +40,9 @@ Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture) : renderer(renderer) 
 	SDL_Rect pos = { position.x, position.y,0,0 };
 	health = 100;
 	healthBar = new HealthBar(renderer, pos);
+
+	lastAnimaton = 0;
+	currentAnim = 0;
 }
 
 Enemy::~Enemy() {
@@ -61,8 +66,12 @@ void Enemy::Init() {
 
 	texture.SetDst(dst);
 	texture.SetSrc(src);
-	texture.SetFlip(SDL_FLIP_NONE);
-	texture.SetDirection(GetDirection());
+	if(position.x < 512)
+		texture.SetFlip(SDL_FLIP_NONE);
+	else
+		texture.SetFlip(SDL_FLIP_HORIZONTAL);
+	//texture.SetDirection(GetDirection());
+	texture.SetDirection(NULL);
 
 	health = 100;
 	healthBar->ChangeHealth(health);
@@ -77,6 +86,19 @@ void Enemy::Update() {
 	texture.SetDst(dst);
 	time--;
 	if (time <= 0) onScreen = false;
+
+	if (SDL_GetTicks() - lastAnimaton > ANIM_TIMER) {
+		currentAnim > NO_OF_ANIMS ? currentAnim = 0 : currentAnim < 0 ? currentAnim = 0 : currentAnim++;
+
+		for (short i = 0; i < NO_OF_ANIMS; i++)
+		{
+			if (currentAnim == i) {
+				texture.SetSrc(16*i, 0, 16, 16);
+			}
+		}
+
+		lastAnimaton = SDL_GetTicks();
+	}
 }
 
 void Enemy::Draw() {

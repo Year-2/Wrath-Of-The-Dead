@@ -21,7 +21,7 @@ Button::Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& dst,
 	font = FontManager::LoadFont("test.ttf", 20);
 	textPos = FontManager::FontRect(font, message);
 	buttonSize = dst;
-	textColor = { 255,255,255,255 };
+	textColor = { 211,191,169,255 };
 
 	buttonImage.Init(renderer, texture);
 	buttonImage.SetNineSrc(srcNine);
@@ -63,7 +63,7 @@ void Button::Draw() {
 /// <param name="renderer">
 ///		Renderer to be drawn to.
 /// </param>
-ButtonManager::ButtonManager(SDL_Renderer* renderer) : renderer(renderer){
+ButtonManager::ButtonManager(SDL_Renderer* renderer) : renderer(renderer) {
 	texture = TextureManager::LoadTexture(renderer, "button.png");
 	srcNine = TextureManager::NineClipSrc(5, 49, 45);
 	currentIndex = 0;

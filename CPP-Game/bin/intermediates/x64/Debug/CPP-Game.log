@@ -1,16 +1,2 @@
-﻿  fileparser.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
-  game.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
-  gameplay.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
-  hiscores.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
-  main.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
-  mainmenu.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
-  tilemap.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
-  Generating Code...
+﻿  player.cpp
   CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\bin\x64\Debug\CPP-Game.exe

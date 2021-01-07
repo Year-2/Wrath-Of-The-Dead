@@ -25,4 +25,9 @@ private:
 	int xVelocity, yVelocity;
 	int angle;
 	BulletManager* bulletManager;
+
+	bool flip;
+	unsigned int lastAnimaton;
+	int currentAnim;
+	bool xMoving, yMoving;
 };

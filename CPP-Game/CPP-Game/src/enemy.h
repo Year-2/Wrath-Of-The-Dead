@@ -46,6 +46,8 @@ private:
 	Vector2D<float> target;
 	HealthBar* healthBar;
 	int health;
+	unsigned int lastAnimaton;
+	int currentAnim;
 };
 
 class EnemyManager {

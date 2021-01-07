@@ -1,10 +1,10 @@
 #include "tilemap.h"
 
 Tilemap::Tilemap(SDL_Renderer* renderer) : renderer(renderer) {
-	spritesheet = TextureManager::LoadTexture(renderer, "tiles.png");
+	spritesheet = TextureManager::LoadTexture(renderer, "tilemapSpritesheet.png");
 
 	int index = 0;
-	int* arr = BinaryFileParser().ReadFile("tilemap.bin", 576);
+	int* arr = BinaryFileParser().ReadFile("newmap.bin", 576);
 	for (int y = 0; y < TILEMAP_HEIGHT; y++)
 	{
 		for (int x = 0; x < TILEMAP_WIDTH; x++)
@@ -28,7 +28,7 @@ void Tilemap::CreateMap() {
 		for (int x = 0; x < TILEMAP_WIDTH; x++)
 		{
 			SDL_Rect dst = { TILE_SIZE * x, TILE_SIZE * y, TILE_SIZE, TILE_SIZE };
-			SDL_Rect src = { (MAP_DATA[y][x] % 2) * 16, (MAP_DATA[y][x] / 2) * 16, 16, 16 };
+			SDL_Rect src = { (MAP_DATA[y][x] % 6) * 16, (MAP_DATA[y][x] / 6) * 16, 16, 16 };
 			tiles.push_back(Tile(renderer, spritesheet, src, dst));
 		}
 	}
