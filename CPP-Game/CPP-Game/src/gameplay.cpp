@@ -55,12 +55,15 @@ void Gameplay::Input() {
 	player->Input(keyDown);
 }
 
+//	TODO: if player not dead continue.
 void Gameplay::Update() {
+	tileMap->Update();
 	enemyManager->Update();
 	player->Update();
 
 	auto& bullets(player->GetBullets());
 	auto& enemies(enemyManager->GetEnemies());
+	auto& collTiles(tileMap->GetCollidableTiles());
 
 	//	TODO: Have score based on kills not hits?
 	for (auto& bullet : bullets)
@@ -73,6 +76,12 @@ void Gameplay::Update() {
 						enemy->TakeDamage(50);
 						userInterface->Score(++score);
 					}
+
+	for (auto& tile : collTiles) {
+		if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider())) {
+			player->Hit(userInterface, 1);
+		}
+	}
 }
 
 void Gameplay::Draw() {

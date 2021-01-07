@@ -21,6 +21,12 @@ public:
 	Tile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect srcData, SDL_Rect dstData);
 	~Tile();
 
+	SDL_Rect& GetCollider();
+
+	void Animated();
+	void Collideable();
+
+	void Update();
 	void Draw();
 
 private:
@@ -29,6 +35,13 @@ private:
 
 	SDL_Rect tileSrcData;
 	SDL_Rect tileDstData;
+	SDL_Rect storedSrc;
+
+	bool animated;
+	unsigned int lastAnimaton;
+	int currentAnim;
+
+	bool collideable;
 };
 
 class Tilemap {
@@ -37,7 +50,11 @@ public:
 	~Tilemap();
 
 	void CreateMap();
+
+	void Update();
 	void Draw();
+
+	std::vector<Tile*>& GetCollidableTiles();
 
 private:
 	enum TileType {
@@ -52,6 +69,7 @@ private:
 	SDL_Renderer* renderer;
 	SDL_Texture* spritesheet;
 
-	std::vector<Tile> tiles;
-	std::vector<Tile> collidableTiles;
+	std::vector<Tile*> tiles;
+	std::vector<Tile*> collidableTiles;
+	std::vector<Tile*> animatedTiles;
 };

@@ -5,6 +5,8 @@
 #include "bullet.h"
 #define SPEED 4
 
+class UserInterface;
+
 class Player {
 public:
 	Player(SDL_Renderer* renderer);
@@ -14,9 +16,13 @@ public:
 	void Update();
 	void Draw();
 
+	SDL_Rect& GetCollider();
+	void Die();
 	int& GetAngle() { return angle; }
 	Vector2D<int>& GetPos() { return pos; }
 	std::vector<Bullet*>& GetBullets() { return bulletManager->GetBullets(); }
+
+	void Hit(UserInterface* ui, int damageAmount);
 
 private:
 	SDL_Renderer* renderer;
@@ -30,4 +36,6 @@ private:
 	unsigned int lastAnimaton;
 	int currentAnim;
 	bool xMoving, yMoving;
+
+	int health;
 };

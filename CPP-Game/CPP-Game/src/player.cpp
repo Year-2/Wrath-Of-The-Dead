@@ -1,10 +1,13 @@
 #include "player.h"
+#include "userinterface.h"
+
 #define ANIM_TIMER 50
 #define NO_OF_ANIMS 8
 
 Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
+	health = 150;
 	pos = { 496,272 };
-	texture.Init(renderer, "alpha/player.png");
+	texture.Init(renderer, "player.png");
 	texture.SetSrc({ 0,0,16,16 });
 	texture.SetDst(pos.x, pos.y, 48, 48);
 	xVelocity = yVelocity = 0;
@@ -13,6 +16,7 @@ Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
 	flip = false;
 	xMoving = false;
 	yMoving = false;
+	currentAnim = lastAnimaton = 0;
 }
 
 Player::~Player() {
@@ -54,20 +58,19 @@ void Player::Input(bool* keyDown) {
 	bulletManager->Input(keyDown);
 }
 
-//	TODO: have player anim only play while running with input.
 void Player::Update() {
 	pos.x += xVelocity;
 	pos.y += yVelocity;
 
-	if (pos.x >= 990) {
-		pos.x = 992;
+	if (pos.x >= 975) {
+		pos.x = 975;
 	}
 	else if (pos.x <= 0) {
 		pos.x = 0;
 	}
 
-	if (pos.y >= 544) {
-		pos.y = 544;
+	if (pos.y >= 544 - 45) {
+		pos.y = 544 - 45;
 	}
 	else if (pos.y <= 0) {
 		pos.y = 0;
@@ -96,10 +99,21 @@ void Player::Update() {
 }
 
 void Player::Draw() {
-
 	flip ? texture.SetFlip(SDL_FLIP_HORIZONTAL) : texture.SetFlip(SDL_FLIP_NONE);
 	bulletManager->Draw();
 	texture.DrawEx();
 }
 
+SDL_Rect& Player::GetCollider() {
+	return texture.GetDstRect();
+}
+
+void Player::Die() {
+
+}
+
+void Player::Hit(UserInterface* ui, int damageAmount) {
+	(health - damageAmount) < 0 ? Die() : health > 150 ? Die() : void(health-=damageAmount);
+	ui->Health(health);
+}
 

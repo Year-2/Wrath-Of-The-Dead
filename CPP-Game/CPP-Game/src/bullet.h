@@ -4,7 +4,7 @@
 #include "vector2d.h"
 
 #define NUMBER_OF_BULLETS 20
-#define BULLET_SPEED 14
+#define BULLET_SPEED 8
 class Player;
 
 class Bullet : public ObjectPoolBase {
@@ -36,6 +36,10 @@ private:
 	Vector2D<int> pos;
 	int rotation, distance;
 	bool active;
+
+	int health;
+	unsigned int lastAnimaton;
+	int currentAnim;
 };
 
 class BulletManager {

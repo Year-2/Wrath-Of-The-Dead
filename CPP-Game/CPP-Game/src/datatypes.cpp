@@ -183,13 +183,13 @@ Font::Font() {
 	message = nullptr;
 }
 
-
 void Font::Init(SDL_Renderer* renderer, const char* filename, int size, const char* msg, Vector2D<int> pos, SDL_Color color)
 {
 	this->renderer = renderer;
 	this->message = msg;
 	font = FontManager::LoadFont(filename, size);
 	this->color = color;
+	this->pos = pos;
 	texture = FontManager::FontTexture(renderer, font, msg, color);
 	dimensions = FontManager::FontRect(font, msg, pos);
 }

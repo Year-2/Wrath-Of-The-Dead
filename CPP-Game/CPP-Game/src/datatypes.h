@@ -75,14 +75,20 @@ public:
 	void Color(SDL_Color color);
 	void Draw();
 
-	void Message(const char* msg){ 
+	void Message(const char* msg) {
 		message = msg;
 		SDL_DestroyTexture(texture);
 		texture = FontManager::FontTexture(renderer, font, message, color);
+
+		dimensions = FontManager::FontRect(font, msg, pos);
+
+		//	dimensions is dst.
+		//	take in source rect get y 
+		//	figure out x center.
 	}
 
 	void Print() {
-		std::cout << "====================\n" << 
+		std::cout << "====================\n" <<
 			"renderer: " << renderer << "\n" <<
 			"message: " << message << "\n" <<
 			"font: " << font << "\n" <<
@@ -99,6 +105,7 @@ private:
 	SDL_Color color;
 	SDL_Texture* texture;
 	SDL_Rect dimensions;
+	Vector2D<int> pos;
 };
 
 class Sound {

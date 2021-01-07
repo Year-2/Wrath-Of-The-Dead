@@ -5,7 +5,7 @@ UserInterface::UserInterface(SDL_Renderer* renderer) {
 	healthTexture.SetNineSrc(5, 32, 32);
 	healthTexture.SetNineDst(50, 50, 100, 50, 5);
 	healthTitleFont.Init(renderer, "test.ttf", 16, "HEALTH:", Vector2D<int>(55, 55), { 211,191,169,255 });
-	healthFont.Init(renderer, "test.ttf", 16, "100", Vector2D<int>(82, 75), { 211,191,169,255 });
+	healthFont.Init(renderer, "test.ttf", 16, "150", Vector2D<int>(82, 75), { 211,191,169,255 });
 
 	scoreTexture.Init(renderer, "greypanel.png");
 	scoreTexture.SetNineSrc(5, 32, 32);
@@ -22,6 +22,10 @@ UserInterface::UserInterface(SDL_Renderer* renderer) {
 
 void UserInterface::Score(int score) {
 	scoreFont.Message(std::to_string(score).c_str());
+}
+
+void UserInterface::Health(int health) {
+	healthFont.Message(std::to_string(health).c_str());
 }
 
 
