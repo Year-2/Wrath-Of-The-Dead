@@ -18,7 +18,7 @@
 Button::Button(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect& dst,
 	const char* message, std::array<SDL_Rect, 9>* srcNine) : renderer(renderer), message(message)
 {
-	font = FontManager::LoadFont("test.ttf", 20);
+	font = FontManager::LoadFont("font.ttf", 20);
 	textPos = FontManager::FontRect(font, message);
 	buttonSize = dst;
 	textColor = { 211,191,169,255 };
@@ -64,7 +64,7 @@ void Button::Draw() {
 ///		Renderer to be drawn to.
 /// </param>
 ButtonManager::ButtonManager(SDL_Renderer* renderer) : renderer(renderer) {
-	texture = TextureManager::LoadTexture(renderer, "button.png");
+	texture = TextureManager::LoadTexture(renderer, "brownButton.png");
 	srcNine = TextureManager::NineClipSrc(5, 49, 45);
 	currentIndex = 0;
 	increment = 0;

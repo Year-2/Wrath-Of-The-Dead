@@ -26,12 +26,10 @@ public:
 	PlayerInfo(std::string lineContents);
 
 	int GetScore() { return score; }
-	std::string GetUsername() { return username; }
 
-	void PrintPlayerInfo() { std::cout << username << " " << score << "\n"; }
+	void PrintPlayerInfo() { std::cout << score << "\n"; }
 
 private:
-	std::string username;
 	int score;
 };
 
@@ -71,7 +69,6 @@ public:
 		}
 	}
 
-	void GetFile(const std::string filename) {};
 	void SetFile() {};
 
 	void PrintList() {
@@ -79,7 +76,7 @@ public:
 			it->PrintPlayerInfo();
 	}
 
-	std::vector<T>& GetList() {
+	std::vector<T*>& GetList() {
 		return items;
 	}
 
@@ -87,7 +84,6 @@ private:
 	std::vector<T*> items;
 };
 
-//TODO: Make this a generic template at some point. T
 class BinaryFileParser {
 public:
 

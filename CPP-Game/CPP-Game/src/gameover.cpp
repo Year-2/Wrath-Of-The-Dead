@@ -3,12 +3,12 @@
 
 GameOver::GameOver(SDL_Renderer* renderer, Gameplay* gameplay)
 {
-	background.Init(renderer, "greypanel.png");
+	background.Init(renderer, "beigePanel.png");
 	background.SetNineSrc(5, 32, 32);
 	background.SetNineDst(300, 100, 424, 376, 5);
 
-	game.Init(renderer, "test.ttf", 50, "GAME", Vector2D<int>(420, 169), { 211,191,169,255 });
-	over.Init(renderer, "test.ttf", 50, "OVER!", Vector2D<int>(412, 244), { 211,191,169,255 });
+	game.Init(renderer, "font.ttf", 50, "GAME", Vector2D<int>(420, 169), { 211,191,169,255 });
+	over.Init(renderer, "font.ttf", 50, "OVER!", Vector2D<int>(412, 244), { 211,191,169,255 });
 
 	buttonManager = new ButtonManager(renderer);
 	buttonManager->AddButton({ 362, 330, 300, 100 }, "EXIT");

@@ -30,4 +30,8 @@ private:
 	ButtonManager* buttonManager;
 	TextFileParser<PlayerInfo>* fileParser;
 	std::vector<PlayerInfo> players;
+
+	Font first;
+	Font second;
+	Font third;
 };

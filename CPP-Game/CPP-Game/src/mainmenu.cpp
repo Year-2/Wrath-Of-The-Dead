@@ -4,12 +4,12 @@ using std::cout;
 using std::endl;
 
 MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
-	background.Init(renderer, "greypanel.png");
+	background.Init(renderer, "beigePanel.png");
 	background.SetNineDst(322, 122, 380, 400, 5);
 	background.SetNineSrc(5, 32, 32);
 
-	title.Init(renderer, "test.ttf", 40, "MAIN MENU", Vector2D<int>(369, 71), { 255, 255, 255, 255 });
-	titleBorder.Init(renderer, "bluepanel.png");
+	title.Init(renderer, "font.ttf", 40, "MAIN MENU", Vector2D<int>(369, 71), { 255, 255, 255, 255 });
+	titleBorder.Init(renderer, "brownPanel.png");
 	titleBorder.SetNineDst(322, 54, 380, 100, 5);
 	titleBorder.SetNineSrc(5, 32, 32);
 

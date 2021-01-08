@@ -2,6 +2,8 @@
 #include "collision.h"
 #include "circle.h"
 #include "gameover.h"
+#include "fileparser.h"
+#include <algorithm>
 
 using std::cout;
 using std::endl;
@@ -13,6 +15,15 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	player = new Player(renderer);
 	gameOver = new GameOver(renderer, this);
 	score = 0;
+	calledOnce = true;
+
+	TextFileParser<PlayerInfo>* fileParser = new TextFileParser<PlayerInfo>("scores.txt", [](std::vector<PlayerInfo*>& value) {
+		sort(begin(value), end(value), [](PlayerInfo* one, PlayerInfo* two) -> bool {
+			return one->GetScore() > two->GetScore();
+			});
+		}
+	);
+	items = fileParser->GetList();
 
 	//	TODO: Circel colliison
 	//Circle a = { 1,1,3 };
@@ -100,6 +111,25 @@ void Gameplay::Update() {
 		for (auto& tile : collTiles)
 			if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
 				player->Hit(userInterface, 1);
+	}
+	else {
+		if (calledOnce) {
+
+			items.push_back(new PlayerInfo(to_string(score)));
+			sort(begin(items), end(items), [](PlayerInfo* one, PlayerInfo* two) -> bool {
+				return one->GetScore() > two->GetScore();
+				});
+
+			std::ofstream file("assets/files/scores.txt");
+			if (file.is_open()) {
+					file << items[0]->GetScore() << endl;
+					file << items[1]->GetScore() << endl;
+					file << items[2]->GetScore();
+			}
+			file.close();
+
+			calledOnce = false;
+		}
 	}
 }
 

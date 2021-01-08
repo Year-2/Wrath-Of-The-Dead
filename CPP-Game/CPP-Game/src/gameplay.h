@@ -37,4 +37,6 @@ private:
 	Player* player;
 	GameOver* gameOver;
 	int score;
+	bool calledOnce;
+	std::vector<PlayerInfo*> items;
 };
