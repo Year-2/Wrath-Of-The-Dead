@@ -76,7 +76,6 @@ void Gameplay::Input() {
 	}
 }
 
-//	TODO: Gameover screen.
 void Gameplay::Update() {
 	if (player->Alive()) {
 		tileMap->Update();
@@ -102,18 +101,15 @@ void Gameplay::Update() {
 			if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
 				player->Hit(userInterface, 1);
 	}
-	else { //	Dead
-
-	}
 }
 
 void Gameplay::Draw() {
 	SDL_RenderClear(renderer);
 
 	tileMap->Draw();
+	player->Draw();
 	enemyManager->Draw();
 	userInterface->Draw();
-	player->Draw();
 
 	if (!player->Alive()) {
 		gameOver->Draw();

@@ -66,7 +66,7 @@ void Enemy::Init() {
 
 	texture.SetDst(dst);
 	texture.SetSrc(src);
-	if(position.x < 512)
+	if (position.x < 512)
 		texture.SetFlip(SDL_FLIP_NONE);
 	else
 		texture.SetFlip(SDL_FLIP_HORIZONTAL);
@@ -93,7 +93,7 @@ void Enemy::Update() {
 		for (short i = 0; i < NO_OF_ANIMS; i++)
 		{
 			if (currentAnim == i) {
-				texture.SetSrc(16*i, 0, 16, 16);
+				texture.SetSrc(16 * i, 0, 16, 16);
 			}
 		}
 
@@ -116,20 +116,40 @@ void Enemy::Deactivate() {
 }
 
 void Enemy::InitPosition() {
-	float probability = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-	float coinFlip = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-	if (probability < .64f) {
-		if (coinFlip < .5f)
-			position = { float(rand() % 1088) - 32.0f,  -32.0f };
-		else
-			position = { float(rand() % 1088) - 32.0f,  608 };
-	}
-	else {
-		if (coinFlip < .5f)
-			position = { -32.0f,  float(rand() % 640) - 32.0f };
-		else
-			position = { 1056,  float(rand() % 640) - 32.0f };
-	}
+	std::vector<Vector2D<int>> spawns = {
+			Vector2D<int>{  8, 1  } ,
+			Vector2D<int>{ 14, 1  },
+			Vector2D<int>{ 19, 1  },
+			Vector2D<int>{ 24, 1  },
+			Vector2D<int>{ 30, 1  },
+			Vector2D<int>{  4, 2  },
+			Vector2D<int>{ 11, 2  },
+			Vector2D<int>{ 21, 2  },
+			Vector2D<int>{ 27, 2  },
+			Vector2D<int>{  2, 3  },
+			Vector2D<int>{  6, 3  },
+			Vector2D<int>{ 16, 3  },
+			Vector2D<int>{ 29, 5  },
+			Vector2D<int>{  1, 8  },
+			Vector2D<int>{ 30, 9  },
+			Vector2D<int>{  1, 12 },
+			Vector2D<int>{ 29, 13 },
+			Vector2D<int>{  3, 14 },
+			Vector2D<int>{ 13, 14 },
+			Vector2D<int>{ 18, 14 },
+			Vector2D<int>{ 23, 14 },
+			Vector2D<int>{ 26, 14 },
+			Vector2D<int>{  5, 15 },
+			Vector2D<int>{  8, 15 },
+			Vector2D<int>{ 21, 15 },
+			Vector2D<int>{ 10, 16 },
+			Vector2D<int>{ 15, 16 },
+			Vector2D<int>{ 28, 16 },
+	};
+
+	Vector2D<int> cache = spawns[rand() % 28];
+	position.x = cache.x * 32;
+	position.y = cache.y * 32;
 }
 
 int Enemy::GetDirection() {

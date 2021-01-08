@@ -5,10 +5,8 @@
 Tilemap::Tilemap(SDL_Renderer* renderer) : renderer(renderer) {
 	spritesheet = TextureManager::LoadTexture(renderer, "tilemap.png");
 
-	//BinaryFileParser().GenerateTilemapFile("tilemap2.bin");
-
 	int index = 0;
-	int* arr = BinaryFileParser().ReadFile("tilemap2.bin", 576);
+	int* arr = BinaryFileParser().ReadFile("tilemap.bin", 576);
 	for (int y = 0; y < TILEMAP_HEIGHT; y++)
 	{
 		for (int x = 0; x < TILEMAP_WIDTH; x++)
@@ -53,6 +51,10 @@ void Tilemap::CreateMap() {
 					animatedTiles.push_back(tiles[(y * TILEMAP_WIDTH) + x]);
 				}
 			}
+
+			////	Holes
+			//if (MAP_DATA[y][x] == 28)
+			//	std::cout << "{ " << x << ", " << y << " }" << std::endl;
 		}
 	}
 }
