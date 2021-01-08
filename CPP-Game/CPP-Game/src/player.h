@@ -35,9 +35,15 @@ private:
 
 	bool flip;
 	unsigned int lastAnimaton;
+	unsigned int lastWalkSound;
+	unsigned int lastHurtSound;
 	int currentAnim;
 	bool xMoving, yMoving;
 
 	int health;
 	bool alive;
+
+	Sound footsteps;
+	Sound injury;
+	Sound death;
 };

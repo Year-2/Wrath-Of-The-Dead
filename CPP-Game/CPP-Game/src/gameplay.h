@@ -38,5 +38,7 @@ private:
 	GameOver* gameOver;
 	int score;
 	bool calledOnce;
+	TextFileParser<PlayerInfo>* fileParser;
 	std::vector<PlayerInfo*> items;
+	Sound music;
 };

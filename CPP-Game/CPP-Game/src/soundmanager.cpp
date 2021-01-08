@@ -21,8 +21,8 @@ Mix_Music* SoundManager::LoadMusic(const char* filename) {
 		return result;
 	}
 	catch (std::exception& e) {
-		std::cout << "An exception was thrown." << "\n";
-		std::cout << "\t" << e.what() << ": " << "\t" << Mix_GetError();
+		std::cout << "An exception was thrown." << std::endl;
+		std::cout << e.what() << ": " << "\t" << Mix_GetError();
 		return nullptr;
 	}
 }

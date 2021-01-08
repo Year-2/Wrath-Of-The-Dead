@@ -262,6 +262,7 @@ void Sound::Free() {
 /// </param>
 void Sound::LoadMusic(const char* filepath) {
 	music = SoundManager::LoadMusic(filepath);
+	Mix_VolumeMusic(1);
 }
 
 /// <summary>
@@ -272,6 +273,7 @@ void Sound::LoadMusic(const char* filepath) {
 /// </param>
 void Sound::LoadSfx(const char* filepath) {
 	sfx = SoundManager::LoadSFX(filepath);
+	Mix_VolumeChunk(sfx, 5);
 }
 
 /// <summary>

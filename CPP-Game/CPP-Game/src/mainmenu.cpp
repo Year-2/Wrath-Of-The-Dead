@@ -18,6 +18,8 @@ MainMenu::MainMenu(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	buttonManager->AddButton({ 362, 272, 300, 100 }, "HISCORES");
 	buttonManager->AddButton({ 362, 382, 300, 100 }, "EXIT");
 	buttonManager->SetButtons();
+
+	move.LoadSfx("menuMove.wav");
 }
 
 MainMenu::~MainMenu() {
@@ -35,8 +37,14 @@ void MainMenu::Input() {
 			if (e.key.keysym.scancode < 512) {
 				keyDown[e.key.keysym.scancode] = true;
 			}
-			if (e.key.keysym.sym == SDLK_UP) buttonManager->MoveUp();
-			if (e.key.keysym.sym == SDLK_DOWN) buttonManager->MoveDown();
+			if (e.key.keysym.sym == SDLK_UP) {
+				buttonManager->MoveUp();
+				move.PlaySfx();
+			}
+			if (e.key.keysym.sym == SDLK_DOWN) {
+				buttonManager->MoveDown();
+				move.PlaySfx();
+			}
 			if (e.key.keysym.sym == SDLK_RETURN) {
 				switch (buttonManager->Select())
 				{

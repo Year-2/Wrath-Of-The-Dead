@@ -31,4 +31,6 @@ private:
 	Texture titleBorder;
 
 	ButtonManager* buttonManager;
+
+	Sound move;
 };

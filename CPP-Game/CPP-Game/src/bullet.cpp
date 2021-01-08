@@ -15,6 +15,8 @@ Bullet::Bullet(SDL_Renderer* renderer, SDL_Texture* texture)
 
 	lastAnimaton = 0;
 	currentAnim = 0;
+
+	fireball.LoadSfx("fireball.wav");
 }
 
 void Bullet::Free()
@@ -34,6 +36,8 @@ void Bullet::Init(Vector2D<int>& pos, int angle, int distance)
 	rotation == 270 ? texture.SetFlip(SDL_FLIP_HORIZONTAL) : texture.SetFlip(SDL_FLIP_NONE);
 	//	Check up/down
 	rotation == 0 ? texture.SetDirection(270) : rotation == 180 ? texture.SetDirection(90) : texture.SetDirection(0);
+
+	fireball.PlaySfx();
 
 }
 

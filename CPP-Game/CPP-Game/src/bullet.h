@@ -40,6 +40,8 @@ private:
 	int health;
 	unsigned int lastAnimaton;
 	int currentAnim;
+
+	Sound fireball;
 };
 
 class BulletManager {

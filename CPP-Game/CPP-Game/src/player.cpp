@@ -2,6 +2,8 @@
 #include "userinterface.h"
 
 #define ANIM_TIMER 50
+#define WALK_SOUND 300
+#define INJURY_SOUND 300
 #define NO_OF_ANIMS 8
 
 Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
@@ -16,8 +18,13 @@ Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
 	flip = false;
 	xMoving = false;
 	yMoving = false;
-	currentAnim = lastAnimaton = 0;
+	currentAnim = lastAnimaton = lastWalkSound = 0;
+	lastHurtSound = 301;
 	alive = true;
+
+	footsteps.LoadSfx("footsteps.wav");
+	injury.LoadSfx("injury.wav");
+	death.LoadSfx("death.wav");
 }
 
 Player::~Player() {
@@ -87,8 +94,13 @@ void Player::Update() {
 					texture.SetSrc(16 * i, 0, 16, 16);
 				}
 			}
-
 			lastAnimaton = SDL_GetTicks();
+		}
+
+		if (SDL_GetTicks() - lastWalkSound > WALK_SOUND) {
+
+			footsteps.PlaySfx();
+			lastWalkSound = SDL_GetTicks();
 		}
 	}
 	else {
@@ -110,12 +122,20 @@ SDL_Rect& Player::GetCollider() {
 }
 
 void Player::Die() {
+	death.PlaySfx();
 	alive = false;
 }
 
 void Player::Hit(UserInterface* ui, int damageAmount) {
-	(health - damageAmount) < 0 ? Die() : health > 150 ? Die() : void(health-=damageAmount);
+	(health - damageAmount) < 0 ? Die() : health > 150 ? Die() : void(health -= damageAmount);
 	ui->Health(health);
+
+	if (SDL_GetTicks() - lastHurtSound > INJURY_SOUND) {
+
+		injury.PlaySfx();
+		lastHurtSound = SDL_GetTicks();
+	}
+
 }
 
 bool Player::Alive() {

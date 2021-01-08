@@ -17,7 +17,7 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	score = 0;
 	calledOnce = true;
 
-	TextFileParser<PlayerInfo>* fileParser = new TextFileParser<PlayerInfo>("scores.txt", [](std::vector<PlayerInfo*>& value) {
+	fileParser = new TextFileParser<PlayerInfo>("scores.txt", [](std::vector<PlayerInfo*>& value) {
 		sort(begin(value), end(value), [](PlayerInfo* one, PlayerInfo* two) -> bool {
 			return one->GetScore() > two->GetScore();
 			});
@@ -25,7 +25,10 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	);
 	items = fileParser->GetList();
 
-	//	TODO: Circel colliison
+	music.LoadMusic("backgroundMusic.wav");
+	music.PlayMusic();
+
+	//	TODO: Circle colliison
 	//Circle a = { 1,1,3 };
 	//Circle b = { 5,5,3 };
 	//if (Collision::CircleCollision(a, b))
@@ -42,6 +45,7 @@ Gameplay::~Gameplay() {
 	delete userInterface;
 	delete player;
 	delete gameOver;
+	delete fileParser;
 }
 
 void Gameplay::Input() {
@@ -122,9 +126,9 @@ void Gameplay::Update() {
 
 			std::ofstream file("assets/files/scores.txt");
 			if (file.is_open()) {
-					file << items[0]->GetScore() << endl;
-					file << items[1]->GetScore() << endl;
-					file << items[2]->GetScore();
+				file << items[0]->GetScore() << endl;
+				file << items[1]->GetScore() << endl;
+				file << items[2]->GetScore();
 			}
 			file.close();
 
