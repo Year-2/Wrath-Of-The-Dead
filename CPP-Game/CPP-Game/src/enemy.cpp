@@ -163,9 +163,12 @@ int Enemy::GetDirection() {
 	return static_cast<int>(std::atan2f(target.y - position.y, target.x - position.x) * 180.0f / float(M_PI)) + 90.0f;
 }
 
-void Enemy::TakeDamage(int damageAmount) {
+bool Enemy::TakeDamage(int damageAmount) {
 	health -= damageAmount;
-	if (health <= 0 || health > 100)
+	if (health <= 0 || health > 100) {
 		Deactivate();
+		return true;
+	}
 	healthBar->ChangeHealth(health);
+	return false;
 }

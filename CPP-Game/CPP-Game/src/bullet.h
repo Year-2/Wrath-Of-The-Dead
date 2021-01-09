@@ -48,7 +48,6 @@ private:
 
 	Sound fireball;
 	Circle collider;
-
 };
 
 class BulletManager {

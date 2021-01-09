@@ -28,7 +28,7 @@ public:
 	void Deactivate() override;
 	int GetDirection();
 
-	void TakeDamage(int damageAmount);
+	bool TakeDamage(int damageAmount);
 
 	SDL_Rect& GetCollider() {
 		return collider;

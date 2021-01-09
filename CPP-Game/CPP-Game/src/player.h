@@ -9,7 +9,7 @@ class UserInterface;
 
 class Player {
 public:
-	Player(SDL_Renderer* renderer);
+	Player(SDL_Renderer* renderer, UserInterface* userInterface);
 	~Player();
 
 	void Input(bool* keyDown);
@@ -21,9 +21,12 @@ public:
 	int& GetAngle() { return angle; }
 	Vector2D<int>& GetPos() { return pos; }
 	std::vector<Bullet*>& GetBullets() { return bulletManager->GetBullets(); }
+	int GetScore() { return score; }
 
-	void Hit(UserInterface* ui, int damageAmount);
+	void Hit(int damageAmount);
+	void IncreaseScore(int scoreAmount);
 	bool Alive();
+	void Teleport();
 
 private:
 	SDL_Renderer* renderer;
@@ -31,10 +34,15 @@ private:
 	Texture texture;
 	int xVelocity, yVelocity;
 	int angle;
+
 	BulletManager* bulletManager;
+	UserInterface* userInterface;
+
+	int score;
 
 	bool flip;
 	unsigned int lastAnimaton;
+	unsigned int lastTeleport;
 	unsigned int lastWalkSound;
 	unsigned int lastHurtSound;
 	int currentAnim;
@@ -49,4 +57,11 @@ private:
 
 	//Texture hitBox;
 	SDL_Rect collider;
+
+	enum FACING {
+		LEFT = 270,
+		RIGHT = 90,
+		UP = 0,
+		DOWN = 180
+	};
 };

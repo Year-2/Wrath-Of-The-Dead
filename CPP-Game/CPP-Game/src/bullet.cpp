@@ -4,11 +4,15 @@
 #define ANIM_TIMER 100
 #define NO_OF_ANIMS 8
 
+#define X_POINT 32
+#define Y_POINT 32
+#define RADIUS 20
+
 Bullet::Bullet(SDL_Renderer* renderer, SDL_Texture* texture)
 	: renderer(renderer) {
 	this->texture.Init(renderer, texture);
 	this->texture.SetSrc(0, 0, 32, 32);
-	this->texture.SetDst(0, 0, 32, 32);
+	this->texture.SetDst(0, 0, 64, 64);
 	pos = { 0,0 };
 	rotation = distance = 0;
 	active = false;
@@ -17,6 +21,8 @@ Bullet::Bullet(SDL_Renderer* renderer, SDL_Texture* texture)
 	currentAnim = 0;
 
 	fireball.LoadSfx("fireball.wav");
+
+	collider = { 0,0,0 };
 }
 
 void Bullet::Free()
@@ -39,7 +45,7 @@ void Bullet::Init(Vector2D<int>& pos, int angle, int distance)
 
 	fireball.PlaySfx();
 
-	collider = { pos.x + 21, pos.y + 15, 12 };
+	collider = { pos.x + X_POINT, pos.y + Y_POINT, RADIUS };
 
 }
 
@@ -49,7 +55,7 @@ void Bullet::Update()
 	pos.x += sin(rotation * M_PI / 180.0f) * BULLET_SPEED;
 	pos.y -= cos(rotation * M_PI / 180.0f) * BULLET_SPEED;
 	texture.SetDst(pos);
-	collider = { pos.x + 21, pos.y + 15, 12 };
+	collider = { pos.x + X_POINT, pos.y + Y_POINT, RADIUS };
 	distance -= BULLET_SPEED;
 
 	if (SDL_GetTicks() - lastAnimaton > ANIM_TIMER) {

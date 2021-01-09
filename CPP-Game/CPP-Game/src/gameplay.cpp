@@ -12,7 +12,7 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	tileMap = new Tilemap(renderer);
 	enemyManager = new EnemyManager(renderer);
 	userInterface = new UserInterface(renderer);
-	player = new Player(renderer);
+	player = new Player(renderer, userInterface);
 	gameOver = new GameOver(renderer, this);
 	score = 0;
 	calledOnce = true;
@@ -108,18 +108,20 @@ void Gameplay::Update() {
 					if (enemy->Active())
 						if (Collision::ComplexCollision(bullet->GetCircleCollider(), enemy->GetCollider())) {
 							bullet->Deactivate();
-							enemy->TakeDamage(50);
-							userInterface->Score(++score);
+							if (enemy->TakeDamage(50)) {  // TRUE when enemy dies, false while alive.
+								//userInterface->Score(++score);
+								player->IncreaseScore(1);
+							}
 						}
 
 		for (auto& tile : collTiles)
 			if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
-				player->Hit(userInterface, 1);
+				player->Hit(1);
 	}
 	else {
 		if (calledOnce) {
 
-			items.push_back(new PlayerInfo(to_string(score)));
+			items.push_back(new PlayerInfo(to_string(player->GetScore())));
 			sort(begin(items), end(items), [](PlayerInfo* one, PlayerInfo* two) -> bool {
 				return one->GetScore() > two->GetScore();
 				});
