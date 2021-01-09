@@ -1,10 +1,11 @@
 #include "player.h"
 #include "userinterface.h"
+#include "tilemap.h"
 
 #define ANIM_TIMER 50
 #define TELEPORT_TIMER 1000
 #define WALK_SOUND 300
-#define INJURY_SOUND 300
+#define INJURY_SOUND 400
 #define NO_OF_ANIMS 8
 
 Player::Player(SDL_Renderer* renderer, UserInterface* userInterface) : renderer(renderer), userInterface(userInterface) {
@@ -146,11 +147,11 @@ void Player::Die() {
 	alive = false;
 }
 
-void Player::Hit(int damageAmount) {
-	(health - damageAmount) < 0 ? Die() : health > 150 ? Die() : void(health -= damageAmount);
-	userInterface->Health(health);
-
+void Player::Hit(int damageAmount, Tile& tile) {
 	if (SDL_GetTicks() - lastHurtSound > INJURY_SOUND) {
+		(health - damageAmount) <= 0 ? Die(), void(health = 0) : health > 150 ? Die() : void(health -= damageAmount);
+		userInterface->Health(health);
+		tile.SpikeDamage();
 
 		injury.PlaySfx();
 		lastHurtSound = SDL_GetTicks();
@@ -179,23 +180,23 @@ void Player::Teleport()
 
 	switch (angle)
 	{
-		case UP:
-			std::cout << pos.y << std::endl;
-			(pos.y - teleportDistance) <= 0 ? pos.y = 0 : pos.y -= teleportDistance;
-			break;
-		case DOWN:
-			(pos.y + teleportDistance) >= 499 ? pos.y = 499 : pos.y += teleportDistance;
-			break;
-		case LEFT:
-			(pos.x - teleportDistance) <= 0 ? pos.x = 0 : pos.x -= teleportDistance;
-			break;
-		case RIGHT:
-			(pos.x + teleportDistance) >= 975 ? pos.x = 975 : pos.x += teleportDistance;
-			break;
+	case UP:
+		std::cout << pos.y << std::endl;
+		(pos.y - teleportDistance) <= 0 ? pos.y = 0 : pos.y -= teleportDistance;
+		break;
+	case DOWN:
+		(pos.y + teleportDistance) >= 499 ? pos.y = 499 : pos.y += teleportDistance;
+		break;
+	case LEFT:
+		(pos.x - teleportDistance) <= 0 ? pos.x = 0 : pos.x -= teleportDistance;
+		break;
+	case RIGHT:
+		(pos.x + teleportDistance) >= 975 ? pos.x = 975 : pos.x += teleportDistance;
+		break;
 
-		default:
-			std::cout << "TELEPORTING BROKE!" << std::endl;
-			break;
+	default:
+		std::cout << "TELEPORTING BROKE!" << std::endl;
+		break;
 	}
 
 }

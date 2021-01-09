@@ -89,6 +89,8 @@ Tile::Tile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect srcData, S
 	collider = { dstData.x + 6, dstData.y + 4, 22, 22 };
 	//hitbox.Init(renderer, "healthbarRed.png");
 	//hitbox.SetDst(collider);
+
+	spikeCollisions = 0;
 };
 
 Tile::~Tile() {
@@ -110,9 +112,13 @@ void Tile::Collideable()
 	collideable = true;
 }
 
+bool Tile::IsCollideable() {
+	return collideable;
+}
+
 void Tile::Update() {
 	if (animated) {
-		
+
 		if (SDL_GetTicks() - lastAnimaton > ANIM_TIMER) {
 			currentAnim > NO_OF_ANIMS ? currentAnim = 0 : currentAnim < 0 ? currentAnim = 0 : currentAnim++;
 
@@ -126,6 +132,27 @@ void Tile::Update() {
 			lastAnimaton = SDL_GetTicks();
 		}
 	}
+}
+
+void Tile::SpikeDamage() {
+
+	spikeCollisions++;
+	if (spikeCollisions >= 3) {
+		collideable = false;
+		tileSrcData.x = 32;
+		tileSrcData.y = 64;
+		return;
+	}
+
+	vector<Vector2D<int>> spikeDegredation = {
+				{48,64},
+				{80,64},
+				{80,0},
+				{32,64}
+	};
+
+	tileSrcData.x = spikeDegredation[spikeCollisions].x;
+	tileSrcData.y = spikeDegredation[spikeCollisions].y;
 }
 
 void Tile::Draw() {

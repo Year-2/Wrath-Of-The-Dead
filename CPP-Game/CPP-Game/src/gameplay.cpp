@@ -115,8 +115,9 @@ void Gameplay::Update() {
 						}
 
 		for (auto& tile : collTiles)
-			if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
-				player->Hit(1);
+			if(tile->IsCollideable())
+				if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
+					player->Hit(15, *tile);
 	}
 	else {
 		if (calledOnce) {

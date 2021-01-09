@@ -6,6 +6,7 @@
 #define SPEED 4
 
 class UserInterface;
+class Tile;
 
 class Player {
 public:
@@ -23,7 +24,7 @@ public:
 	std::vector<Bullet*>& GetBullets() { return bulletManager->GetBullets(); }
 	int GetScore() { return score; }
 
-	void Hit(int damageAmount);
+	void Hit(int damageAmount, Tile& tile);
 	void IncreaseScore(int scoreAmount);
 	bool Alive();
 	void Teleport();

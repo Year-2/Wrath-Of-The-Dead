@@ -31,6 +31,9 @@ public:
 	void Update();
 	void Draw();
 
+	bool IsCollideable();
+	void SpikeDamage();
+
 private:
 	SDL_Renderer* renderer;
 	SDL_Texture* spritesheet;
@@ -46,6 +49,8 @@ private:
 	bool collideable;
 	SDL_Rect collider;
 	//Texture hitbox;
+
+	short spikeCollisions;
 };
 
 class Tilemap {
