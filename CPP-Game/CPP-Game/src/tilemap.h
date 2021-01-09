@@ -10,6 +10,8 @@
 #include "texturemanager.h"
 #include "fileparser.h"
 
+#include "datatypes.h"
+
 #define TILEMAP_WIDTH 32
 #define TILEMAP_HEIGHT 18
 
@@ -42,6 +44,8 @@ private:
 	int currentAnim;
 
 	bool collideable;
+	SDL_Rect collider;
+	//Texture hitbox;
 };
 
 class Tilemap {

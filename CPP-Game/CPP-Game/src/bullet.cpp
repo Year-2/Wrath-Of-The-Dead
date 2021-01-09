@@ -39,6 +39,8 @@ void Bullet::Init(Vector2D<int>& pos, int angle, int distance)
 
 	fireball.PlaySfx();
 
+	collider = { pos.x + 21, pos.y + 15, 12 };
+
 }
 
 void Bullet::Update()
@@ -47,6 +49,7 @@ void Bullet::Update()
 	pos.x += sin(rotation * M_PI / 180.0f) * BULLET_SPEED;
 	pos.y -= cos(rotation * M_PI / 180.0f) * BULLET_SPEED;
 	texture.SetDst(pos);
+	collider = { pos.x + 21, pos.y + 15, 12 };
 	distance -= BULLET_SPEED;
 
 	if (SDL_GetTicks() - lastAnimaton > ANIM_TIMER) {

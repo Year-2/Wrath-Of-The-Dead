@@ -85,6 +85,10 @@ Tile::Tile(SDL_Renderer* renderer, SDL_Texture* spritesheet, SDL_Rect srcData, S
 	storedSrc = srcData;
 	currentAnim = 0;
 	lastAnimaton = 0;
+
+	collider = { dstData.x + 6, dstData.y + 4, 22, 22 };
+	//hitbox.Init(renderer, "healthbarRed.png");
+	//hitbox.SetDst(collider);
 };
 
 Tile::~Tile() {
@@ -93,7 +97,7 @@ Tile::~Tile() {
 }
 
 SDL_Rect& Tile::GetCollider() {
-	return tileDstData;
+	return collider;
 }
 
 void Tile::Animated()
@@ -126,6 +130,7 @@ void Tile::Update() {
 
 void Tile::Draw() {
 	TextureManager::Draw(renderer, spritesheet, tileSrcData, tileDstData);
+	//hitbox.Draw();
 }
 
 

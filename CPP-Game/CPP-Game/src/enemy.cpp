@@ -43,6 +43,10 @@ Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture) : renderer(renderer) 
 
 	lastAnimaton = 0;
 	currentAnim = 0;
+
+	collider = { pos.x + 6, pos.y + 2, 20, 28 };
+	//hitbox.Init(renderer, "healthbarRed.png");
+	//hitbox.SetDst(collider);
 }
 
 Enemy::~Enemy() {
@@ -84,6 +88,8 @@ void Enemy::Update() {
 	dst.x = int(position.x);
 	dst.y = int(position.y);
 	texture.SetDst(dst);
+	//hitbox.SetDst(collider);
+	collider = { int(position.x) + 6, int(position.y) + 2, 20, 28 };
 	time--;
 	if (time <= 0) onScreen = false;
 
@@ -105,6 +111,7 @@ void Enemy::Draw() {
 	if (!Active()) return;
 	texture.DrawEx();
 	healthBar->Draw(dst);
+	//hitbox.Draw();
 }
 
 bool Enemy::Active() const {

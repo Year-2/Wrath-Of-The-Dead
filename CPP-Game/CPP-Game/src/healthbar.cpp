@@ -4,8 +4,8 @@
 #define HB_HEIGHT 10
 #define BORDER_OFFSET 4
 
-#define CENTER_X -2
-#define CENTER_Y -10
+#define CENTER_X -4
+#define CENTER_Y -11
 
 HealthBar::HealthBar(SDL_Renderer* renderer, SDL_Rect& pos)
 {

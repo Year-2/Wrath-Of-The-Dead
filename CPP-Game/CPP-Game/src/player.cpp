@@ -12,6 +12,7 @@ Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
 	texture.Init(renderer, "player.png");
 	texture.SetSrc({ 0,0,16,16 });
 	texture.SetDst(pos.x, pos.y, 48, 48);
+
 	xVelocity = yVelocity = 0;
 	angle = 90;
 	bulletManager = new BulletManager(renderer, this);
@@ -25,6 +26,11 @@ Player::Player(SDL_Renderer* renderer) : renderer(renderer) {
 	footsteps.LoadSfx("footsteps.wav");
 	injury.LoadSfx("injury.wav");
 	death.LoadSfx("death.wav");
+
+	//hitBox.Init(renderer, "healthbarBlack.png");
+	//hitBox.SetDst(pos.x + 3, pos.y + 9, 39, 36);
+	collider = { pos.x + 3, pos.y + 9, 39, 36 };
+
 }
 
 Player::~Player() {
@@ -108,6 +114,8 @@ void Player::Update() {
 	}
 
 	texture.SetDst(pos);
+	collider = { pos.x + 3, pos.y + 9, 39, 36 };
+	//hitBox.SetDst(pos.x + 3, pos.y + 9, 39, 36);
 	bulletManager->Update();
 }
 
@@ -115,10 +123,11 @@ void Player::Draw() {
 	flip ? texture.SetFlip(SDL_FLIP_HORIZONTAL) : texture.SetFlip(SDL_FLIP_NONE);
 	bulletManager->Draw();
 	texture.DrawEx();
+	//hitBox.Draw();
 }
 
 SDL_Rect& Player::GetCollider() {
-	return texture.GetDstRect();
+	return collider;
 }
 
 void Player::Die() {

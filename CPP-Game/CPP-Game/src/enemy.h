@@ -31,7 +31,7 @@ public:
 	void TakeDamage(int damageAmount);
 
 	SDL_Rect& GetCollider() {
-		return texture.GetDstRect();
+		return collider;
 	}
 
 private:
@@ -42,12 +42,18 @@ private:
 	float xVel, yVel;
 	int time;
 	bool onScreen = false;
+
 	Vector2D<float> position;
 	Vector2D<float> target;
+
 	HealthBar* healthBar;
 	int health;
+
 	unsigned int lastAnimaton;
 	int currentAnim;
+
+	SDL_Rect collider;
+	//Texture hitbox;
 };
 
 class EnemyManager {

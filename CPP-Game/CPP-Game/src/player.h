@@ -46,4 +46,7 @@ private:
 	Sound footsteps;
 	Sound injury;
 	Sound death;
+
+	//Texture hitBox;
+	SDL_Rect collider;
 };

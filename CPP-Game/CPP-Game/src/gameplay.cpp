@@ -106,7 +106,7 @@ void Gameplay::Update() {
 			if (bullet->Active())
 				for (auto& enemy : enemies)
 					if (enemy->Active())
-						if (Collision::BoxCollision(bullet->GetCollider(), enemy->GetCollider())) {
+						if (Collision::ComplexCollision(bullet->GetCircleCollider(), enemy->GetCollider())) {
 							bullet->Deactivate();
 							enemy->TakeDamage(50);
 							userInterface->Score(++score);

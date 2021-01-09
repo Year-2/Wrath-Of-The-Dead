@@ -2,6 +2,7 @@
 #include "objectpooler.h"
 #include "datatypes.h"
 #include "vector2d.h"
+#include "circle.h"
 
 #define NUMBER_OF_BULLETS 20
 #define BULLET_SPEED 8
@@ -30,6 +31,10 @@ public:
 		return texture.GetDstRect();
 	}
 
+	Circle& GetCircleCollider() {
+		return collider;
+	}
+
 private:
 	SDL_Renderer* renderer;
 	Texture texture;
@@ -37,11 +42,13 @@ private:
 	int rotation, distance;
 	bool active;
 
-	int health;
+	//int health;
 	unsigned int lastAnimaton;
 	int currentAnim;
 
 	Sound fireball;
+	Circle collider;
+
 };
 
 class BulletManager {
