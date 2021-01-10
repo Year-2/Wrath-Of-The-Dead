@@ -68,14 +68,14 @@ inline void Game::StartScene() {
 		currentTime = newTime;
 		totalTime += frameTime;
 
-		scene.Input();
 		if (totalTime >= UPDATE_STEP)
 		{
+			scene.Input();
 			scene.Update();
+			scene.Draw();
 			totalTime -= UPDATE_STEP;
 			ups++;
 		}
-		scene.Draw();
 		fps++;
 	}
 }

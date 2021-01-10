@@ -48,6 +48,7 @@ SDL_Rect TextureManager::LoadTextureRect(const char* filename) {
 		SDL_Surface* surface = IMG_Load(string(string(dir) + string(filename)).c_str());
 		SDL_Rect result = { 0,0, surface->w, surface->h };
 		if (surface == nullptr) throw TextureError();
+		SDL_FreeSurface(surface);
 		return result;
 	}
 	catch (std::exception& e) {

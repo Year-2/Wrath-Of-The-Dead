@@ -70,7 +70,7 @@ public:
 
 	~CoinPS() {
 		SDL_DestroyTexture(coinTex);
-		delete coinTex;
+		coinTex = nullptr;
 	}
 
 	void Spawn() {
