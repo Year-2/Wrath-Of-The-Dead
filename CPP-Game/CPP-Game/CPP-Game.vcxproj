@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\bullet.cpp" />
+    <ClCompile Include="src\chest.cpp" />
     <ClCompile Include="src\enemy.cpp" />
     <ClCompile Include="src\gameover.cpp" />
     <ClCompile Include="src\healthbar.cpp" />
@@ -181,7 +182,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\bullet.h" />
+    <ClInclude Include="src\chest.h" />
     <ClInclude Include="src\circle.h" />
+    <ClInclude Include="src\coin.h" />
     <ClInclude Include="src\collision.h" />
     <ClInclude Include="src\enemy.h" />
     <ClInclude Include="src\gameover.h" />

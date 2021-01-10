@@ -128,7 +128,7 @@ void Player::Update() {
 	collider = { pos.x + 3, pos.y + 9, 39, 36 };
 	//hitBox.SetDst(pos.x + 3, pos.y + 9, 39, 36);
 	bulletManager->Update();
-	std::cout << score << std::endl;
+	//std::cout << score << std::endl;
 }
 
 void Player::Draw() {
@@ -181,7 +181,6 @@ void Player::Teleport()
 	switch (angle)
 	{
 	case UP:
-		std::cout << pos.y << std::endl;
 		(pos.y - teleportDistance) <= 0 ? pos.y = 0 : pos.y -= teleportDistance;
 		break;
 	case DOWN:

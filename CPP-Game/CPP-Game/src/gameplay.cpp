@@ -28,6 +28,9 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	music.LoadMusic("backgroundMusic.wav");
 	music.PlayMusic();
 
+	chest = new Chest(renderer);
+	coinPS = new CoinPS(renderer, chest->GetPosition());
+
 	//	TODO: Circle colliison
 	//Circle a = { 1,1,3 };
 	//Circle b = { 5,5,3 };
@@ -46,6 +49,7 @@ Gameplay::~Gameplay() {
 	delete player;
 	delete gameOver;
 	delete fileParser;
+	delete chest;
 }
 
 void Gameplay::Input() {
@@ -93,15 +97,17 @@ void Gameplay::Input() {
 
 void Gameplay::Update() {
 	if (player->Alive()) {
+
 		tileMap->Update();
 		enemyManager->Update();
 		player->Update();
+		coinPS->Update();
 
 		auto& bullets(player->GetBullets());
 		auto& enemies(enemyManager->GetEnemies());
 		auto& collTiles(tileMap->GetCollidableTiles());
+		auto& coins(coinPS->GetParticles());
 
-		//	TODO: Have score based on kills not hits?
 		for (auto& bullet : bullets)
 			if (bullet->Active())
 				for (auto& enemy : enemies)
@@ -109,15 +115,27 @@ void Gameplay::Update() {
 						if (Collision::ComplexCollision(bullet->GetCircleCollider(), enemy->GetCollider())) {
 							bullet->Deactivate();
 							if (enemy->TakeDamage(50)) {  // TRUE when enemy dies, false while alive.
-								//userInterface->Score(++score);
 								player->IncreaseScore(1);
 							}
+							return;
 						}
-
 		for (auto& tile : collTiles)
-			if(tile->IsCollideable())
+			if (tile->IsCollideable())
 				if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
 					player->Hit(15, *tile);
+		if (!chest->IsOpen())
+			if (Collision::BoxCollision(player->GetCollider(), chest->GetCollider())) {
+				chest->OpenChest(coinPS);
+				return;
+			}
+
+		for (auto& coin : coins)
+			if (Collision::BoxCollision(player->GetCollider(), coin->GetCollider())) {
+				player->IncreaseScore(5);
+				coinPS->CoinCollected(coin);
+				return;
+			}
+
 	}
 	else {
 		if (calledOnce) {
@@ -144,9 +162,12 @@ void Gameplay::Draw() {
 	SDL_RenderClear(renderer);
 
 	tileMap->Draw();
+	chest->Draw();
 	player->Draw();
 	enemyManager->Draw();
 	userInterface->Draw();
+
+	coinPS->Draw();
 
 	if (!player->Alive()) {
 		gameOver->Draw();

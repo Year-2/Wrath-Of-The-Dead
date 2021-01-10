@@ -1,13 +1,4 @@
-﻿  bullet.cpp
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\bullet.cpp(55,55): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\bullet.cpp(56,55): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\bullet.cpp(87,33): warning C4018: '>': signed/unsigned mismatch
+﻿  chest.cpp
+C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\coin.h(73,1): warning C4150: deletion of pointer to incomplete type 'SDL_Texture'; no destructor called
+C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\SDL2-2.0.12\include\SDL_render.h(138): message : see declaration of 'SDL_Texture'
   CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\bin\x64\Debug\CPP-Game.exe

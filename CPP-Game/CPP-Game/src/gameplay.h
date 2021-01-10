@@ -15,6 +15,10 @@
 #include "game.h"
 #include "player.h"
 
+#include "chest.h"
+#include "coin.h"
+
+
 class Game;
 class GameOver;
 
@@ -41,4 +45,8 @@ private:
 	TextFileParser<PlayerInfo>* fileParser;
 	std::vector<PlayerInfo*> items;
 	Sound music;
+	
+	Chest* chest;
+	CoinPS* coinPS;
+
 };
