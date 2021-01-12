@@ -1,6 +1,9 @@
 #include "enemy.h"
 #define ANIM_TIMER 50
 #define NO_OF_ANIMS 8
+#define STEPS 25
+
+//	TODO CLEAN UP ALL THIS CODE!!!!
 
 EnemyManager::EnemyManager(SDL_Renderer* renderer) {
 	texture = TextureManager::LoadTexture(renderer, "enemy.png");
@@ -47,6 +50,7 @@ Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture) : renderer(renderer) 
 	collider = { pos.x + 6, pos.y + 2, 20, 28 };
 	//hitbox.Init(renderer, "healthbarRed.png");
 	//hitbox.SetDst(collider);
+
 }
 
 Enemy::~Enemy() {
@@ -79,19 +83,80 @@ void Enemy::Init() {
 
 	health = 100;
 	healthBar->ChangeHealth(health);
+
+	Node* nodemap = Pathfinding::CreateNodeMap();
+
+	Node* start = &nodemap[static_cast<int>((position.y) + (position.x / 32))];
+	Node* end = &nodemap[(9 * MAP_WIDTH + 16)];
+
+	pathing = Pathfinding::A_Star(nodemap, start, end);
+	pathing.erase(begin(pathing));
+
+
+	ChangeMovement();
+
+	//for (auto& path : pathing)
+	//	std::cout << path.position << "\n";
+
+	delete[] nodemap;
+
+	//std::cout << result.size() << "\n";
+}
+
+void Enemy::ChangeMovement() {
+	if (!pathing.empty()) {
+		cachedPosition = pathing.front().position;
+		cachedPosition.x *= 32;
+		cachedPosition.y *= 32;
+
+		xVel = ((cachedPosition.x) - position.x) / STEPS;
+		yVel = ((cachedPosition.y) - position.y) / STEPS;
+
+		if (cachedPosition.x == position.x && cachedPosition.y == position.y) {
+			pathing.erase(begin(pathing));
+			ChangeMovement();
+		}		
+	}
+	else {
+		time = -1;
+	}
 }
 
 void Enemy::Update() {
 	if (!Active()) return;
+
 	position.x += xVel;
+	if (xVel > 0)
+		if (position.x > cachedPosition.x) {
+			position.x = cachedPosition.x;
+			ChangeMovement();
+		}
+	if (xVel < 0)
+		if (position.x < cachedPosition.x) {
+			position.x = cachedPosition.x;
+			ChangeMovement();
+		}
+
 	position.y += yVel;
+	if (yVel > 0)
+		if (position.y > cachedPosition.y) {
+			position.y = cachedPosition.y;
+			ChangeMovement();
+		}
+	if (yVel < 0)
+		if (position.y < cachedPosition.y) {
+			position.y = cachedPosition.y;
+			ChangeMovement();
+		}
+
+
 	dst.x = int(position.x);
 	dst.y = int(position.y);
+	//time--;
+
 	texture.SetDst(dst);
 	//hitbox.SetDst(collider);
 	collider = { int(position.x) + 6, int(position.y) + 2, 20, 28 };
-	time--;
-	if (time <= 0) onScreen = false;
 
 	if (SDL_GetTicks() - lastAnimaton > ANIM_TIMER) {
 		currentAnim > NO_OF_ANIMS ? currentAnim = 0 : currentAnim < 0 ? currentAnim = 0 : currentAnim++;
@@ -102,9 +167,9 @@ void Enemy::Update() {
 				texture.SetSrc(16 * i, 0, 16, 16);
 			}
 		}
-
 		lastAnimaton = SDL_GetTicks();
 	}
+	if (time <= 0) onScreen = false;
 }
 
 void Enemy::Draw() {

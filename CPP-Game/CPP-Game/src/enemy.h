@@ -11,6 +11,7 @@
 #include "objectpooler.h"
 #include "vector2d.h"
 #include "healthbar.h"
+#include "pathfinding.h"
 
 #define NUMBER_OF_ENEMIES 7
 class Enemy : public ObjectPoolBase {
@@ -28,6 +29,7 @@ public:
 	void Deactivate() override;
 	int GetDirection();
 
+	void ChangeMovement();
 	bool TakeDamage(int damageAmount);
 
 	SDL_Rect& GetCollider() {
@@ -54,6 +56,9 @@ private:
 
 	SDL_Rect collider;
 	//Texture hitbox;
+
+	vector<Node> pathing;
+	Vector2D<int> cachedPosition;
 };
 
 class EnemyManager {
@@ -72,4 +77,6 @@ private:
 	SDL_Texture* texture;
 	int ind = 0;
 };
+
+//9,16
 

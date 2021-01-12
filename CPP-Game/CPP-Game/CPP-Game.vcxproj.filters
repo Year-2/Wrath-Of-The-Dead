@@ -149,5 +149,11 @@
     <ClInclude Include="src\coin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\pathfinding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

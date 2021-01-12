@@ -190,6 +190,7 @@
     <ClInclude Include="src\gameover.h" />
     <ClInclude Include="src\healthbar.h" />
     <ClInclude Include="src\objectpooler.h" />
+    <ClInclude Include="src\pathfinding.h" />
     <ClInclude Include="src\player.h" />
     <ClInclude Include="src\scene.h" />
     <ClInclude Include="src\buttonmanager.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="src\mainmenu.h" />
     <ClInclude Include="src\game.h" />
     <ClInclude Include="src\soundmanager.h" />
+    <ClInclude Include="src\test.h" />
     <ClInclude Include="src\texturemanager.h" />
     <ClInclude Include="src\tilemap.h" />
     <ClInclude Include="src\userinterface.h" />

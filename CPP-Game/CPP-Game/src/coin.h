@@ -71,6 +71,8 @@ public:
 	~CoinPS() {
 		SDL_DestroyTexture(coinTex);
 		coinTex = nullptr;
+		for (auto& item : particles)
+			delete item;
 	}
 
 	void Spawn() {

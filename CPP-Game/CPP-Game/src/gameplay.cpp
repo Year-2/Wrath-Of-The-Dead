@@ -50,6 +50,7 @@ Gameplay::~Gameplay() {
 	delete gameOver;
 	delete fileParser;
 	delete chest;
+	delete coinPS;
 }
 
 void Gameplay::Input() {
@@ -119,6 +120,7 @@ void Gameplay::Update() {
 							}
 							return;
 						}
+
 		for (auto& tile : collTiles)
 			if (tile->IsCollideable())
 				if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
@@ -135,7 +137,6 @@ void Gameplay::Update() {
 				coinPS->CoinCollected(coin);
 				return;
 			}
-
 	}
 	else {
 		if (calledOnce) {
@@ -166,7 +167,6 @@ void Gameplay::Draw() {
 	player->Draw();
 	enemyManager->Draw();
 	userInterface->Draw();
-
 	coinPS->Draw();
 
 	if (!player->Alive()) {
