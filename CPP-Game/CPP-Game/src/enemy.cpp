@@ -1,14 +1,17 @@
+#include <time.h> 
 #include "enemy.h"
+#include "player.h"
+
 #define ANIM_TIMER 50
 #define NO_OF_ANIMS 8
 #define STEPS 25
 
 //	TODO CLEAN UP ALL THIS CODE!!!!
 
-EnemyManager::EnemyManager(SDL_Renderer* renderer) {
+EnemyManager::EnemyManager(SDL_Renderer* renderer, Player* player) {
 	texture = TextureManager::LoadTexture(renderer, "enemy.png");
 	objPool = new ObjectPool<Enemy>(NUMBER_OF_ENEMIES);
-	objPool->Init(renderer, texture);
+	objPool->Init(renderer, texture, player);
 }
 
 EnemyManager::~EnemyManager() {
@@ -32,7 +35,7 @@ void EnemyManager::Draw() {
 
 //====================================
 
-Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture) : renderer(renderer) {
+Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture, Player* player) : renderer(renderer) {
 	onScreen = false;
 	src = { 0,0,16,16 };
 	dst = { 0,0,32,32 };
@@ -50,6 +53,8 @@ Enemy::Enemy(SDL_Renderer* renderer, SDL_Texture* texture) : renderer(renderer) 
 	collider = { pos.x + 6, pos.y + 2, 20, 28 };
 	//hitbox.Init(renderer, "healthbarRed.png");
 	//hitbox.SetDst(collider);
+
+	this->player = player;
 
 }
 
@@ -74,11 +79,12 @@ void Enemy::Init() {
 
 	texture.SetDst(dst);
 	texture.SetSrc(src);
+
 	if (position.x < 512)
 		texture.SetFlip(SDL_FLIP_NONE);
 	else
 		texture.SetFlip(SDL_FLIP_HORIZONTAL);
-	//texture.SetDirection(GetDirection());
+
 	texture.SetDirection(NULL);
 
 	health = 100;
@@ -92,15 +98,9 @@ void Enemy::Init() {
 	pathing = Pathfinding::A_Star(nodemap, start, end);
 	pathing.erase(begin(pathing));
 
-
 	ChangeMovement();
 
-	//for (auto& path : pathing)
-	//	std::cout << path.position << "\n";
-
 	delete[] nodemap;
-
-	//std::cout << result.size() << "\n";
 }
 
 void Enemy::ChangeMovement() {
@@ -115,9 +115,11 @@ void Enemy::ChangeMovement() {
 		if (cachedPosition.x == position.x && cachedPosition.y == position.y) {
 			pathing.erase(begin(pathing));
 			ChangeMovement();
-		}		
+		}
 	}
 	else {
+		pathing.clear();
+		player->Hit(1);
 		time = -1;
 	}
 }
@@ -152,7 +154,6 @@ void Enemy::Update() {
 
 	dst.x = int(position.x);
 	dst.y = int(position.y);
-	//time--;
 
 	texture.SetDst(dst);
 	//hitbox.SetDst(collider);
@@ -218,7 +219,6 @@ void Enemy::InitPosition() {
 			Vector2D<int>{ 15, 16 },
 			Vector2D<int>{ 28, 16 },
 	};
-
 	Vector2D<int> cache = spawns[rand() % 28];
 	position.x = cache.x * 32;
 	position.y = cache.y * 32;

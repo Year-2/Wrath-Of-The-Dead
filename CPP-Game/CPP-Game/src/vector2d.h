@@ -54,7 +54,7 @@ public:
 		return this->Divide(val);
 	}
 
-	friend std::ostream& operator<<(std::ostream& out, const Vector2D& val){	
+	friend std::ostream& operator<<(std::ostream& out, const Vector2D& val) {
 		return out << "(" << val.x << ", " << val.y << ")\n";
 	}
 

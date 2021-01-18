@@ -14,9 +14,11 @@
 #include "pathfinding.h"
 
 #define NUMBER_OF_ENEMIES 7
+class Player;
+
 class Enemy : public ObjectPoolBase {
 public:
-	Enemy(SDL_Renderer* renderer, SDL_Texture* texture);
+	Enemy(SDL_Renderer* renderer, SDL_Texture* texture, Player* player);
 	~Enemy();
 	void Free() override;
 	void Init() override;
@@ -59,11 +61,13 @@ private:
 
 	vector<Node> pathing;
 	Vector2D<int> cachedPosition;
+
+	Player* player;
 };
 
 class EnemyManager {
 public:
-	EnemyManager(SDL_Renderer* renderer);
+	EnemyManager(SDL_Renderer* renderer, Player* player);
 	~EnemyManager();
 
 	void Update();

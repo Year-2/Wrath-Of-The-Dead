@@ -31,14 +31,38 @@ public:
 	}
 
 	/// <summary>
-	///		Create array of nodes.
-	/// </summary>
-	/// <returns>
-	///		Array of nodes.
-	/// </returns>
-	/// 
-	/// change this to make obstacles from tile map?
+		///		Create array of nodes.
+		/// </summary>
+		/// <returns>
+		///		Array of nodes.
+		/// </returns>
+		/// 
+		/// change this to make obstacles from tile map?
 	static Node* CreateNodeMap() {
+		//	DOING:
+		std::vector<Vector2D<int>> obstacles = {
+		Vector2D<int>{	2, 1	},
+		Vector2D<int>{	7, 3	},
+		Vector2D<int>{	12, 3	},
+		Vector2D<int>{	20, 3	},
+		Vector2D<int>{	24, 4	},
+		Vector2D<int>{	16, 5	},
+		Vector2D<int>{	30, 5	},
+		Vector2D<int>{	3, 7	},
+		Vector2D<int>{	11, 8	},
+		Vector2D<int>{	26, 8	},
+		Vector2D<int>{	20, 9	},
+		Vector2D<int>{	6, 10	},
+		Vector2D<int>{	28, 10	},
+		Vector2D<int>{	13, 13	},
+		Vector2D<int>{	2, 15	},
+		Vector2D<int>{	18, 15	},
+		Vector2D<int>{	30, 15	},
+		Vector2D<int>{	5, 16	},
+		Vector2D<int>{	24, 16	},
+		Vector2D<int>{	27, 16	},
+		};
+
 		Node* nodes = new Node[MAP_WIDTH * MAP_HEIGHT];
 		for (int x = 0; x < MAP_WIDTH; x++)
 		{
@@ -48,6 +72,13 @@ public:
 				nodes[y * MAP_WIDTH + x].visited = false;
 				nodes[y * MAP_WIDTH + x].position = { x, y };
 				nodes[y * MAP_WIDTH + x].parent = nullptr;
+
+				for (auto& obstacle : obstacles) {
+					if (x == obstacle.x)
+						if (y == obstacle.y) {
+							nodes[y * MAP_WIDTH + x].obstacle = true;
+						}
+				}
 			}
 		}
 

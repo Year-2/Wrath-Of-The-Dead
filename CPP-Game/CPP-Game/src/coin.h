@@ -71,8 +71,10 @@ public:
 	~CoinPS() {
 		SDL_DestroyTexture(coinTex);
 		coinTex = nullptr;
-		for (auto& item : particles)
-			delete item;
+		for (auto& p : particles) {
+			delete p;
+		}
+		particles.clear();
 	}
 
 	void Spawn() {
@@ -96,7 +98,7 @@ public:
 		particles.erase(std::remove_if(begin(particles), end(particles), [coin](Coin* item) {
 			return item == coin;
 			}));
-		std::cout << particles.size() << "\n";
+		delete coin;
 	}
 
 	std::vector<Coin*>& GetParticles() { return particles; }

@@ -164,7 +164,6 @@ public:
 		file.close();
 
 		uint64_t computedHash = XXHash64::hash(arr, 2304, 21);
-		std::cout << computedHash << "\n";
 		uint64_t storedHash = 9932381408746974003;
 
 		if (computedHash == storedHash) {

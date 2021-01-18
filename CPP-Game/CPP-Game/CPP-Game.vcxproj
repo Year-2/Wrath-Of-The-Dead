@@ -164,6 +164,7 @@
     <ClCompile Include="src\enemy.cpp" />
     <ClCompile Include="src\gameover.cpp" />
     <ClCompile Include="src\healthbar.cpp" />
+    <ClCompile Include="src\healthpickup.cpp" />
     <ClCompile Include="src\player.cpp" />
     <ClCompile Include="src\scene.cpp" />
     <ClCompile Include="src\buttonmanager.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\enemy.h" />
     <ClInclude Include="src\gameover.h" />
     <ClInclude Include="src\healthbar.h" />
+    <ClInclude Include="src\healthpickup.h" />
     <ClInclude Include="src\objectpooler.h" />
     <ClInclude Include="src\pathfinding.h" />
     <ClInclude Include="src\player.h" />

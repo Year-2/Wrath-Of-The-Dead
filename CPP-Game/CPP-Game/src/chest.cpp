@@ -2,11 +2,14 @@
 #include "vector2d.h"
 #include "coin.h"
 
+#include <time.h> 
+
 #define ANIMATION_TIMER 300
 #define RANGE_OFFSET 96
 
 Chest::Chest(SDL_Renderer* renderer)
 {
+	srand(time(NULL));
 	position = {
 		(rand() % 28 + 2) * 32,
 		(rand() % 14 + 2) * 32

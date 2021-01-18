@@ -158,6 +158,17 @@ void Player::Hit(int damageAmount, Tile& tile) {
 	}
 }
 
+void Player::Hit(int damageAmount) {
+	(health - damageAmount) <= 0 ? Die(), void(health = 0) : health > 150 ? Die() : void(health -= damageAmount);
+	userInterface->Health(health);
+}
+
+void Player::RegenHealth(int regenAmount)
+{
+	health + regenAmount >= 150 ? health = 150 : health+=regenAmount;
+	userInterface->Health(health);
+}
+
 void Player::IncreaseScore(int scoreAmount)
 {
 	score += abs(scoreAmount);

@@ -21,6 +21,7 @@
 
 class Game;
 class GameOver;
+class PickUpManager;
 
 class Gameplay : public Scene {
 public:
@@ -48,5 +49,5 @@ private:
 	
 	Chest* chest;
 	CoinPS* coinPS;
-
+	PickUpManager* pickupManager;
 };

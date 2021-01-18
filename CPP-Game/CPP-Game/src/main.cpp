@@ -5,7 +5,7 @@ int main(int argc, char* args[])
 {
 	//	MEMORY LEAK THINGY
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(6965);
+	//_CrtSetBreakAlloc(30131);
 	_CrtDumpMemoryLeaks();
 
 	Game game = Game();

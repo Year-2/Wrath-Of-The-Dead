@@ -53,7 +53,7 @@ protected:
 
 class ObjectPoolBase {
 public:
-	virtual void Init() = 0;
+	virtual void Init() {};
 	virtual void Free() = 0;
 	virtual bool Active() const = 0;
 	virtual void Deactivate() = 0;

@@ -25,6 +25,8 @@ public:
 	int GetScore() { return score; }
 
 	void Hit(int damageAmount, Tile& tile);
+	void Hit(int damageAmount);
+	void RegenHealth(int regenAmount);
 	void IncreaseScore(int scoreAmount);
 	bool Alive();
 	void Teleport();

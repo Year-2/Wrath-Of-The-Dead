@@ -3,16 +3,18 @@
 #include "circle.h"
 #include "gameover.h"
 #include "fileparser.h"
+#include "healthpickup.h"
 #include <algorithm>
+#include <time.h> 
 
 using std::cout;
 using std::endl;
 
 Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	tileMap = new Tilemap(renderer);
-	enemyManager = new EnemyManager(renderer);
 	userInterface = new UserInterface(renderer);
 	player = new Player(renderer, userInterface);
+	enemyManager = new EnemyManager(renderer, player);
 	gameOver = new GameOver(renderer, this);
 	score = 0;
 	calledOnce = true;
@@ -31,11 +33,8 @@ Gameplay::Gameplay(Game* game, SDL_Renderer* renderer) : Scene(game, renderer) {
 	chest = new Chest(renderer);
 	coinPS = new CoinPS(renderer, chest->GetPosition());
 
-	//	TODO: Circle colliison
-	//Circle a = { 1,1,3 };
-	//Circle b = { 5,5,3 };
-	//if (Collision::CircleCollision(a, b))
-	//	cout << "CUNT IT WORKED!" << "\n";
+	pickupManager = new PickUpManager(renderer);
+	srand(time(NULL));
 }
 
 Gameplay::~Gameplay() {
@@ -51,6 +50,7 @@ Gameplay::~Gameplay() {
 	delete fileParser;
 	delete chest;
 	delete coinPS;
+	delete pickupManager;
 }
 
 void Gameplay::Input() {
@@ -108,23 +108,39 @@ void Gameplay::Update() {
 		auto& enemies(enemyManager->GetEnemies());
 		auto& collTiles(tileMap->GetCollidableTiles());
 		auto& coins(coinPS->GetParticles());
+		auto& pickups(pickupManager->getPickups());
+
+		for (auto& pickup : pickups) {
+			if (pickup->Active())
+				if (Collision::BoxCollision(pickup->getCollider(), player->GetCollider())) {
+					pickup->Deactivate();
+					player->RegenHealth(5);
+					return;
+				}
+		}
 
 		for (auto& bullet : bullets)
 			if (bullet->Active())
 				for (auto& enemy : enemies)
-					if (enemy->Active())
+					if (enemy->Active()) {
 						if (Collision::ComplexCollision(bullet->GetCircleCollider(), enemy->GetCollider())) {
 							bullet->Deactivate();
 							if (enemy->TakeDamage(50)) {  // TRUE when enemy dies, false while alive.
 								player->IncreaseScore(1);
+								if (rand() % 15 == 0) {
+									pickupManager->CreatePickup({ enemy->GetCollider().x,enemy->GetCollider().y });
+								}
+								return;
 							}
 							return;
 						}
+					}
 
 		for (auto& tile : collTiles)
 			if (tile->IsCollideable())
 				if (Collision::BoxCollision(tile->GetCollider(), player->GetCollider()))
 					player->Hit(15, *tile);
+
 		if (!chest->IsOpen())
 			if (Collision::BoxCollision(player->GetCollider(), chest->GetCollider())) {
 				chest->OpenChest(coinPS);
@@ -141,7 +157,8 @@ void Gameplay::Update() {
 	else {
 		if (calledOnce) {
 
-			items.push_back(new PlayerInfo(to_string(player->GetScore())));
+			PlayerInfo* newScore = new PlayerInfo(to_string(player->GetScore()));
+			items.push_back(newScore);
 			sort(begin(items), end(items), [](PlayerInfo* one, PlayerInfo* two) -> bool {
 				return one->GetScore() > two->GetScore();
 				});
@@ -153,6 +170,7 @@ void Gameplay::Update() {
 				file << items[2]->GetScore();
 			}
 			file.close();
+			delete newScore;
 
 			calledOnce = false;
 		}
@@ -168,6 +186,7 @@ void Gameplay::Draw() {
 	enemyManager->Draw();
 	userInterface->Draw();
 	coinPS->Draw();
+	pickupManager->Draw();
 
 	if (!player->Alive()) {
 		gameOver->Draw();
