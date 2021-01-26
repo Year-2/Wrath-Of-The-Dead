@@ -1,37 +1,23 @@
-## Welcome to GitHub Pages
+# Wrath Of The Dead
 
-You can use the [editor on GitHub](https://github.com/Birmingham-City-Uni/milestones-RyanWestwood/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Getting Started
+Visual Studio 2019 is recommended, Wrath Of The Dead is untested on all development environments other than windows.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Clone the repository with `git clone https://github.com/Birmingham-City-Uni/milestones-RyanWestwood.git`
 
-### Markdown
+## Game Overview
+A 2D zombie shooter where the player has to protect the well in the middle of the screen, failure to do so will result in a loss of the players health. The player must kill zombies and collect health flasks in order to survive for as long as possible.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Main features:
+* A* Pathfinding
+* Animations
+* Checksum
+* Collision Detection
+* File I/O
+* Optimization
+* Scenes
+* Sound
+* UI
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Birmingham-City-Uni/milestones-RyanWestwood/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Achievements
+The goal of this project was to learn C++ while also creating a game. All the main features were achieved, although to varying degrees. Some features were implemented a better than others, so there is room for future optimisation. However, this was a successful project as i managed to learn everything i wanted and more. The visual and interactive essence of the project adds so much more to the game than just the code ever could. The outcome was a good first effort at learning C++ while also making a game that is fun and visually appealing.

@@ -1,0 +1,9 @@
+﻿  gameplay.cpp
+C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\lib\HASHING-1.0\xxhash64.h(90,23): warning C4244: '=': conversion from '__int64' to 'unsigned int', possible loss of data
+C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\CPP-Game\src\gameplay.cpp(37,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating code
+  115 of 1132 functions (10.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    111 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  CPP-Game.vcxproj -> C:\Users\RyanW\Documents\Work\GitHub\Year-2\milestones-RyanWestwood\CPP-Game\bin\x64\Release\CPP-Game.exe
