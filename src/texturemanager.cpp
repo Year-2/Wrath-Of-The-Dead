@@ -18,7 +18,7 @@ using std::string;
 /// </returns>
 SDL_Texture* TextureManager::LoadTexture(SDL_Renderer* renderer, const char* filename) {
 	try {
-		string dir = ProjectDirectory() + "/assets/sprites/";
+		string dir = projectDir + "/assets/sprites/";
 		SDL_Surface* surface = IMG_Load((dir + string(filename)).c_str());
 		if (surface == nullptr) throw TextureError();
 		SDL_Texture* result = SDL_CreateTextureFromSurface(renderer, surface);
@@ -44,7 +44,7 @@ SDL_Texture* TextureManager::LoadTexture(SDL_Renderer* renderer, const char* fil
 /// </returns>
 SDL_Rect TextureManager::LoadTextureRect(const char* filename) {
 	try {
-		string dir = ProjectDirectory() + "/assets/sprites/";
+		string dir = projectDir + "/assets/sprites/";
 		SDL_Surface* surface = IMG_Load((dir + string(filename)).c_str());
 		SDL_Rect result = { 0,0, surface->w, surface->h };
 		if (surface == nullptr) throw TextureError();

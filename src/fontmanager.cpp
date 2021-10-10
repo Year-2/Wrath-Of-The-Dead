@@ -18,7 +18,7 @@ using std::string;
 /// </returns>
 TTF_Font* FontManager::LoadFont(const char* filename, int size) {
 	try {
-		string dir = ProjectDirectory() + "/assets/fonts/";
+		string dir = projectDir + "/assets/fonts/";
 		TTF_Font* result = TTF_OpenFont((dir + string(filename)).c_str(), size);
 		if (result == nullptr) throw FontError();
 		return result;

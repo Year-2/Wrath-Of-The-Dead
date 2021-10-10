@@ -15,7 +15,7 @@ using std::string;
 /// </returns>
 Mix_Music* SoundManager::LoadMusic(const char* filename) {
 	try {
-		string dir = ProjectDirectory() + "/assets/sounds/";
+		string dir = projectDir + "/assets/sounds/";
 		Mix_Music* result = Mix_LoadMUS((dir + string(filename)).c_str());
 		if (result == nullptr) throw SoundError();
 		return result;
@@ -48,7 +48,7 @@ void SoundManager::PlayMusic(Mix_Music* music) {
 /// </returns>
 Mix_Chunk* SoundManager::LoadSFX(const char* filename) {
 	try {
-		string dir = ProjectDirectory() + "/assets/sounds/";
+		string dir = projectDir + "/assets/sounds/";
 		Mix_Chunk* result = Mix_LoadWAV((dir + string(filename)).c_str());
 		if (result == nullptr) throw SoundError();
 		return result;

@@ -22,6 +22,8 @@ using std::string;
 using std::ifstream;
 using std::stringstream;
 
+extern std::string projectDir;
+
 class PlayerInfo {
 public:
 	PlayerInfo(std::string lineContents);
@@ -44,11 +46,6 @@ class TextFileParser {
 public:
 	TextFileParser(const std::string filename, void(*func)(std::vector<T*>&) = [](std::vector<T*>&) {}) {
 		try {
-			std::string projectDir = SDL_GetBasePath();
-			std::string projectName = "Wrath-Of-The-Dead";
-			auto deleteExcess = projectDir.find(projectName, 0) + projectName.size();
-			projectDir.erase(begin(projectDir) + deleteExcess, end(projectDir));
-
 			string dir = projectDir + "/assets/files/";
 			ifstream scoreFile(string(dir) + string(filename));
 			if (!scoreFile) throw TextFileError();
@@ -94,11 +91,6 @@ class BinaryFileParser {
 public:
 
 	void GenerateFile(string filename) {
-		std::string projectDir = SDL_GetBasePath();
-		std::string projectName = "Wrath-Of-The-Dead";
-		auto deleteExcess = projectDir.find(projectName, 0) + projectName.size();
-		projectDir.erase(begin(projectDir) + deleteExcess, end(projectDir));
-
 		string dir = projectDir + "/assets/files/bin/";
 		int* arr = new int[LENGTH];
 		std::fill(arr, arr + LENGTH, 0);
@@ -117,11 +109,6 @@ public:
 
 	void GenerateTilemapFile(string filename) {
 		const int yWidth = 18, xWidth = 32;
-		std::string projectDir = SDL_GetBasePath();
-		std::string projectName = "Wrath-Of-The-Dead";
-		auto deleteExcess = projectDir.find(projectName, 0) + projectName.size();
-		projectDir.erase(begin(projectDir) + deleteExcess, end(projectDir));
-
 		string dir = projectDir + "/assets/files/bin/";
 		int* arr = new int[yWidth * xWidth];
 
@@ -168,11 +155,6 @@ public:
 	}
 
 	int* ReadFile(string filename, int len) {
-		std::string projectDir = SDL_GetBasePath();
-		std::string projectName = "Wrath-Of-The-Dead";
-		auto deleteExcess = projectDir.find(projectName, 0) + projectName.size();
-		projectDir.erase(begin(projectDir) + deleteExcess, end(projectDir));
-
 		string dir = projectDir + "/assets/files/bin/";
 		int* arr = new int[len];
 
@@ -198,6 +180,3 @@ public:
 		return arr;
 	}
 };
-
-
-

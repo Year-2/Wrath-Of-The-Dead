@@ -1,8 +1,12 @@
 #include <iostream>
 #include "game.h"
 
+std::string projectDir = SDL_GetBasePath();
+
 int main(int argc, char* args[])
 {
+	projectDir.erase(end(projectDir) - 12, end(projectDir));
+
 	//	MEMORY LEAK THINGY
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(30131);
