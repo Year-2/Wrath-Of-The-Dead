@@ -25,4 +25,4 @@
 
 #### Windows  
 
-Clone the repo and open CMake GUI. Select the source folder and build folder then configure to the Visual Studio solution you want. Generate the project. Before running the solution file which is located in the build folder, run the Setup.bat. You can edit the setup.bat for different configurations and platforms, by default it is Debug x64. 
+Clone the repo and open CMake GUI. Select the source folder and build folder then configure to the Visual Studio solution you want. Generate the project. Run the solution in /build 
