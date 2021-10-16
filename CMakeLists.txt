@@ -14,12 +14,29 @@ include_directories(${SDL2_TTF_INCLUDE_DIRS})
 include_directories(${SDL2_MIXER_INCLUDE_DIRS})
 
 file(GLOB SOURCE
-     "src/*.h"
-     "src/*.cpp"
+    "src/*.h"
+    "src/*.cpp"
 )
 
-add_executable (WraithOfTheDead ${SOURCE})
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    file(GLOB DLLS
+        "dlls/x64/*.dll"
+    )
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/Release)
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug)
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/MinSizeRel)
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/RelWithDebInfo)
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    file(GLOB DLLS
+        "dlls/x86/*.dll"
+    )
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/Release)
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug)
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/MinSizeRel)
+    file(COPY ${DLLS} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/build/RelWithDebInfo)
+endif()
 
+add_executable (WraithOfTheDead ${SOURCE})
 
 target_link_libraries(WraithOfTheDead ${SDL2_LIBRARIES})
 target_link_libraries(WraithOfTheDead ${SDL2_IMAGE_LIBRARIES})
