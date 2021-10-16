@@ -1,11 +1,18 @@
 #include <iostream>
 #include "game.h"
 
+#define NO_OF_WORDS_TO_REMOVE 2
 std::string projectDir = SDL_GetBasePath();
 
 int main(int argc, char* args[])
 {
-	projectDir.erase(end(projectDir) - 12, end(projectDir));
+    for (char i = 0; i < NO_OF_WORDS_TO_REMOVE; i++) {
+        char currentChar = 'a';
+        while (currentChar != '\\') {
+            projectDir.pop_back();
+            currentChar = projectDir.back();
+        }
+    }
 
 	//	MEMORY LEAK THINGY
 	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);

@@ -1,2 +1,2 @@
-build.py Debug x64
+build.py Release x64
 pause
