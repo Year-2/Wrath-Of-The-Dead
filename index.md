@@ -1,10 +1,5 @@
 # Wrath Of The Dead
 
-## Getting Started
-Visual Studio 2019 is recommended, Wrath Of The Dead is untested on all development environments other than windows.
-
-Clone the repository with `git clone https://github.com/Birmingham-City-Uni/milestones-RyanWestwood.git`
-
 ## Game Overview
 A 2D zombie shooter where the player has to protect the well in the middle of the screen, failure to do so will result in a loss of the players health. The player must kill zombies and collect health flasks in order to survive for as long as possible.
 
