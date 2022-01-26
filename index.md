@@ -1,3 +1,4 @@
+# Wrath of the Dead
 ## Game Overview
 A 2D zombie shooter where the player has to protect the well in the middle of the screen, failure to do so will result in a loss of the players health. The player must kill zombies and collect health flasks in order to survive for as long as possible.
 
