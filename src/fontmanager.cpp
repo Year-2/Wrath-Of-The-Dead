@@ -1,4 +1,4 @@
-#include "fontManager.h"
+#include "fontmanager.h"
 
 using std::cout;
 using std::endl;

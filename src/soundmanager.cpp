@@ -1,4 +1,4 @@
-#include "soundManager.h"
+#include "soundmanager.h"
 
 using std::cout;
 using std::endl;

@@ -1,4 +1,4 @@
-#include "textureManager.h"
+#include "texturemanager.h"
 
 using std::cout;
 using std::endl;
