@@ -1,6 +1,8 @@
-# Wrath of the Dead
-## Game Overview
-A 2D zombie shooter where the player has to protect the well in the middle of the screen, failure to do so will result in a loss of the players health. The player must kill zombies and collect health flasks in order to survive for as long as possible.
+<p align="center">
+    <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HEU9aWmL5lc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+</p>
 
 ## Main features:
 * A* Pathfinding
